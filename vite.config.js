@@ -5,7 +5,8 @@ export default defineConfig({
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-            '~perfect-scrollbar': path.resolve(__dirname, 'node_modules/perfect-scrollbar')
+            '~perfect-scrollbar': path.resolve(__dirname, 'node_modules/perfect-scrollbar'),
+            '~font-awesome': path.resolve(__dirname, 'node_modules/font-awesome')
         }
     },
     plugins: [
