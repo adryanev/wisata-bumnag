@@ -186,6 +186,12 @@ return [
          * Package Service Providers...
          */
 
+
+        Franzose\ClosureTable\ClosureTableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+
         /*
          * Application Service Providers...
          */
@@ -194,6 +200,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -208,8 +215,10 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
+    'aliases' => Facade::defaultAliases()->merge(
+        [
         // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+        ]
+    )->toArray(),
 
 ];
