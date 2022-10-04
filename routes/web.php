@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Auth::routes();
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|------------------------------------------------------------------------------------
+| Admin
+|------------------------------------------------------------------------------------
+*/
+Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', 'role:super-admin|admin']], function () {
+    Route::get('/', 'DashboardController@index')->name('dash');
+    Route::resource('users', 'UserController');
+});
+
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','role:super-admin|admin|dosen']], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('dashboard');
 });

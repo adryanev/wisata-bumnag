@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
+
+        if (!defined('ADMIN')) {
+            define('ADMIN', config('variables.APP_ADMIN', 'admin'));
+        }
+        require_once base_path('resources/macros/form.php');
     }
 }
