@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('destination_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('destination_id');
-            $table->unsignedBigInteger('category_id');
+            $table->integer('category_id',false,true);
             $table->timestamps();
 
             $table->foreign('destination_id')->references('id')->on('destinations');
