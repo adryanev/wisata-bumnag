@@ -1,43 +1,21 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Franzose\ClosureTable\Models\Entity;
 
-class Category extends Model
+class Category extends Entity
 {
-    use HasFactory;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'categories';
 
-    protected $fillable = [];
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Validations
-    |------------------------------------------------------------------------------------
-    */
-    public static function rules($update = false, $id=null)
-    {
-        return [
-            'name' => 'required',
-        ];
-    }
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Relations
-    |------------------------------------------------------------------------------------
-    */
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Scopes
-    |------------------------------------------------------------------------------------
-    */
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Attributes
-    |------------------------------------------------------------------------------------
-    */
+    /**
+     * ClosureTable model instance.
+     *
+     * @var \App\CategoryClosure
+     */
+    protected $closure = 'App\CategoryClosure';
 }
