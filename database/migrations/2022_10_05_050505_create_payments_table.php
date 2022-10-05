@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('number');
             $table->unsignedBigInteger('order_id');
             $table->integer('payment_status');
-            $table->timestamp('transaction_create_date');
-            $table->timestamp('transaction_update_date');
+            $table->timestamp('payment_create_date');
+            $table->timestamp('payment_update_date');
             $table->double('total_paid');
             $table->double('total');
             $table->string('payment_method');
@@ -37,9 +37,9 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {   Schema::table('transactions', function (Blueprint $table){
+    {   Schema::table('payments', function (Blueprint $table){
         $table->dropForeign('order_id');
     });
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('payments');
     }
 };
