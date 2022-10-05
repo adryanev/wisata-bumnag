@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ticket_settings', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->unsignedBigInteger('ticket_id');
             $table->boolean('is_per_pax');
             $table->integer('pax_constraint');
@@ -36,7 +36,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('ticket_settings',function (Blueprint $table) {
-            $table->dropPrimary();
             $table->dropForeign('ticket_id');
         });
         Schema::dropIfExists('ticket_settings');

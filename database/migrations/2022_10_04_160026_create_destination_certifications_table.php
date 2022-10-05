@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('expiration_date');
             $table->string('grade');
             $table->timestamps();
+
+            $table->foreign('destination_id')->references('id')->on('destinations');
         });
     }
 
@@ -32,6 +34,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('transcation_certifications',function (Blueprint $table){
+            $table->dropForeign('destination_id');
+        });
         Schema::dropIfExists('destination_certifications');
     }
 };

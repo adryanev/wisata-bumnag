@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('destination_id');
             $table->integer('rank');
             $table->timestamps();
+
+            $table->foreign('destination_id')->references('id')->on('destinations');
         });
     }
 
@@ -29,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('recommendations',function (Blueprint $table){
+            $table->dropForeign('destination_id');
+        });
         Schema::dropIfExists('recommendations');
     }
 };
