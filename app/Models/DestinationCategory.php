@@ -16,7 +16,7 @@ class DestinationCategory extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class DestinationCategory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class, 'destination_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

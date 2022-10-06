@@ -16,7 +16,7 @@ class PackageCategory extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class PackageCategory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function package()
+    {
+        return $this->belongsTo(Package::class, 'package_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

@@ -16,7 +16,7 @@ class TicketSetting extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class TicketSetting extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

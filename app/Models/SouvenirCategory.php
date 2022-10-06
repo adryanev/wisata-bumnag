@@ -16,7 +16,7 @@ class SouvenirCategory extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class SouvenirCategory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function souvenir()
+    {
+        return $this->belongsTo(Souvenir::class, 'souvenir_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

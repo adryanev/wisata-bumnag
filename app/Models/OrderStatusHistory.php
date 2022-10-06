@@ -16,7 +16,7 @@ class OrderStatusHistory extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class OrderStatusHistory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function order()
+    {
+        return $this->belongsTo('order', 'order_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
