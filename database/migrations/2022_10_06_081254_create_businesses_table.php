@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->string('phone_number');
-            $table->string('email');
-            $table->text('address');
-            $table->string('instagram');
-            $table->string('website');
-            $table->timestamp('opening_hours');
-            $table->timestamp('closing_hours');
+            $table->string('name')->index();
+            $table->foreignId('user_id')->index()->references('id')->on('users');
+            $table->string('phone_number')->index();
+            $table->string('email')->index();
+            $table->text('address')->index();
+            $table->string('instagram')->index();
+            $table->string('website')->index();
+            $table->timestamp('opening_hours')->index();
+            $table->timestamp('closing_hours')->index();
             $table->timestamps();
         });
     }
