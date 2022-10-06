@@ -16,7 +16,7 @@ class OrderDetail extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class OrderDetail extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function order()
+    {
+        $this->belongsTo('order', 'order_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

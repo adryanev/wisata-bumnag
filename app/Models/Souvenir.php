@@ -16,7 +16,7 @@ class Souvenir extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class Souvenir extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function orders()
+    {
+        return $this->morphMany('order', 'orderable');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
