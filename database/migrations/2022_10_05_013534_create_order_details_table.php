@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('subtotal');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders');
+
             $table->foreign('ticket_id')->references('id')->on('tickets');
         });
     }
