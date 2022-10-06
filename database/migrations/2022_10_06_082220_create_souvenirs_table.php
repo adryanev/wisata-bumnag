@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('term_and_conditions')->nullable();
             $table->double('quantity')->index();
             $table->text('descriptions')->nullable();
-            $table->foreignId('business_id')->references('id')->on('businesses');
+            $table->foreignId('destination_id')->references('id')->on('destinations');
             $table->timestamps();
         });
     }
