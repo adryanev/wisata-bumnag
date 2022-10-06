@@ -32,10 +32,6 @@ class AppServiceProvider extends ServiceProvider
         }
         require_once base_path('resources/macros/form.php');
 
-        Relation::enforceMorphMap([
-            'souvenir' => 'App\Models\Souvenir',
-            'ticket' => 'App\Models\Ticket',
-            'package' => 'App\Models\Package',
-        ]);
+
     }
 }

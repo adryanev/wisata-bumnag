@@ -30,7 +30,7 @@ class Ticket extends Model
     */
     public function orders()
     {
-        return $this->morphMany('order', 'orderable');
+        return $this->morphMany(Order::class, 'orderable');
     }
     /*
     |------------------------------------------------------------------------------------
