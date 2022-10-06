@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->index()->references('id')->on('users');
             $table->string('phone_number')->index();
             $table->string('email')->index();
-            $table->text('address')->index();
+            $table->text('address');
             $table->string('instagram')->index();
             $table->string('website')->index();
             $table->timestamp('opening_hours')->index();
