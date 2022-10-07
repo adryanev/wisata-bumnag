@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->double('price')->index();
+            $table->double('price');
             $table->text('term_and_conditions')->nullable();
-            $table->double('quantity')->index();
+            $table->double('quantity');
             $table->text('descriptions')->nullable();
             $table->timestamps();
         });

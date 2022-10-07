@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->index();
             $table->double('price');
             $table->boolean('is_free');
-            $table->text('term_and_conditions');
-            $table->double('quality');
+            $table->text('term_and_conditions')->nullable();
+            $table->boolean('is_quantity_limited');
+            $table->double('quantity')->nullable();
             $table->timestamps();
         });
     }

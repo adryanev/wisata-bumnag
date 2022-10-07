@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('souvenirs', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->double('price')->index();
+            $table->double('price');
             $table->boolean('is_free');
             $table->text('term_and_conditions')->nullable();
-            $table->double('quantity')->index();
+            $table->double('quantity');
             $table->text('descriptions')->nullable();
             $table->foreignId('destination_id')->references('id')->on('destinations');
             $table->timestamps();

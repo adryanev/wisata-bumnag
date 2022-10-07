@@ -16,15 +16,14 @@ return new class extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
             $table->morphs('orderable');
-            $table->unsignedBigInteger('ticket_id');
-            $table->string('name');
-            $table->double('ticket_price');
+            $table->string('orderable_name');
+            $table->double('orderable_price');
             $table->double('quantity');
             $table->double('subtotal');
             $table->timestamps();
 
 
-            $table->foreign('ticket_id')->references('id')->on('tickets');
+
         });
     }
 
@@ -35,9 +34,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order_details',function (Blueprint $table){
-            $table->dropForeign('ticket_id');
-        });
+
         Schema::dropIfExists('order_details');
     }
 };
