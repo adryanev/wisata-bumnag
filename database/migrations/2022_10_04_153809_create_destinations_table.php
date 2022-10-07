@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->index();
             $table->text('description');
-            $table->text('adress');
+            $table->text('address');
             $table->string('phone_number');
             $table->string('email');
             $table->double('latitude');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('opening_hours')->nullable();
             $table->timestamp('closing_hours')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('website')->nullable();
             $table->integer('capasity')->nullable();
             $table->timestamps();
         });

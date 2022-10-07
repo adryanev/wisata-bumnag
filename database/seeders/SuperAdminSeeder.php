@@ -22,6 +22,7 @@ class SuperAdminSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $admin =User::factory()->state([
+            'name'=>'superadmin',
             'email' => 'superadmin@mail.com',
             'password' => Hash::make('12345678'),
         ])->create();

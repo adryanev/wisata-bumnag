@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Destination;
+use Database\Factories\DestinationFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,6 @@ class DestinationSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Destination::factory()->count(120)->create();
     }
 }
