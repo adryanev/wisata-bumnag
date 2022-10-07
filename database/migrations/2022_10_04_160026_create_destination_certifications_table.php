@@ -34,9 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transcation_certifications',function (Blueprint $table){
-            $table->dropForeign('destination_id');
-        });
         Schema::dropIfExists('destination_certifications');
     }
 };
