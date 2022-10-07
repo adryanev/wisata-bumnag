@@ -20,9 +20,9 @@ class Order extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function orderable()
+    public function orderDetail()
     {
-        return $this->morphTo();
+        return $this->hasOne(OrderDetail::class);
     }
     /*
     |------------------------------------------------------------------------------------

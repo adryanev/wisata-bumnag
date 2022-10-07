@@ -28,7 +28,14 @@ class Destination extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function ordersDetail()
+    {
+        return $this->morphMany(OrderDetail::class, 'orderable');
+    }
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

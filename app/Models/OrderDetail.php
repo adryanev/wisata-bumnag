@@ -32,6 +32,10 @@ class OrderDetail extends Model
     {
         $this->belongsTo('order', 'order_id');
     }
+    public function orderable()
+    {
+        return $this->morphTo();
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

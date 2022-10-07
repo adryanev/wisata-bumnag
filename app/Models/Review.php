@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class Review extends Model
 {
     use HasFactory;
 
@@ -28,13 +28,13 @@ class Ticket extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function ordersDetail()
+    public function reviewable()
     {
-        return $this->morphMany(OrderDetail::class, 'orderable');
+        return $this->morphTo();
     }
-    public function reviews()
+    public function user()
     {
-        return $this->morphMany(Review::class, 'reviewable');
+        return $this->belongsTo(User::class, 'user_id');
     }
     /*
     |------------------------------------------------------------------------------------

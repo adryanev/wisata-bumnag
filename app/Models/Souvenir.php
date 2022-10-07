@@ -28,9 +28,9 @@ class Souvenir extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function orders()
+    public function ordersDetail()
     {
-        return $this->morphMany(Order::class, 'orderable');
+        return $this->morphMany(OrderDetail::class, 'orderable');
     }
     /*
     |------------------------------------------------------------------------------------

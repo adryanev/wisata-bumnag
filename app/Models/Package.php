@@ -28,9 +28,13 @@ class Package extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function orders()
+    public function ordersDetail()
     {
-        return $this->morphMany(Order::class, 'orderable');
+        return $this->morphMany(OrderDetail::class, 'orderable');
+    }
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
     }
     /*
     |------------------------------------------------------------------------------------
