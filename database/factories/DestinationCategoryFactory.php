@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Destination;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,11 @@ class DestinationCategoryFactory extends Factory
      */
     public function definition()
     {
+        $categories_count = Category::all();
+        $destination_count = Destination::all();
         return [
-            //
+            'category_id'=>fake()->numberBetween(1,count($categories_count)),
+            'destination_id'=>fake()->numberBetween(1,count($destination_count)),
         ];
     }
 }

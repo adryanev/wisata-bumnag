@@ -28,6 +28,10 @@ class Destination extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
+    public function destinationCategory()
+    {
+        return $this->hasMany(DestinationCategory::class);
+    }
     public function ordersDetail()
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
