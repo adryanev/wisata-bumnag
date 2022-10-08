@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('destination_id')->references('id')->on('destinations');
             $table->string('name')->index();
             $table->double('price');
             $table->boolean('is_free');

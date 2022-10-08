@@ -36,6 +36,14 @@ class Ticket extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+    public function destination()
+    {
+        return $this->hasOne(Destination::class, 'destination_id');
+    }
+    public function ticketSetting()
+    {
+        return $this->hasOne(TicketSetting::class);
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

@@ -40,6 +40,10 @@ class Destination extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
