@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('souvenir_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sourvenir_id')->references('id')->on('souvenirs');
+            $table->foreignId('souvenir_id')->references('id')->on('souvenirs');
             $table->integer('category_id',false,true);
             $table->timestamps();
 
