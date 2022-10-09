@@ -32,6 +32,10 @@ class SouvenirCategory extends Model
     {
         return $this->belongsTo(Souvenir::class, 'souvenir_id');
     }
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'category_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

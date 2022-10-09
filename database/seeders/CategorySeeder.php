@@ -106,6 +106,18 @@ class CategorySeeder extends Seeder
             'name'=>'Desa Wisata Kerajinan',
             'parent_id'=>6,
         ]),
+
+        new Category([
+            'name'=>'Souvenir',
+        ]),
+        new Category([
+            'name'=>'Makanan dan Minuman',
+            'parent_id'=>24,
+        ]),
+        new Category([
+            'name'=>'Kerajinan',
+            'parent_id'=>24,
+        ]),
        ];
        foreach($categories as $category){
         $category->save();

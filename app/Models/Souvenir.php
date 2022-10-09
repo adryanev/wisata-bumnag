@@ -32,6 +32,10 @@ class Souvenir extends Model
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
     }
+    public function souvenirCategorys()
+    {
+        return $this->hasMany(SouvenirCategory::class);
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
