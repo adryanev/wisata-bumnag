@@ -19,7 +19,7 @@ class Application extends Model
     {
         return [
             'name' => 'required',
-            'token' => 'requjired|unique:applications|max:64',
+            'token' => 'required|unique:applications|max:64',
             'identifier' => 'required|unique:applications',
             'signature' => 'required|unique:applications'
         ];

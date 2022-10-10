@@ -19,12 +19,12 @@ class EnsureAccessTimeValid
     {
         $access_time = $request->header('X-ACCESS-TIME');
         if (empty($access_time)) {
-            return response('X-Access-Time header not found', 400);
+            return response('X-ACCESS-TIME header not found', 400);
         }
         $carbon_access_time = Carbon::createFromTimestamp($access_time);
         $now = now();
         if ($carbon_access_time->diff($now)->minute > 3) {
-            return response('X-Access-Time expired', 401);
+            return response('X-ACCESS-TIME expired', 401);
         }
         return $next($request);
     }
