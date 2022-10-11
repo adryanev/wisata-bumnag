@@ -65,9 +65,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // Custom API Middleware
-        'access.time' => App\Http\Middleware\EnsureAccessTimeValid::class,
-        'application.token'=>App\Http\Middleware\EnsureApplicationTokenValid::class,
-        'signature'=> App\Http\Middleware\EnsureSignatureValid::class,
+        'access.time' => \App\Http\Middleware\EnsureAccessTimeValid::class,
+        'application.token' => \App\Http\Middleware\EnsureApplicationTokenValid::class,
+        'signature' => \App\Http\Middleware\EnsureSignatureValid::class,
+        'api.version' => \App\Http\Middleware\ApiVersion::class,
+        'role' => \App\Http\Middleware\Role::class,
 
     ];
 }
