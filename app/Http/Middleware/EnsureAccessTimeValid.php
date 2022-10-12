@@ -23,7 +23,8 @@ class EnsureAccessTimeValid
         }
         $carbon_access_time = Carbon::createFromTimestamp($access_time);
         $now = now();
-        if ($carbon_access_time->diff($now)->minute > 3) {
+
+        if ($carbon_access_time->diffInMinutes($now) > 3) {
             return response('X-ACCESS-TIME expired', 401);
         }
         return $next($request);

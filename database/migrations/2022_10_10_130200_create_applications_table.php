@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('token', 64)->unique()->index();
             $table->string('identifier')->unique();
-            $table->string('signature')->unique();
+            $table->string('signature');
             $table->timestamps();
         });
     }
