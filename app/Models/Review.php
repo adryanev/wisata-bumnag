@@ -28,9 +28,17 @@ class Review extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function reviewable()
+    public function ticket()
     {
-        return $this->morphTo();
+        return $this->morphTo(Ticket::class);
+    }
+    public function package()
+    {
+        return $this->morphTo(Package::class);
+    }
+    public function souvenir()
+    {
+        return $this->morphTo(Souvenir::class);
     }
     public function user()
     {

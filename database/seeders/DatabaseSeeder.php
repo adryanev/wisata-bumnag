@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             AdBannerSeeder::class,
             PackageSeeder::class,
             RecommendationSeeder::class,
-
+            ReviewSeeder::class,
         ]);
     }
 }
