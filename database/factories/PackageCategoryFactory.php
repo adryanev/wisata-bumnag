@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Package;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,16 @@ class PackageCategoryFactory extends Factory
      */
     public function definition()
     {
+        $packageCategories = Category::where('parent_id',Category::where('name','Package')->first()->id)->get();
+        $packageCategoriesId = [];
+        foreach ($packageCategories as $category){
+            array_push($packageCategoriesId,$category->id);
+        }
+
+        $packages = Package::all();
         return [
-            //
+            'package_id'=>fake()->numberBetween(1,count($packages)),
+            'category_id'=>fake()->randomElement($packageCategoriesId),
         ];
     }
 }

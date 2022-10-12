@@ -106,7 +106,7 @@ class CategorySeeder extends Seeder
             'name'=>'Desa Wisata Kerajinan',
             'parent_id'=>6,
         ]),
-
+        //souvenir
         new Category([
             'name'=>'Souvenir',
         ]),
@@ -117,6 +117,26 @@ class CategorySeeder extends Seeder
         new Category([
             'name'=>'Kerajinan',
             'parent_id'=>24,
+        ]),
+        //packages
+        new Category([
+            'name'=>'Package'
+        ]),
+        new Category([
+            'name'=>'Paket 3 Hari',
+            'parent_id'=>27
+        ]),
+        new Category([
+            'name'=>'Paket 7 Hari',
+            'parent_id'=>27
+        ]),
+        new Category([
+            'name'=>'Paket 14 Hari',
+            'parent_id'=>27
+        ]),
+        new Category([
+            'name'=>'Paket 30 Hari',
+            'parent_id'=>27
         ]),
        ];
        foreach($categories as $category){

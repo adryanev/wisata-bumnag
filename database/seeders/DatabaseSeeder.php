@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             SouvenirSeeder::class,
             ApplicationSeeder::class,
             AdBannerSeeder::class,
+            PackageSeeder::class,
 
         ]);
     }

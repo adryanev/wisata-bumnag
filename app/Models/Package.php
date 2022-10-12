@@ -28,6 +28,10 @@ class Package extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
+    public function packageCategories()
+    {
+        return $this->hasMany(PackageCategory::class);
+    }
     public function ordersDetail()
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
