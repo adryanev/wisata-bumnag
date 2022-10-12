@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             ApplicationSeeder::class,
             AdBannerSeeder::class,
             PackageSeeder::class,
+            RecommendationSeeder::class,
 
         ]);
     }
