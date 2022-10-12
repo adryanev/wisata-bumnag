@@ -32,6 +32,10 @@ class Destination extends Model
     {
         return $this->hasMany(DestinationCategory::class);
     }
+    public function destinationCertifications()
+    {
+        return $this->hasMany(DestinationCertification::class);
+    }
     public function ordersDetail()
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
