@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->morphs('reviewable');
-            $table->integer('review');
+            $table->integer('rating');
             $table->string('title');
             $table->text('description');
             $table->foreignId('user_id')->references('id')->on('users');
