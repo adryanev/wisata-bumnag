@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,16 @@ class AdBannerFactory extends Factory
      */
     public function definition()
     {
+        $users = User::all();
+        $names = [];
+        foreach ($users as $user){
+            array_push($names,$user->name);
+        }
+        $name = fake()->randomElement($names);
         return [
-            //
+            'name'=>fake()->word(),
+            'action'=>fake()->word(),
+            'target'=>$name[0],
         ];
     }
 }

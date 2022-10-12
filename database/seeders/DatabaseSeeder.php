@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Recommendation;
 use App\Models\Souvenir;
 use Illuminate\Database\Seeder;
 
@@ -32,6 +33,8 @@ class DatabaseSeeder extends Seeder
             TicketSeeder::class,
             SouvenirSeeder::class,
             ApplicationSeeder::class,
+            AdBannerSeeder::class,
+
         ]);
     }
 }
