@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +28,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+        $mappedRoles = $roles->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+        return view('admin.users.create')->with('roles', $mappedRoles->toArray());
     }
 
     /**
@@ -38,7 +43,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::rules());
+        $this->validate($request, [
+            ''
+        ]);
 
         $data = $request->all();
         $data['password'] = bcrypt(request('password'));
