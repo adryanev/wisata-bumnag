@@ -11,7 +11,7 @@ User <small>{{ trans('app.add_new_item') }}</small>
 ])
 !!}
 
-@include('admin.users.form',['roles'=>$roles])
+@include('admin.users.form',['roles'=>$roles,'userRole'=>$userRole])
 
 <button type="submit" class="btn btn-primary">{{ trans('app.add_button') }}</button>
 

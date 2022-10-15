@@ -13,7 +13,10 @@
 
             {!! Form::myInput('text', 'phone_number', 'Phone Number') !!}
 
-            {!! Form::mySelect('role', 'Role', $roles, null, ['class' => 'form-control select2']) !!}
+            {!! Form::mySelect('role', 'Role', $roles, $userRole ? $userRole->id : null , ['class' => 'form-control select2']) !!}
+
+
+
 
 
         </div>
