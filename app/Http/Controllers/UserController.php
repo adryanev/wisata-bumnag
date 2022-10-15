@@ -101,9 +101,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, User::rules(true, $id));
+        $this->validate($request, [
+            'name' => 'required',
+            'nik' => 'required|numeric|min:16',
+            'password' => 'confirmed|min:8|nullable',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ]);
 
-        $item = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $data = $request->except('password');
 
@@ -111,7 +117,11 @@ class UserController extends Controller
             $data['password'] = bcrypt(request('password'));
         }
 
-        $item->update($data);
+        $user->update($data);
+
+        $role = Role::find($data['role']);
+        $user->roles()->detach();
+        $user->assignRole($role);
 
         return redirect()->route(ADMIN . '.users.index')->withSuccess(trans('app.success_update'));
     }
