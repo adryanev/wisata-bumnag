@@ -2,9 +2,11 @@
 namespace App\Models;
 
 use Franzose\ClosureTable\Models\Entity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Entity
 {
+    use SoftDeletes;
     /**
      * The table associated with the model.
      *
