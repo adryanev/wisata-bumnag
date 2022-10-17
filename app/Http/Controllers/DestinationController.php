@@ -15,7 +15,9 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        //
+        $items = Destination::latest('updated_at')->get();
+
+        return view('admin.destinations.index', compact('items'));
     }
 
     /**
