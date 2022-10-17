@@ -47,7 +47,7 @@ class Destination extends Model
     }
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->morphMany(Ticket::class, 'ticketable');
     }
     /*
     |------------------------------------------------------------------------------------

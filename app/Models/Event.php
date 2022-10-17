@@ -16,7 +16,7 @@ class Event extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
@@ -28,7 +28,10 @@ class Event extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class, 'ticketable');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

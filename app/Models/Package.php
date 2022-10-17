@@ -41,6 +41,10 @@ class Package extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class, 'ticketable');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

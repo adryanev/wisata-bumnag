@@ -45,6 +45,10 @@ class Ticket extends Model
     {
         return $this->hasOne(TicketSetting::class);
     }
+    public function ticketable()
+    {
+        return $this->morphTo();
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
