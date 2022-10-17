@@ -30,11 +30,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             DestinationSeeder::class,
-            TicketSeeder::class,
             SouvenirSeeder::class,
             ApplicationSeeder::class,
             AdBannerSeeder::class,
             PackageSeeder::class,
+            EventSeeder::class,
+            TicketSeeder::class,
             RecommendationSeeder::class,
             ReviewSeeder::class,
         ]);

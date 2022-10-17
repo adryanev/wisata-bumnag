@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->double('latitude');
-            $table->double('lognitude');
+            $table->double('longitude');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->text('term_and_condition');
