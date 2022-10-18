@@ -12,4 +12,12 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     });
     Route::get('applications', [ApplicationController::class, 'index']);
     Route::get('destinations', [DestinationController::class, 'index']);
+
+    //============= AUTH =================
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('login', 'login');
+        Route::post('register', 'register');
+        Route::post('logout', 'logout');
+        Route::post('refresh', 'refresh');
+    });
 });
