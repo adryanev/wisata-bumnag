@@ -1,17 +1,17 @@
 @extends('admin.default')
 
 @section('page-header')
-User <small>{{ trans('app.add_new_item') }}</small>
+Destination <small>{{ trans('app.add_new_item') }}</small>
 @stop
 
 @section('content')
 {!! Form::open([
-'route' => [ ADMIN . '.users.store' ],
+'route' => [ ADMIN . '.destinations.store' ],
 'files' => true
 ])
 !!}
 
-@include('admin.users.form',['roles'=>$roles,'userRole'=>$userRole])
+@include('admin.destinations.form')
 
 <button type="submit" class="btn btn-primary">{{ trans('app.add_button') }}</button>
 

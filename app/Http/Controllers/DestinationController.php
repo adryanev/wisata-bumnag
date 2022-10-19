@@ -27,7 +27,7 @@ class DestinationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.destinations.create');
     }
 
     /**
@@ -38,7 +38,10 @@ class DestinationController extends Controller
      */
     public function store(StoreDestinationRequest $request)
     {
-        //
+        $data = $request->all();
+        // dd($data['description']);
+        $destination = Destination::create($data);
+        return back()->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -58,9 +61,10 @@ class DestinationController extends Controller
      * @param  \App\Models\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function edit(Destination $destination)
+    public function edit($id)
     {
-        //
+        $destination = Destination::find($id);
+        return view('admin.destinations.edit', compact('destination'));
     }
 
     /**

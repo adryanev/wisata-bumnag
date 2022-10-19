@@ -13,7 +13,7 @@ class StoreDestinationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class StoreDestinationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'description' => 'required',
+            'address' => 'required',
+            'phone_number' => 'numeric|required',
+            'email' => 'email|required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'opening_hours' => 'date_format:H:i|nullable',
+            'closing_hours' => 'date_format:H:i|nullable',
+            'instagram' => 'nullable',
+            'website' => 'url|nullable',
+            'capasity' => 'numeric|min:1|nullable'
         ];
     }
 }
