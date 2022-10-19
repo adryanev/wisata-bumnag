@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('email');
             $table->double('latitude');
             $table->double('longitude');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->text('term_and_condition');
             $table->string('instagram')->nullable();
             $table->string('website')->nullable();
-            $table->integer('capasity')->nullable();
+            $table->integer('capacity')->nullable();
             $table->timestamps();
         });
     }

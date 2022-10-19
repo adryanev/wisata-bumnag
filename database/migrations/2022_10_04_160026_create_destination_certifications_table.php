@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('destination_id');
             $table->string('certification_name');
             $table->string('certification_badge');
-            $table->timestamp('acquired_date');
-            $table->timestamp('expiration_date');
+            $table->timestamp('acquired_date')->nullable();
+            $table->timestamp('expiration_date')->nullable();
             $table->string('grade');
             $table->timestamps();
 

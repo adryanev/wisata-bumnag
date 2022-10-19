@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('order_status_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
-            $table->tinyInteger('status',false,true)->comment(
-  '0: created
+            $table->tinyInteger('status', false, true)->comment(
+                '0: created
             1:paid
             2:cancelled
             3:compeleted
-            4:refunded');
+            4:refunded'
+            );
             $table->string('descriptions');
-            $table->timestamp('create_date');
+            $table->timestamp('create_date')->nullable();
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders');

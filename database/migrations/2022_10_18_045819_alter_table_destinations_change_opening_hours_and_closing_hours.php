@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('destinations', function (Blueprint $table) {
-            $table->time('opening_hours')->change();
-            $table->time('closing_hours')->change();
+            $table->time('opening_hours')->nullable()->change();
+            $table->time('closing_hours')->nullable()->change();
         });
     }
 

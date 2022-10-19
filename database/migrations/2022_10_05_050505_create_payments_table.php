@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('number');
             $table->unsignedBigInteger('order_id');
             $table->integer('payment_status');
-            $table->timestamp('payment_create_date');
-            $table->timestamp('payment_update_date');
+            $table->timestamp('payment_create_date')->nullable();
+            $table->timestamp('payment_update_date')->nullable();
             $table->double('total_paid');
             $table->double('total');
             $table->string('payment_method');
