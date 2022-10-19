@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -14,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
+        "php-open-source-saver/jwt-auth": "^2.0",
         "spatie/laravel-fractal": "^6.0",
         "spatie/laravel-permission": "^5.5"
     },
@@ -31,10 +35,10 @@
         "pestphp/pest-plugin-parallel": "^1.0",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0",
-         "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
-         "files": [
+        "files": [
             "app/Http/helpers.php"
         ],
         "psr-4": {

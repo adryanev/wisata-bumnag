@@ -9,4 +9,15 @@
     <file>./tests</file>
 
     <rule ref="./vendor/fossbarrow/laravel-phpcs/phpcs.xml"/>
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="4" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Arrays.ArrayIndent">
+        <properties>
+            <property name="indent" value="4" />
+        </properties>
+    </rule>
+
 </ruleset>

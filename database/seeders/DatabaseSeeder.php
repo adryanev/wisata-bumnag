@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             DestinationSeeder::class,
             TicketSeeder::class,
             SouvenirSeeder::class,
+            ApplicationSeeder::class,
         ]);
     }
 }
