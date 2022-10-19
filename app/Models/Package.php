@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [];
 
@@ -28,6 +29,10 @@ class Package extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
+    public function packageCategories()
+    {
+        return $this->hasMany(PackageCategory::class);
+    }
     public function ordersDetail()
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
@@ -35,6 +40,10 @@ class Package extends Model
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class, 'ticketable');
     }
     /*
     |------------------------------------------------------------------------------------

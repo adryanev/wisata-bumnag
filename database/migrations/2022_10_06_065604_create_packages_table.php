@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->double('price');
-            $table->text('term_and_conditions')->nullable();
-            $table->double('quantity');
-            $table->text('descriptions')->nullable();
+            $table->text('price_include');
+            $table->text('price_exclude');
+            $table->text('activities');
+            $table->text('destination');
             $table->timestamps();
         });
     }

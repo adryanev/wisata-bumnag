@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DestinationCategory extends Model
+class Event extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [];
 
@@ -29,13 +28,9 @@ class DestinationCategory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function destination()
+    public function tickets()
     {
-        return $this->belongsTo(Destination::class, 'destination_id');
-    }
-    public function category()
-    {
-        return $this->hasOne(Category::class, 'category_id');
+        return $this->morphMany(Ticket::class, 'ticketable');
     }
     /*
     |------------------------------------------------------------------------------------

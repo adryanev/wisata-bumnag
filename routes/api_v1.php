@@ -13,7 +13,6 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     });
     Route::get('applications', [ApplicationController::class, 'index']);
     Route::get('destinations', [DestinationController::class, 'index']);
-
     //============= AUTH =================
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);

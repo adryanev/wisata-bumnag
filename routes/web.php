@@ -26,12 +26,9 @@ Auth::routes();
 Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', 'role:super-admin|admin']], function () {
     Route::get('/', 'DashboardController@index')->name('dash');
     Route::resource('users', 'UserController');
-});
-
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','role:super-admin|admin|dosen']], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('destinations', 'DestinationController');
 });
 
 Route::get('/', function () {
-    return redirect('dashboard');
+    return redirect(route('admin.dash'));
 });

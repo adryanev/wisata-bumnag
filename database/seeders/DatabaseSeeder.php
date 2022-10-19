@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Recommendation;
 use App\Models\Souvenir;
 use Illuminate\Database\Seeder;
 
@@ -29,9 +30,14 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             DestinationSeeder::class,
-            TicketSeeder::class,
             SouvenirSeeder::class,
             ApplicationSeeder::class,
+            AdBannerSeeder::class,
+            PackageSeeder::class,
+            EventSeeder::class,
+            TicketSeeder::class,
+            RecommendationSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

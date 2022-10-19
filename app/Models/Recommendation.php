@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Recommendation extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [];
 
@@ -16,7 +17,7 @@ class Recommendation extends Model
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',

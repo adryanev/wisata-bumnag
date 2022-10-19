@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('ad_banners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('images');
+            $table->string('action');
             $table->string('target');
             $table->timestamps();
         });

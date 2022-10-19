@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('status');
             $table->unsignedBigInteger('user_id');
             $table->timestamp('order_date');
-            $table->timestamp('update_date');
+            $table->timestamp('order_update_date');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

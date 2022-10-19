@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Recommendation;
+use App\Models\Event;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RecommendationSeeder extends Seeder
+class EventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,7 @@ class RecommendationSeeder extends Seeder
      */
     public function run()
     {
-        Recommendation::factory()->count(100)->create();
+        Event::factory()->count(50)->create();
+        Event::factory()->allAtt()->count(70)->create();
     }
 }

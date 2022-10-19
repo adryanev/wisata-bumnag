@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Destination;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class RecommendationFactory extends Factory
      */
     public function definition()
     {
+        $destinations = Destination::all();
         return [
-            //
+            'name'=>fake()->word(),
+            'destination_id'=>fake()->numberBetween(1,count($destinations)),
+            'rank'=>fake()->numberBetween(1,10),
         ];
     }
 }

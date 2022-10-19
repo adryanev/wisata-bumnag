@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [];
 
@@ -28,9 +29,17 @@ class Review extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function reviewable()
+    public function ticket()
     {
-        return $this->morphTo();
+        return $this->morphTo(Ticket::class);
+    }
+    public function package()
+    {
+        return $this->morphTo(Package::class);
+    }
+    public function souvenir()
+    {
+        return $this->morphTo(Souvenir::class);
     }
     public function user()
     {

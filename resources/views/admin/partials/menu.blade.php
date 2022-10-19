@@ -1,6 +1,6 @@
 @php
-    $r = \Route::current()->getAction();
-    $route = (isset($r['as'])) ? $r['as'] : '';
+$r = \Route::current()->getAction();
+$route = (isset($r['as'])) ? $r['as'] : '';
 @endphp
 
 <li class="nav-item mT-30">
@@ -17,5 +17,13 @@
             <i class="c-brown-500 ti-user"></i>
         </span>
         <span class="title">Users</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.destinations') ? 'actived' : '' }}" href="{{ route(ADMIN . '.destinations.index') }}">
+        <span class="icon-holder">
+            <i class="c-brown-500 ti-user"></i>
+        </span>
+        <span class="title">Destinations</span>
     </a>
 </li>

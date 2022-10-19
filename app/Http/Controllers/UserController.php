@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +28,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $role = Role::all();
+        $roles = $role->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+        $user = null;
+        $userRole = null;
+        return view('admin.users.create', compact('roles', 'user', 'userRole'));
     }
 
     /**
@@ -38,13 +45,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::rules());
+        $this->validate($request, [
+            'name' => 'required',
+            'nik' => 'required|numeric|min:16',
+            'password' => 'required|confirmed|min:8',
+            'email' => 'required|unique:users,email',
+            'phone_number' => 'required',
+
+        ]);
 
         $data = $request->all();
         $data['password'] = bcrypt(request('password'));
 
-        User::create($data);
-
+        $user = User::create($data);
+        $role = Role::find($data['role']);
+        $user->roles()->detach();
+        $user->assignRole($role);
         return back()->withSuccess(trans('app.success_store'));
     }
 
@@ -67,9 +83,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
-
-        return view('admin.users.edit', compact('item'));
+        $user = User::findOrFail($id);
+        $role = Role::all();
+        $userRole = $user->roles()->first();
+        $roles = $role->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -81,9 +101,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, User::rules(true, $id));
+        $this->validate($request, [
+            'name' => 'required',
+            'nik' => 'required|numeric|min:16',
+            'password' => 'confirmed|min:8|nullable',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ]);
 
-        $item = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $data = $request->except('password');
 
@@ -91,7 +117,11 @@ class UserController extends Controller
             $data['password'] = bcrypt(request('password'));
         }
 
-        $item->update($data);
+        $user->update($data);
+
+        $role = Role::find($data['role']);
+        $user->roles()->detach();
+        $user->assignRole($role);
 
         return redirect()->route(ADMIN . '.users.index')->withSuccess(trans('app.success_update'));
     }
@@ -104,7 +134,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        $user = User::find($id);
+        $user->delete();
 
         return back()->withSuccess(trans('app.success_destroy'));
     }

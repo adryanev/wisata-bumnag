@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DestinationCategory extends Model
+class Role extends Model
 {
     use HasFactory,SoftDeletes;
 
@@ -29,14 +29,7 @@ class DestinationCategory extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function destination()
-    {
-        return $this->belongsTo(Destination::class, 'destination_id');
-    }
-    public function category()
-    {
-        return $this->hasOne(Category::class, 'category_id');
-    }
+
     /*
     |------------------------------------------------------------------------------------
     | Scopes
