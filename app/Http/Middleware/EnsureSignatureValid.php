@@ -22,12 +22,12 @@ class EnsureSignatureValid
         $salt = env('REQUEST_SALT', '');
         $client_signature = $request->header('X-REQUEST-SIGNATURE');
         if (empty($client_signature)) {
-            return response('X-REQUEST-SIGNATURE not found', 400);
+            return response()->json(['errors' => 'X-REQUEST-SIGNATURE not found'], 400);
         }
 
-        $server_signature = hash('sha256', $salt.$access_time.$api_key);
+        $server_signature = hash('sha256', $salt . $access_time . $api_key);
         if (strcmp($client_signature, $server_signature) !== 0) {
-            return response('Invalid Signature', 401);
+            return response()->json(['errors' => 'Invalid Signature'], 401);
         }
 
         return $next($request);
