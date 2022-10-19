@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -55,6 +56,10 @@ class Handler extends ExceptionHandler
                     'errors' => 'Not found.'
                 ], 404);
             }
+        });
+
+        $this->reportable(function (JWTException $exeption, Request $request) {
+            dd($exeption);
         });
     }
 }

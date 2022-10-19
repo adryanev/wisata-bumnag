@@ -68,11 +68,14 @@ class AuthController extends Controller
 
     public function refresh()
     {
+        $newToken = auth('api')->refresh(true, true);
+
+
         return response()->json(
             [
                 'data' => [
                     'authorization' => [
-                        'token' => Auth::refresh()
+                        'token' => $newToken
                     ]
                 ]
             ]
