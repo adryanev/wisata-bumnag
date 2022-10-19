@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -21,8 +21,8 @@ class SuperAdminSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $admin =User::factory()->state([
-            'name'=>'superadmin',
+        $admin = User::factory()->state([
+            'name' => 'superadmin',
             'email' => 'superadmin@mail.com',
             'password' => Hash::make('12345678'),
         ])->create();

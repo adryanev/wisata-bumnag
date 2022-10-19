@@ -20,11 +20,11 @@ class EnsureApplicationTokenValid
     {
         $token = $request->header('X-API-KEY');
         if (empty($token)) {
-            return response('X-API-KEY not found', 401);
+            return response()->json(['errors' => 'X-API-KEY not found'], 401);
         }
         $check = Application::where(['token' => $token])->first();
         if (empty($check)) {
-            return response('Unauthorized', 401);
+            return response()->json(['errors' => 'Unauthorized'], 401);
         }
         return $next($request);
     }
