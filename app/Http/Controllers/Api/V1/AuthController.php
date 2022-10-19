@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Spatie\Permission\Models\Role;
 
+
 class AuthController extends Controller
 {
 
@@ -51,6 +52,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($decoded),
         ]);
+
         $role = Role::findByName('super-admin');
         $user->assignRole($role);
 
