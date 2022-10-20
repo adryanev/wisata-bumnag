@@ -29,7 +29,6 @@ class LoginRequest extends ApiRequest
             'os' => 'required|string',
             'os_version' => 'required|string',
             'device_info' => 'required|string',
-            'mac_address' => 'required|string'
         ];
     }
 }
