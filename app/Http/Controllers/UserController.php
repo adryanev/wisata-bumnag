@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $role = Role::all();
+        $role = Role::where('name', '<>', 'super-admin')->get();
         $roles = $role->mapWithKeys(function ($item, $key) {
             return [$item->id => $item->name];
         });
