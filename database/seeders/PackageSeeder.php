@@ -15,6 +15,9 @@ class PackageSeeder extends Seeder
      */
     public function run()
     {
-        Package::factory()->hasPackageCategories(1)->count(100)->create();
+       $packages = Package::factory()->hasPackageCategories(1)->count(100)->create();
+       foreach ($packages as $package){
+        $package->addMedia(storage_path('Package/Package'.fake()->numberBetween(1,18).'.jpg'))->preservingOriginal()->toMediaCollection('Package');
+       }
     }
 }
