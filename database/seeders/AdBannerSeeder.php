@@ -18,7 +18,7 @@ class AdBannerSeeder extends Seeder
         $adbanners = AdBanner::factory()->count(100)->create();
 
         foreach ($adbanners as $adbanner){
-            $adbanner->addMedia(storage_path('/AdBanner.png'))->preservingOriginal()->toMediaCollection('Banner');
+            $adbanner->addMedia(storage_path('AdBanner/AdBanner.png'))->preservingOriginal()->toMediaCollection('Banner');
         }
     }
 }

@@ -30,6 +30,6 @@ class SuperAdminSeeder extends Seeder
         $role = Role::findByName('super-admin');
         $admin->roles()->detach();
         $admin->assignRole($role);
-        $admin->addMedia(storage_path('/UserAvatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+        $admin->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
     }
 }

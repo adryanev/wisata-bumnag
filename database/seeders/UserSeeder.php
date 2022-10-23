@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
        $users = User::factory()->count(150)->create();
 
        foreach ($users as $user){
-        $user->addMedia(storage_path('/UserAvatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+        $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
        }
     }
 }
