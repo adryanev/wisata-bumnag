@@ -15,7 +15,13 @@ class SouvenirSeeder extends Seeder
      */
     public function run()
     {
-        Souvenir::factory()->hasSouvenirCategorys(1)->count(90)->create();
-        Souvenir::factory()->isFree()->hasSouvenirCategorys(1)->count(10)->create();
+        $souvenirs = Souvenir::factory()->hasSouvenirCategorys(1)->count(90)->create();
+        $souvenirs1 = Souvenir::factory()->isFree()->hasSouvenirCategorys(1)->count(10)->create();
+        foreach($souvenirs as $souvenir){
+            $souvenir->addMedia(storage_path('Souvenir/Souvenir'.fake()->numberBetween(1,10).'.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+        }
+        foreach($souvenirs1 as $souvenir){
+            $souvenir->addMedia(storage_path('Souvenir/Souvenir'.fake()->numberBetween(1,10).'.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+        }
     }
 }
