@@ -16,6 +16,10 @@ class DestinationSeeder extends Seeder
      */
     public function run()
     {
-        Destination::factory()->hasDestinationCategory(1)->hasDestinationCertifications(2)->count(120)->create();
+       $destinations = Destination::factory()->hasDestinationCategory(1)->hasDestinationCertifications(2)->count(120)->create();
+
+       foreach ($destinations as $destination){
+        $destination->addMedia(storage_path('/Destination'.fake()->randomNumber(1,10).'.jpg'))->preservingOriginal()->toMediaCollection('Destination');
+       }
     }
 }
