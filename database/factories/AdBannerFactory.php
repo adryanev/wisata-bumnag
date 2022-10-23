@@ -26,7 +26,7 @@ class AdBannerFactory extends Factory
         return [
             'name'=>fake()->word(),
             'action'=>fake()->word(),
-            'target'=>$name[0],
+            'target'=>$name,
         ];
     }
 }
