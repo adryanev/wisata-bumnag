@@ -19,7 +19,10 @@ class EventSeeder extends Seeder
         $events1 = Event::factory()->allAtt()->count(70)->create();
 
         foreach($events as $event){
-            $event->addMedia(storage_path('Event/Event'.fake()->randomNumber(1,8).'.jpg'))->preservingOriginal()->toMediaCollection('Event');
+            $event->addMedia(storage_path('Event/Event'.fake()->numberBetween(1,8).'.jpg'))->preservingOriginal()->toMediaCollection('Event');
+        }
+        foreach($events1 as $event){
+            $event->addMedia(storage_path('Event/Event'.fake()->numberBetween(1,8).'.jpg'))->preservingOriginal()->toMediaCollection('Event');
         }
     }
 }
