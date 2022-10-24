@@ -15,6 +15,8 @@
 
             {!! Form::mySelect('role', 'Role', $roles, $userRole ? $userRole->id : null , ['class' => 'form-control select2']) !!}
 
+            {!! Form::myFile('avatar','Photo Profile') !!}
+
 
 
 
