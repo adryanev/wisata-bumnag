@@ -27,7 +27,7 @@ class AuthController extends Controller
         $token = JWTAuth::attempt(['email' => $request->email, 'password' => $decoded]);
         if (!$token) {
             return response()->json([
-                'message' => 'Unauthorized',
+                'message' => 'Invalid Email or Password',
             ], 401);
         }
 
