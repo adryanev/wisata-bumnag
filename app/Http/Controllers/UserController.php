@@ -139,8 +139,6 @@ class UserController extends Controller
         $user->update($data);
         if ($request['avatar'] != null) {
             $user->addMedia($request['avatar'])->toMediaCollection('Avatar');
-        } else {
-            $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
         }
         $role = Role::find($data['role']);
         $user->roles()->detach();
