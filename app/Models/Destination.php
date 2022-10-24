@@ -13,7 +13,9 @@ class Destination extends Model implements HasMedia
 {
     use HasFactory,SoftDeletes,InteractsWithMedia;
 
-    protected $fillable = ['name','description','address','phone_number','email','latitude','longitude','opening_hours','closing_hours','instagram','website','capasity'];
+    protected $fillable = ['name','description','address','phone_number','email','latitude',
+        'longitude','opening_hours','closing_hours','instagram','website','capasity',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -34,7 +36,9 @@ class Destination extends Model implements HasMedia
             'closing_hours' => 'date_format:H:i|nullable',
             'instagram' => 'nullable',
             'website' => 'url|nullable',
-            'capasity' => 'numeric|min:1|nullable'
+            'capasity' => 'numeric|min:1|nullable',
+            'destination_photo' => 'image',
+            'destination_category' => 'required|numeric',
         ];
     }
 

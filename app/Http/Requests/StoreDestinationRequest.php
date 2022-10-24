@@ -31,11 +31,13 @@ class StoreDestinationRequest extends FormRequest
             'email' => 'email|required',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'opening_hours' => 'date_format:H:i|nullable',
-            'closing_hours' => 'date_format:H:i|nullable',
+            'opening_hours' => 'date_format:H:i:s|nullable',
+            'closing_hours' => 'date_format:H:i:s|nullable',
             'instagram' => 'nullable',
             'website' => 'url|nullable',
-            'capasity' => 'numeric|min:1|nullable'
+            'capasity' => 'numeric|min:1|nullable',
+            'destination_photo' => 'image',
+            'destination_category' => 'required|numeric',
         ];
     }
 }

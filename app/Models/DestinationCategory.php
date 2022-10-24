@@ -10,7 +10,7 @@ class DestinationCategory extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = ['category_id','destination_id'];
 
     /*
     |------------------------------------------------------------------------------------
