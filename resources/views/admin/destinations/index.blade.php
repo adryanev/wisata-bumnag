@@ -39,7 +39,7 @@ Destinations <small>{{ trans('app.manage') }}</small>
             <tbody>
                 @foreach ($items as $item)
                 <tr>
-                    <td><a href="{{ route(ADMIN . '.destinations.edit', $item->id) }}">{{ $item->name }}</a></td>
+                    <td><a href="{{ route(ADMIN . '.destinations.show', $item->id) }}">{{ $item->name }}</a></td>
                     <td>{{ $item->address }}</td>
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->phone_number }}</td>

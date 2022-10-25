@@ -61,6 +61,10 @@ class RolesAndPermissionsSeeder extends Seeder
             // PermissionConstants::DELETE_OWN_PENGISIAN_KEGIATAN,
             // PermissionConstants::READ_OWN_PENGISIAN_KEGIATAN,
         ]);
+        $role = Role::create(['name'=>'ticketer']);
+        $role->givePermissionTo([
+
+        ]);
 
         // Give all Permission to superadmin;
         $role = Role::create(['name'=> 'super-admin']);

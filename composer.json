@@ -19,6 +19,7 @@
         "laravelcollective/html": "^6.3",
         "php-open-source-saver/jwt-auth": "^2.0",
         "spatie/laravel-fractal": "^6.0",
+        "spatie/laravel-medialibrary": "10.2.*",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {
@@ -82,7 +83,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "dev",

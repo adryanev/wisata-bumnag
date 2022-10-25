@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
-
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, Notifiable,HasRoles;
+    use HasFactory, Notifiable,HasRoles,InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -89,5 +92,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function registerMediaCollections(Media $media = null): void
+    {
+        // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
     }
 }

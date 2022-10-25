@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $role = Role::all();
+        $role = Role::where('name', '<>', 'super-admin')->get();
         $roles = $role->mapWithKeys(function ($item, $key) {
             return [$item->id => $item->name];
         });
@@ -51,13 +51,18 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:8',
             'email' => 'required|unique:users,email',
             'phone_number' => 'required',
-
+            'avatar' => 'image' ,
         ]);
 
-        $data = $request->all();
+        $data = $request->except('avatar');
         $data['password'] = bcrypt(request('password'));
 
         $user = User::create($data);
+        if ($request['avatar'] != null) {
+            $user->addMedia($request['avatar'])->toMediaCollection('Avatar');
+        } else {
+            $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+        }
         $role = Role::find($data['role']);
         $user->roles()->detach();
         $user->assignRole($role);
@@ -72,7 +77,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $media = $user->getMedia('Avatar');
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.users.show', compact('user', 'latestMedia'));
     }
 
     /**
@@ -84,12 +96,18 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $role = Role::all();
+        $role = Role::where('name', '<>', 'super-admin')->get();
         $userRole = $user->roles()->first();
         $roles = $role->mapWithKeys(function ($item, $key) {
             return [$item->id => $item->name];
         });
-        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
+        $media = $user->getMedia('Avatar');
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'latestMedia'));
     }
 
     /**
@@ -107,18 +125,21 @@ class UserController extends Controller
             'password' => 'confirmed|min:8|nullable',
             'email' => 'required',
             'phone_number' => 'required',
+            'avatar' => 'image',
         ]);
 
         $user = User::findOrFail($id);
 
-        $data = $request->except('password');
+        $data = $request->except('password', 'avatar');
 
         if (request('password')) {
             $data['password'] = bcrypt(request('password'));
         }
 
         $user->update($data);
-
+        if ($request['avatar'] != null) {
+            $user->addMedia($request['avatar'])->toMediaCollection('Avatar');
+        }
         $role = Role::find($data['role']);
         $user->roles()->detach();
         $user->assignRole($role);

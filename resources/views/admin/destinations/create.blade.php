@@ -11,7 +11,7 @@ Destination <small>{{ trans('app.add_new_item') }}</small>
 ])
 !!}
 
-@include('admin.destinations.form')
+@include('admin.destinations.form',['categories'=>$categories,'destinationCategory'=>$destinationCategory])
 
 <button type="submit" class="btn btn-primary">{{ trans('app.add_button') }}</button>
 

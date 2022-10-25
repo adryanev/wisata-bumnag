@@ -15,7 +15,14 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        Event::factory()->count(50)->create();
-        Event::factory()->allAtt()->count(70)->create();
+        $events =Event::factory()->count(50)->create();
+        $events1 = Event::factory()->allAtt()->count(70)->create();
+
+        foreach($events as $event){
+            $event->addMedia(storage_path('Event/Event'.fake()->numberBetween(1,8).'.jpg'))->preservingOriginal()->toMediaCollection('Event');
+        }
+        foreach($events1 as $event){
+            $event->addMedia(storage_path('Event/Event'.fake()->numberBetween(1,8).'.jpg'))->preservingOriginal()->toMediaCollection('Event');
+        }
     }
 }
