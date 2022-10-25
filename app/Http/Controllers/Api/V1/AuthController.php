@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\RegisterRequest;
+use App\Http\Resources\LoginResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Spatie\Permission\Models\Role;
-
 
 class AuthController extends Controller
 {
@@ -32,14 +32,12 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        return response()->json([
-            'data' => [
-                'user' => $user,
-                'authorization' => [
-                    'token' => $token,
-                ]
-            ]
-        ]);
+        $media =
+            $user->getMedia('Avatar')->map(function ($value) {
+                return $value->getUrl();
+            });
+        $avatar = $media->first();
+        return new LoginResource($user, $token, $avatar);
     }
 
     public function register(RegisterRequest $request)
@@ -56,8 +54,10 @@ class AuthController extends Controller
         $role = Role::findByName('super-admin');
         $user->assignRole($role);
 
+        $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+
         return response()->json([
-            'data' => 'USER_CREATED'
+            'data' => 'USER_CREATED',
         ]);
     }
 
@@ -66,7 +66,7 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json(
             [
-                'data' => 'USER_LOGGED_OUT'
+                'data' => 'USER_LOGGED_OUT',
             ]
         );
     }
@@ -80,9 +80,9 @@ class AuthController extends Controller
             [
                 'data' => [
                     'authorization' => [
-                        'token' => $newToken
-                    ]
-                ]
+                        'token' => $newToken,
+                    ],
+                ],
             ]
         );
     }

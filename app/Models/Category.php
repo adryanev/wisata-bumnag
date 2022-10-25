@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Franzose\ClosureTable\Models\Entity;
@@ -14,7 +15,7 @@ class Category extends Entity
      */
     protected $table = 'categories';
 
-    protected $fillable = ['name','position','parent_id'];
+    protected $fillable = ['name', 'position', 'parent_id'];
 
 
     /*
@@ -36,10 +37,10 @@ class Category extends Entity
      */
     protected $closure = CategoryClosure::class;
 
-    public function destination()
-    {
-        return $this->hasMany(Destination::class);
-    }
+    // public function destination()
+    // {
+    //     return $this->belongsToMany(Destination::class)->using(DestinationCategory::class);
+    // }
     /*
     |------------------------------------------------------------------------------------
     | Scopes

@@ -3,8 +3,9 @@
 use App\Http\Controllers\Api\V1\AdBannerController;
 use App\Http\Controllers\Api\V1\ApplicationController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
-use App\Models\AdBanner;
+use App\Http\Controllers\Api\V1\RecommendationController;
 
 Route::middleware(['application.token', 'access.time', 'signature'])->group(function () {
     Route::get('banners', [AdBannerController::class, 'index']);
@@ -13,6 +14,13 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     });
     Route::get('applications', [ApplicationController::class, 'index']);
     Route::get('destinations', [DestinationController::class, 'index']);
+    Route::get('recommendations', [RecommendationController::class, 'index']);
+
+    Route::group(['prefix' => 'categories'], function () {
+
+        Route::get('main', [CategoryController::class, 'main']);
+        Route::get('child', [CategoryController::class, 'child']);
+    });
     //============= AUTH =================
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
