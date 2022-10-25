@@ -11,10 +11,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Destination extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
-    protected $fillable = ['name','description','address','phone_number','email','latitude',
-        'longitude','opening_hours','closing_hours','instagram','website','capasity',
+    protected $fillable = [
+        'name', 'description', 'address', 'phone_number', 'email', 'latitude',
+        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity',
+    ];
+
+    protected $appends = [
+        'photos'
     ];
 
     /*
@@ -47,11 +52,11 @@ class Destination extends Model implements HasMedia
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function destinationCategory()
+    public function categories()
     {
-        return $this->hasMany(DestinationCategory::class);
+        return $this->belongsToMany(Category::class, 'destination_categories')->using(DestinationCategory::class);
     }
-    public function destinationCertifications()
+    public function certifications()
     {
         return $this->hasMany(DestinationCertification::class);
     }
@@ -67,11 +72,49 @@ class Destination extends Model implements HasMedia
     {
         return $this->morphMany(Ticket::class, 'ticketable');
     }
+    public function recommendation()
+    {
+        return $this->belongsTo(Recommendation::class);
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
     |------------------------------------------------------------------------------------
     */
+
+    public function scopeWisata($query)
+    {
+        return $query->whereHas('categories', function ($query) {
+            $category = Category::where(['id' => 1])->first()->getChildren()->pluck('id')->toArray();
+            $query->whereIn('categories.id', [1, ...$category]);
+        });
+    }
+
+    public function scopeAkomodasi($query)
+    {
+        return $query->whereHas('categories', function ($query) {
+            $category = Category::where(['id' => 5])->first()->getChildren()->pluck('id')->toArray();
+            $query->whereIn('categories.id', [5, ...$category]);
+        });
+    }
+
+    public function scopeKuliner($query)
+    {
+
+        return $query->whereHas('categories', function ($query) {
+            $category = Category::where(['id' => 4])->first()->getChildren()->pluck('id')->toArray();
+            $query->whereIn('categories.id', [4, ...$category]);
+        });
+    }
+
+    public function scopeCategory($query, $id)
+    {
+
+        return $query->whereHas('categories', function ($query) use ($id) {
+            $category = Category::where(['id' => $id])->first()->getChildren()->pluck('id')->toArray();
+            $query->whereIn('categories.id', [$id, ...$category]);
+        });
+    }
 
     /*
     |------------------------------------------------------------------------------------
@@ -81,5 +124,12 @@ class Destination extends Model implements HasMedia
     public function registerMediaCollections(Media $media = null): void
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
+    }
+
+    public function getPhotosAttribute()
+    {
+        return (empty($this->getMedia('Destination'))) ? "" : $this->getMedia('Destination')->map(function ($media) {
+            return $media->getFullUrl();
+        });
     }
 }

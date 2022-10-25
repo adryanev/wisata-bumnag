@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Recommendation extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
 
@@ -29,6 +29,10 @@ class Recommendation extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
+    public function destination()
+    {
+        return $this->hasOne(Destination::class, 'id');
+    }
 
     /*
     |------------------------------------------------------------------------------------
