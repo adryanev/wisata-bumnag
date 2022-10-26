@@ -3,49 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PackageCategory extends Model
+class PackageCategory extends Pivot
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
 
-    protected $fillable = [];
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Validations
-    |------------------------------------------------------------------------------------
-    */
-    public static function rules($update = false, $id = null)
-    {
-        return [
-            'name' => 'required',
-        ];
-    }
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Relations
-    |------------------------------------------------------------------------------------
-    */
-    public function package()
-    {
-        return $this->belongsTo(Package::class, 'package_id');
-    }
-    public function category()
-    {
-        return $this->hasOne(Category::class, 'category_id');
-    }
-    /*
-    |------------------------------------------------------------------------------------
-    | Scopes
-    |------------------------------------------------------------------------------------
-    */
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Attributes
-    |------------------------------------------------------------------------------------
-    */
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
 }

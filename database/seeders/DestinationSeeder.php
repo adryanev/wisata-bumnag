@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Destination;
 use Database\Factories\DestinationFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,10 +17,14 @@ class DestinationSeeder extends Seeder
      */
     public function run()
     {
-        $destinations = Destination::factory()->hasCategories(1)->hasCertifications(2)->count(120)->create();
-
-        foreach ($destinations as $destination) {
-            $destination->addMedia(storage_path('Destination/Destination' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Destination');
+        $categories = Category::all();
+        foreach ($categories as $category) {
+            if ($category->id < 5) continue;
+            if ($category->id >= 23) continue;
+            Destination::factory()->hasCertifications(2)->count(25)->create()->each(function ($destination) use ($category) {
+                $destination->categories()->attach($category->id);
+                $destination->addMedia(storage_path('Destination/Destination' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Destination');
+            });
         }
     }
 }

@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Souvenir extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [];
 
@@ -36,9 +36,9 @@ class Souvenir extends Model implements HasMedia
     {
         return $this->morphMany(OrderDetail::class, 'orderable');
     }
-    public function souvenirCategorys()
+    public function categories()
     {
-        return $this->hasMany(SouvenirCategory::class);
+        return $this->belongsToMany(Category::class, 'souvenir_categories')->using(SouvenirCategory::class);
     }
     /*
     |------------------------------------------------------------------------------------

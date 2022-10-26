@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Package extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [];
 
@@ -32,9 +32,9 @@ class Package extends Model implements HasMedia
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function packageCategories()
+    public function categories()
     {
-        return $this->hasMany(PackageCategory::class);
+        return $this->belongsToMany(Category::class, 'package_categories')->using(PackageCategory::class);
     }
     public function ordersDetail()
     {
