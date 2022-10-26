@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Souvenir;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,13 +16,25 @@ class SouvenirSeeder extends Seeder
      */
     public function run()
     {
-        $souvenirs = Souvenir::factory()->hasSouvenirCategorys(1)->count(90)->create();
-        $souvenirs1 = Souvenir::factory()->isFree()->hasSouvenirCategorys(1)->count(10)->create();
-        foreach($souvenirs as $souvenir){
-            $souvenir->addMedia(storage_path('Souvenir/Souvenir'.fake()->numberBetween(1,10).'.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+
+
+        $categories = Category::all();
+        foreach ($categories as $category) {
+            if ($category->id < 23) continue;
+            if ($category->id >= 26) continue;
+            Souvenir::factory()->count(25)->create()->each(function ($souvenir) use ($category) {
+                $souvenir->categories()->attach($category->id);
+                $souvenir->addMedia(storage_path('Souvenir/Souvenir' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+            });
         }
-        foreach($souvenirs1 as $souvenir){
-            $souvenir->addMedia(storage_path('Souvenir/Souvenir'.fake()->numberBetween(1,10).'.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+
+        foreach ($categories as $category) {
+            if ($category->id < 23) continue;
+            if ($category->id >= 26) continue;
+            Souvenir::factory()->isFree()->count(25)->create()->each(function ($souvenir) use ($category) {
+                $souvenir->categories()->attach($category->id);
+                $souvenir->addMedia(storage_path('Souvenir/Souvenir' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Souvenir');
+            });
         }
     }
 }

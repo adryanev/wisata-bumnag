@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Package;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PackageSeeder extends Seeder
@@ -15,9 +15,13 @@ class PackageSeeder extends Seeder
      */
     public function run()
     {
-       $packages = Package::factory()->hasPackageCategories(1)->count(100)->create();
-       foreach ($packages as $package){
-        $package->addMedia(storage_path('Package/Package'.fake()->numberBetween(1,18).'.jpg'))->preservingOriginal()->toMediaCollection('Package');
-       }
+        $categories = Category::all();
+        foreach ($categories as $category) {
+            if ($category->id < 25) continue;
+            Package::factory()->count(25)->create()->each(function ($package) use ($category) {
+                $package->categories()->attach($category->id);
+                $package->addMedia(storage_path('Package/Package' . fake()->numberBetween(1, 18) . '.jpg'))->preservingOriginal()->toMediaCollection('Package');
+            });
+        }
     }
 }
