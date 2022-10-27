@@ -74,7 +74,7 @@ class Destination extends Model implements HasMedia
     }
     public function recommendation()
     {
-        return $this->belongsTo(Recommendation::class);
+        return $this->hasOne(Recommendation::class);
     }
     /*
     |------------------------------------------------------------------------------------

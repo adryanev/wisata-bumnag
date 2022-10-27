@@ -13,7 +13,7 @@ class RecommendationController extends Controller
     public function index()
     {
 
-        $recommendation = Recommendation::orderBy('rank', 'ASC')->limit(10)->get();
+        $recommendation = Recommendation::with('destination')->orderBy('rank', 'ASC')->limit(10)->get();
         return new RecommendationCollection($recommendation);
     }
 }

@@ -18,7 +18,7 @@ class RecommendationResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'rank' => $this->rank,
-            'destination' => $this->destination,
+            'destination' => new DestinationResource($this->whenLoaded('destination')),
         ];
     }
 }
