@@ -31,7 +31,7 @@ class Recommendation extends Model
     */
     public function destination()
     {
-        return $this->hasOne(Destination::class, 'id');
+        return $this->belongsTo(Destination::class);
     }
 
     /*
