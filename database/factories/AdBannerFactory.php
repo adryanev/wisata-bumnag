@@ -17,16 +17,17 @@ class AdBannerFactory extends Factory
      */
     public function definition()
     {
-        $users = User::all();
-        $names = [];
-        foreach ($users as $user){
-            array_push($names,$user->name);
-        }
-        $name = fake()->randomElement($names);
+        $action =fake()->randomElement(['null','click']);
         return [
             'name'=>fake()->word(),
-            'action'=>fake()->word(),
-            'target'=>$name,
+            'action'=>null,
+            'target'=>null,
         ];
+    }
+    public function click(){
+        return $this->state(fn (array $attributes) => [
+            'action'=>'click',
+            'target'=>fake()->url(),
+        ]);
     }
 }

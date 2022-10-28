@@ -109,11 +109,11 @@ class CategorySeeder extends Seeder
             ]),
             new Category([
                 'name' => 'Makanan dan Minuman',
-                'parent_id' => 24,
+                'parent_id' => 23,
             ]),
             new Category([
                 'name' => 'Kerajinan',
-                'parent_id' => 24,
+                'parent_id' => 23,
             ]),
             //packages
             new Category([
@@ -121,19 +121,19 @@ class CategorySeeder extends Seeder
             ]),
             new Category([
                 'name' => 'Paket 3 Hari',
-                'parent_id' => 27
+                'parent_id' => 26
             ]),
             new Category([
                 'name' => 'Paket 7 Hari',
-                'parent_id' => 27
+                'parent_id' => 26
             ]),
             new Category([
                 'name' => 'Paket 14 Hari',
-                'parent_id' => 27
+                'parent_id' => 26
             ]),
             new Category([
                 'name' => 'Paket 30 Hari',
-                'parent_id' => 27
+                'parent_id' => 26
             ]),
         ];
         foreach ($categories as $category) {

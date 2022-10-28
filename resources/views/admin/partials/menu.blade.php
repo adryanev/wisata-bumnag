@@ -27,3 +27,11 @@ $route = (isset($r['as'])) ? $r['as'] : '';
         <span class="title">Destinations</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.adbanners') ? 'actived' : '' }}" href="{{ route(ADMIN . '.adbanners.index') }}">
+        <span class="icon-holder">
+            <i class="c-brown-500 ti-user"></i>
+        </span>
+        <span class="title">Ad Banners</span>
+    </a>
+</li>
