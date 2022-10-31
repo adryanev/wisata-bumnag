@@ -30,6 +30,9 @@ class DestinationResource extends JsonResource
             'capacity' => $this->capasity,
             'categories' => $this->categories,
             'media' => $this->photos,
+            'reviews'=> new ReviewAggregateCollection($this->whenLoaded('reviews')),
+            'tickets' => new TicketCollection($this->whenLoaded('tickets')),
+
         ];
     }
 }

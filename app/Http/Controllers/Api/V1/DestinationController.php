@@ -14,7 +14,7 @@ class DestinationController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('category');
-        $destinationPaginator = Destination::category($id)->paginate(10);
+        $destinationPaginator = Destination::category($id)->with(['reviews', 'tickets'])->paginate(10);
         return new DestinationCollection($destinationPaginator);
 
         // $destionation = QueryBuilder::for(Destination::class)
@@ -23,5 +23,9 @@ class DestinationController extends Controller
         //     ->paginate()
         //     ->appends($request->query());
         // return $destionation;
+    }
+
+    public function detail(Request $request){
+
     }
 }

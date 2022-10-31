@@ -13,7 +13,11 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         return response('data');
     });
     Route::get('applications', [ApplicationController::class, 'index']);
-    Route::get('destinations', [DestinationController::class, 'index']);
+    Route::group(['prefix'=> 'destinations'], function(){
+        Route::get('/', [DestinationController::class, 'index']);
+
+
+    });
     Route::get('recommendations', [RecommendationController::class, 'index']);
 
     Route::group(['prefix' => 'categories'], function () {

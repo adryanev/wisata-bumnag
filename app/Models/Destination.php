@@ -66,7 +66,7 @@ class Destination extends Model implements HasMedia
     }
     public function reviews()
     {
-        return $this->morphMany(Review::class, 'reviewable');
+        return $this->morphMany(Review::class, 'reviewable', 'reviewable_type', 'reviewable_id');
     }
     public function tickets()
     {
@@ -113,6 +113,12 @@ class Destination extends Model implements HasMedia
         return $query->whereHas('categories', function ($query) use ($id) {
             $category = Category::where(['id' => $id])->first()->getChildren()->pluck('id')->toArray();
             $query->whereIn('categories.id', [$id, ...$category]);
+        });
+    }
+
+    public function scopeLowestPriceTicket($query){
+        return $query->whereHas('tickets', function($query){
+            $query->orderBy('tickets.price', 'ASC')->first();
         });
     }
 
