@@ -14,6 +14,7 @@ class Ticket extends Model
     protected $casts = [
         'is_free' => 'boolean',
         'is_quantity_limited' => 'boolean',
+        'price' => 'double',
     ];
 
     /*
