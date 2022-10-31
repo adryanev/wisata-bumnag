@@ -23,7 +23,7 @@ class SouvenirFactory extends Factory
             'price'=>fake()->numberBetween(5000,500000),
             'quantity'=>fake()->numberBetween(1,1000),
             'is_free'=>false,
-            'descriptions'=>fake()->sentence(),
+            'description'=>fake()->sentence(),
             'destination_id'=>fake()->numberBetween(1,count($destinations)),
         ];
     }
