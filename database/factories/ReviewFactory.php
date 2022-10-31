@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Destination;
 use App\Models\Package;
 use App\Models\Souvenir;
 use App\Models\Ticket;
@@ -20,7 +21,7 @@ class ReviewFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {   $reviewable_type = fake()->randomElement([Souvenir::class,Ticket::class,Package::class]);
+    {   $reviewable_type = fake()->randomElement([Souvenir::class,Ticket::class,Package::class,Destination::class]);
         $reviewable_id  = $reviewable_type::all();
         $users = User::all();
         return [

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AdBanner;
 use App\Http\Requests\StoreAdBannerRequest;
 use App\Http\Requests\UpdateAdBannerRequest;
+use View;
 
 class AdBannerController extends Controller
 {
@@ -15,7 +16,9 @@ class AdBannerController extends Controller
      */
     public function index()
     {
-        //
+        $items = AdBanner::latest('updated_at')->get();
+
+        return view('admin.adbanners.index', compact('items'));
     }
 
     /**
@@ -25,7 +28,7 @@ class AdBannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.adbanners.create');
     }
 
     /**
@@ -36,7 +39,11 @@ class AdBannerController extends Controller
      */
     public function store(StoreAdBannerRequest $request)
     {
-        //
+        $data = $request->except('media');
+        // dd($data);
+        $adBanner = AdBanner::create($data);
+        $adBanner->addMedia($request['media'])->toMediaCollection('Banner');
+        return back()->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -45,9 +52,17 @@ class AdBannerController extends Controller
      * @param  \App\Models\AdBanner  $adBanner
      * @return \Illuminate\Http\Response
      */
-    public function show(AdBanner $adBanner)
+    public function show($id)
     {
-        //
+        $adBanner = AdBanner::find($id);
+        $media = $adBanner->getMedia('Banner');
+
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.adbanners.show', compact('adBanner', 'latestMedia'));
     }
 
     /**
@@ -56,9 +71,18 @@ class AdBannerController extends Controller
      * @param  \App\Models\AdBanner  $adBanner
      * @return \Illuminate\Http\Response
      */
-    public function edit(AdBanner $adBanner)
+    public function edit($id)
     {
-        //
+        $adBanner = AdBanner::find($id);
+
+        $media = $adBanner->getMedia('Banner');
+
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.adbanners.edit', compact('adBanner', 'latestMedia'));
     }
 
     /**
@@ -68,9 +92,16 @@ class AdBannerController extends Controller
      * @param  \App\Models\AdBanner  $adBanner
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAdBannerRequest $request, AdBanner $adBanner)
+    public function update(UpdateAdBannerRequest $request, $id)
     {
-        //
+        $data = $request->except('media');
+        $adBanner = AdBanner::find($id);
+        $adBanner->update($data);
+
+        if ($request['avatar'] != null) {
+            $adBanner->addMedia($request['media'])->toMediaCollection('Banner');
+        }
+        return redirect()->route(ADMIN . '.adbanners.index')->withSuccess(trans('app.success_update'));
     }
 
     /**
@@ -79,8 +110,10 @@ class AdBannerController extends Controller
      * @param  \App\Models\AdBanner  $adBanner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdBanner $adBanner)
+    public function destroy($id)
     {
-        //
+        $adBanner = AdBanner::find($id);
+        $adBanner->delete();
+         return back()->withSuccess(trans('app.success_destroy'));
     }
 }

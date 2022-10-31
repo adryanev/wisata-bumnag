@@ -27,6 +27,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::get('/', 'DashboardController@index')->name('dash');
     Route::resource('users', 'UserController');
     Route::resource('destinations', 'DestinationController');
+    Route::resource('adbanners', 'AdBannerController');
 });
 
 Route::get('/', function () {
