@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('tickets', function (Blueprint $table) {
             $table->dropConstrainedForeignId('destination_id');
             $table->text('description')->nullable();
-            $table->morphs('Ticketable');
+            $table->morphs('ticketable');
 
         });
     }
@@ -31,7 +31,7 @@ return new class extends Migration
         Schema::table('tickets', function (Blueprint $table) {
             $table->foreignId('destination_id')->references('id')->on('destinations');
             $table->dropColumn('description');
-            $table->dropMorphs('Ticketable');
+            $table->dropMorphs('ticketable');
         });
     }
 };

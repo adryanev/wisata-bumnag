@@ -17,7 +17,10 @@ class TicketSeeder extends Seeder
     public function run()
     {
         Ticket::factory()->has(TicketSetting::factory()->perPax())->count(50)->create();
+        Ticket::factory()->has(TicketSetting::factory()->perPax())->is_free()->count(50)->create();
         Ticket::factory()->has(TicketSetting::factory()->perDay())->count(50)->create();
+        Ticket::factory()->has(TicketSetting::factory()->perDay())->is_free()->count(50)->create();
         Ticket::factory()->has(TicketSetting::factory()->perAge())->count(50)->create();
+        Ticket::factory()->has(TicketSetting::factory()->perAge())->is_free()->count(50)->create();
     }
 }
