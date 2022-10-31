@@ -15,8 +15,9 @@ class ReviewCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'count'=> $this->count(),
-            'data'=> ReviewResource::collection($this->collection),
+            'count' => $this->count(),
+            'rating' => $this->avg('rating'),
+            'data' => ReviewResource::collection($this->collection),
         ];
     }
 }

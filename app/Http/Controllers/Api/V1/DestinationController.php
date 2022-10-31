@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DestinationCollection;
+use App\Http\Resources\DestinationDetailResource;
+use App\Http\Resources\DestinationResource;
 use Illuminate\Http\Request;
 use App\Models\Destination;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -25,7 +27,9 @@ class DestinationController extends Controller
         // return $destionation;
     }
 
-    public function detail(Request $request)
+    public function detail($id)
     {
+        $destination = Destination::where(['id' => $id])->with('reviews')->first();
+        return new DestinationDetailResource($destination);
     }
 }
