@@ -22,7 +22,7 @@ class TicketFactory extends Factory
         $ticketable_type= fake()->randomElement([Event::class,Destination::class,Package::class]);
         $ticketable_id = $ticketable_type::all();
         return [
-            'ticketable_type'=>strtolower(class_basename($ticketable_type)),
+            'ticketable_type'=>$ticketable_type,
             'ticketable_id'=>fake()->numberBetween(1,count($ticketable_id)),
             'name'=>fake()->sentence(),
             'price'=>fake()->numberBetween(50000),
@@ -31,5 +31,24 @@ class TicketFactory extends Factory
             'quantity'=>fake()->numberBetween(100,10000),
             'description'=>fake()->paragraph(),
         ];
+    }
+    public function is_free(){
+        return $this->state(fn (array $attributes) => [
+            'price' => 0,
+            'is_free'=>true,
+        ]);
+    }
+    public function destinationTicket(){
+        $destination = Destination::all();
+        return $this->state(fn (array $attributes) => [
+            'ticketable_type'=>Destination::class,
+            'ticketable_id'=>fake()->numberBetween(1,count($destination)),
+            'name'=>fake()->sentence(),
+            'price'=>fake()->numberBetween(50000),
+            'is_free'=>false,
+            'is_quantity_limited'=>true,
+            'quantity'=>fake()->numberBetween(100,10000),
+            'description'=>fake()->paragraph(),
+        ]);
     }
 }
