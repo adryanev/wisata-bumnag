@@ -25,7 +25,7 @@ class DestinationController extends Controller
         // return $destionation;
     }
 
-    public function detail(Request $request){
-
+    public function detail(Request $request)
+    {
     }
 }
