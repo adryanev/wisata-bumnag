@@ -19,7 +19,9 @@ class Destination extends Model implements HasMedia
     ];
 
     protected $appends = [
-        'photos'
+        'photos',
+        // 'review_aggregate',
+        // 'tickets',
     ];
 
     /*
@@ -116,6 +118,13 @@ class Destination extends Model implements HasMedia
         });
     }
 
+    public function scopeLowestPriceTicket($query)
+    {
+        return $query->whereHas('tickets', function ($query) {
+            $query->orderBy('tickets.price', 'ASC')->first();
+        });
+    }
+
     /*
     |------------------------------------------------------------------------------------
     | Attributes
@@ -131,5 +140,9 @@ class Destination extends Model implements HasMedia
         return (empty($this->getMedia('Destination'))) ? "" : $this->getMedia('Destination')->map(function ($media) {
             return $media->getFullUrl();
         });
+    }
+    public function getReviewAggregateAttribute()
+    {
+        return ['count' => $this->reviews->count(), 'rating' => $this->reviews->avg('rating')];
     }
 }

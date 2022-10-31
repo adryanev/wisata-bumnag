@@ -2,12 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Destination;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DestinationResource extends JsonResource
+class DestinationDetailResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -30,9 +31,9 @@ class DestinationResource extends JsonResource
             'capacity' => $this->capasity,
             'categories' => $this->categories,
             'media' => $this->photos,
-            'reviews' => new ReviewAggregateCollection($this->reviews),
+            'reviews' => new ReviewCollection($this->reviews),
             'tickets' => new TicketCollection($this->tickets()->orderBy('price', 'ASC')->get()),
-
+            'recommendations' => DestinationResource::collection(Destination::inRandomOrder()->take(5)->get()),
         ];
     }
 }

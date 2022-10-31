@@ -15,7 +15,7 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-       $reviews = Review::factory()->count(100)->create();
+       $reviews = Review::factory()->count(250)->create();
 
        foreach($reviews as $review){
         $review->addMedia(storage_path('Review/Review'.fake()->numberBetween(1,28).'.jpg'))->preservingOriginal()->toMediaCollection('Review');

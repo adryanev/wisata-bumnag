@@ -37,10 +37,10 @@ class Category extends Entity
      */
     protected $closure = CategoryClosure::class;
 
-    // public function destination()
-    // {
-    //     return $this->belongsToMany(Destination::class)->using(DestinationCategory::class);
-    // }
+    public function destinations()
+    {
+        return $this->hasMany(Destination::class)->using(DestinationCategory::class, 'destination_categories');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
