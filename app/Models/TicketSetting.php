@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TicketSetting extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
+    protected $casts = [
+        'is_per_pax' => 'boolean',
+        'is_per_day' => 'boolean',
+        'is_per_age' => 'boolean',
+    ];
 
     /*
     |------------------------------------------------------------------------------------

@@ -14,6 +14,9 @@ class Souvenir extends Model implements HasMedia
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [];
+    protected $casts = [
+        'is_free' => 'boolean',
+    ];
 
     /*
     |------------------------------------------------------------------------------------

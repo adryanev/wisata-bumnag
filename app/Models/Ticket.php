@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
+    protected $casts = [
+        'is_free' => 'boolean',
+        'is_quantity_limited' => 'boolean',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
