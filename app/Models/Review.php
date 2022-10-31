@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use PhpParser\Node\Expr\FuncCall;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -43,6 +44,10 @@ class Review extends Model implements HasMedia
     public function souvenir()
     {
         return $this->morphTo(Souvenir::class);
+    }
+    public function destination()
+    {
+        return $this->morphTo(Destination::class);
     }
     public function user()
     {

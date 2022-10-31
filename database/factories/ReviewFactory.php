@@ -25,7 +25,7 @@ class ReviewFactory extends Factory
         $reviewable_id  = $reviewable_type::all();
         $users = User::all();
         return [
-            'reviewable_type'=>strtolower(class_basename($reviewable_type)),
+            'reviewable_type'=>$reviewable_type,
             'reviewable_id'=>fake()->numberBetween(1,count($reviewable_id)),
             'title'=>fake()->sentence(),
             'description'=>fake()->text(),
