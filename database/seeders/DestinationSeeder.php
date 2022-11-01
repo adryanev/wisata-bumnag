@@ -23,6 +23,10 @@ class DestinationSeeder extends Seeder
         foreach ($categories as $category) {
             if ($category->id < 5) continue;
             if ($category->id >= 23) continue;
+            Destination::factory()->allAttributes()->hasCertifications(2)->has(Ticket::factory()->destinationTicket())->count(25)->create()->each(function ($destination) use ($category) {
+                $destination->categories()->attach($category->id);
+                $destination->addMedia(storage_path('Destination/Destination' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Destination');
+            });
             Destination::factory()->hasCertifications(2)->has(Ticket::factory()->destinationTicket())->count(25)->create()->each(function ($destination) use ($category) {
                 $destination->categories()->attach($category->id);
                 $destination->addMedia(storage_path('Destination/Destination' . fake()->numberBetween(1, 10) . '.jpg'))->preservingOriginal()->toMediaCollection('Destination');
