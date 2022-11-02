@@ -25,6 +25,8 @@
 
             {!! Form::myInput('number','capasity','Capasity') !!}
 
+            {!! Form::myInput('text','working_day','Working Day',['placeholder'=>'senin-rabu,kamis-jumat']) !!}
+
             {!! Form::myFile('destination_photo','Destination Photo') !!}
 
             {!! Form::mySelect('destination_category', 'Destination Category', $categories, $destinationCategory ? $destinationCategory->id : null , ['class' => 'form-control select2']) !!}

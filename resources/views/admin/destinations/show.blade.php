@@ -64,6 +64,10 @@ Destination {{ $destination->name }} <small>{{ trans('app.show_item') }}</small>
         <td>{{$destination->capasity}}</td>
     </tr>
     <tr>
+        <td>Working Day</td>
+        <td>{{$destination->working_day}}</td>
+    </tr>
+    <tr>
         <td>Destination Category</td>
         <td>{{$destinationCategory}}</td>
     </tr>
