@@ -13,7 +13,7 @@ class Souvenir extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
-    protected $fillable = [];
+    protected $fillable = ['name','is_free','price','term_and_conditions','quantity','description','destination_id'];
     protected $casts = [
         'is_free' => 'boolean',
     ];
@@ -42,6 +42,10 @@ class Souvenir extends Model implements HasMedia
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'souvenir_categories')->using(SouvenirCategory::class);
+    }
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
     }
     /*
     |------------------------------------------------------------------------------------
