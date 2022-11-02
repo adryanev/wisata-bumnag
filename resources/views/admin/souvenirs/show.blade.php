@@ -53,7 +53,13 @@ Souvenir {{ $souvenir->name }} <small>{{ trans('app.show_item') }}</small>
     </tr>
     <tr>
         <td>Souvenir Category</td>
-        <td>{{ $souvenirCategory}}</td>
+        <td>
+            @foreach ($souvenirCategory as $category)
+            {{ $category->name }}
+            <br>
+            @endforeach
+        </td>
+
     </tr>
 
 </table>

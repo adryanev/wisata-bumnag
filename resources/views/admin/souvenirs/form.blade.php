@@ -18,7 +18,7 @@
 
             {!! Form::myTextArea('description', 'Description') !!}
 
-            {!! Form::mySelect('souvenir_category', 'Souvenir Category', $categories, $souvenirCategory ? $souvenirCategory->id : null , ['class' => 'form-control select2']) !!}
+            {!! Form::mySelect('souvenir_category', 'Souvenir Category', $categories, $souvenirCategory ? $souvenirCategory->first()->id : null , ['class' => 'form-control select2']) !!}
 
             {!! Form::mySelect('destination_id', 'Souvenir Destination', $destinations, $souvenirDestination ? $souvenirDestination->id : null , ['class' => 'form-control select2']) !!}
 

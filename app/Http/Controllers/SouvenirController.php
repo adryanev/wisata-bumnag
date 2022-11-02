@@ -82,7 +82,7 @@ class SouvenirController extends Controller
     public function show($id)
     {
         $souvenir = Souvenir::find($id);
-        $souvenirCategory = $souvenir->categories->first()->name;
+        $souvenirCategory = $souvenir->categories->all();
         $souvenirDestination = $souvenir->destination->first()->name;
         $media = $souvenir->getMedia('Souvenir');
 
@@ -116,8 +116,8 @@ class SouvenirController extends Controller
             return [$item->id => $item->name];
         });
         $souvenir = Souvenir::find($id);
-        //check has category
-        $souvenirCategory = $souvenir->categories->first();
+
+        $souvenirCategory = $souvenir->categories;
         $souvenirDestination = $souvenir->destination;
 
         $media = $souvenir->getMedia('Souvenir');
@@ -155,6 +155,9 @@ class SouvenirController extends Controller
         }
         $souvenir = Souvenir::find($id);
         $souvenir->update($data);
+        if (count($souvenir->categories) != 0) {
+            $souvenir->categories()->detach();
+        }
         $souvenir->categories()->attach($request['souvenir_category']);
         if ($request['souvenir_photo'] != null) {
             $souvenir->addMedia($request['souvenir_photo'])->toMediaCollection('Souvenir');
