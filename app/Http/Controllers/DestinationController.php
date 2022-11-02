@@ -51,12 +51,7 @@ class DestinationController extends Controller
         // dd($request);
 
         $destination = Destination::create($data);
-        $destinationCategoryData = [
-            'category_id' => $request[
-            'destination_category'],
-            'destination_id' => $destination->id,
-        ];
-        $destinationCategory = DestinationCategory::create($destinationCategoryData);
+        $destinationCategory = $destination->categories()->attach($request['destination_category']);
 
         if ($request['destination_photo'] != null) {
             $destination->addMedia($request['destination_photo'])->toMediaCollection('Destination');
@@ -85,10 +80,10 @@ class DestinationController extends Controller
             $latestMedia = str($media[count($media) - 1]->original_url);
         }
         //check has destiantion category or not
-        if (count($destination->destinationCategory) == 0) {
+        if (count($destination->categories) == 0) {
             $destinationCategory = null;
         } else {
-            $destinationCategory = $category = Category::find($destination->destinationCategory->first()->category_id)->name;
+            $destinationCategory = $destination->categories->first()->name;
         }
 
         return view('admin.destinations.show', compact('destination', 'latestMedia', 'destinationCategory'));
@@ -107,13 +102,25 @@ class DestinationController extends Controller
         $categories = $category->mapWithKeys(function ($item, $key) {
             return [$item->id => $item->name];
         });
+        $media = $destination->getMedia('Destination');
+        //check has media
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
         //check has destiantion category or not
-        if (count($destination->destinationCategory) == 0) {
+        if (count($destination->categories) == 0) {
             $destinationCategory = null;
         } else {
-            $destinationCategory = $category = Category::find($destination->destinationCategory->first()->category_id);
+            $destinationCategory = $destination->categories->first();
         }
-        return view('admin.destinations.edit', compact('destination', 'categories', 'destinationCategory'));
+        return view('admin.destinations.edit', compact(
+            'destination',
+            'categories',
+            'destinationCategory',
+            'latestMedia',
+        ));
     }
 
     /**
@@ -127,17 +134,11 @@ class DestinationController extends Controller
     {
         $data = $request->except('destination_photo');
         $destination = Destination::findOrFail($id);
-        $destinationCategory = $destination->destinationCategory->first();
-        // dump($destination, $destinationCategory, $request['destination_photo']);
         $destination->update($data);
-        if ($destinationCategory != null) {
-            $destinationCategory->update(['category_id' => $data['destination_category']]);
-        } else {
-            $destinationCategory = DestinationCategory::create([
-                'destination_id' => $destination->id,
-                'category_id' => $data['destination_category'],
-            ]);
+        if (count($destination->categories) != 0) {
+            $destination->categories()->detach();
         }
+        $destinationCategory = $destination->categories()->attach($request['destination_category']);
         // dump($destination, $destinationCategory, $destination->getMedia('Destination'));
 
         if ($request['destination_photo'] != null) {
