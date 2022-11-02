@@ -2,6 +2,7 @@
 
 @section('page-header')
 Destination <small>{{ trans('app.update_item') }}</small>
+<img src="{{ $latestMedia }}" alt="User {{ $destination->name }} image" height="100" width="100">
 @stop
 
 @section('content')
