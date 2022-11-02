@@ -28,6 +28,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('users', 'UserController');
     Route::resource('destinations', 'DestinationController');
     Route::resource('adbanners', 'AdBannerController');
+    Route::resource('souvenirs', 'SouvenirController');
 });
 
 Route::get('/', function () {

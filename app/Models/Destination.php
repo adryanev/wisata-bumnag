@@ -15,7 +15,7 @@ class Destination extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'description', 'address', 'phone_number', 'email', 'latitude',
-        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity',
+        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity','working_day',
     ];
 
     protected $appends = [

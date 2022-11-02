@@ -43,6 +43,7 @@ class DestinationFactory extends Factory
             'instagram'=>fake()->userName(),
             'website'=>fake()->url(),
             'capasity'=>strval(fake()->numberBetween(100,10000)),
+            'working_day'=>"senin-jumat"
         ]);
     }
 }
