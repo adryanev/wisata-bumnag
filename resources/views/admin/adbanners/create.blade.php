@@ -13,7 +13,10 @@ Ad Banner <small>{{ trans('app.add_new_item') }}</small>
 
 @include('admin.adbanners.form',[])
 
-<button type="submit" class="btn btn-primary">{{ trans('app.add_button') }}</button>
+<button type="submit" class="btn btn-primary "><i class="c-white-500 ti-save"></i>&nbsp;Submit</button>
+
+
+
 
 {!! Form::close() !!}
 
