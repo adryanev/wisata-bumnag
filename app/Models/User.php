@@ -16,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, Notifiable,HasRoles,InteractsWithMedia;
+    use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -61,6 +61,11 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     | Relations
     |------------------------------------------------------------------------------------
     */
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
     /*
     |------------------------------------------------------------------------------------

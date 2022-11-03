@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    const STATUS_CREATED = 0;
+    const STATUS_PAID = 1;
+    const STATUS_CANCELLED = 2;
+    const STATUS_COMPLETED = 3;
+    const STATUS_REFUNDED = 4;
 
     /*
     |------------------------------------------------------------------------------------
@@ -23,13 +29,37 @@ class Order extends Model
     */
     public function orderDetail()
     {
-        return $this->hasOne(OrderDetail::class);
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
     |------------------------------------------------------------------------------------
     */
+
+    public function scopeCreated($query)
+    {
+        return $query->where('status', self::STATUS_CREATED);
+    }
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', self::STATUS_COMPLETED);
+    }
+    public function scopePaid($query)
+    {
+        return $query->where('status', self::STATUS_PAID);
+    }
+    public function scopeRefunded($query)
+    {
+        return $query->where('status', self::STATUS_REFUNDED);
+    }
+
+
 
     /*
     |------------------------------------------------------------------------------------
