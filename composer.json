@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
+        "midtrans/midtrans-php": "^2.5",
         "php-open-source-saver/jwt-auth": "^2.0",
         "spatie/laravel-fractal": "^6.0",
         "spatie/laravel-medialibrary": "10.2.*",

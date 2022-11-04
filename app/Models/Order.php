@@ -16,6 +16,16 @@ class Order extends Model
     const STATUS_COMPLETED = 3;
     const STATUS_REFUNDED = 4;
 
+    protected $fillable = [
+        'total_price',
+        'number',
+        'note',
+        'status',
+        'user_id',
+        'order_date',
+        'order_update_date',
+    ];
+
     /*
     |------------------------------------------------------------------------------------
     | Validations

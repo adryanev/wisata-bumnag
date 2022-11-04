@@ -35,5 +35,6 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
 
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [OrderController::class, 'index'])->middleware('auth:api');
+        Route::post('/', [OrderController::class, 'store'])->middleware('auth:api');
     });
 });
