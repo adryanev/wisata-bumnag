@@ -200,7 +200,7 @@ return [
         Franzose\ClosureTable\ClosureTableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
+        App\Services\Midtrans\Providers\MidtransServiceProvider::class,
 
         /*
          * Application Service Providers...

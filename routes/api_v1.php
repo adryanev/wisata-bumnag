@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +34,15 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
     });
 
+    //============= ORDER ================
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [OrderController::class, 'index'])->middleware('auth:api');
         Route::post('/', [OrderController::class, 'store'])->middleware('auth:api');
+    });
+    Route::group(['prefix' => 'payments'], function () {
+        Route::post('/', [PaymentController::class, 'create'])->middleware('auth:api');
+        Route::get('/notification', [PaymentController::class, 'notification'])->withoutMiddleware([
+            'application.token', 'access.time', 'signature', 'auth:api', \App\Http\Middleware\VerifyCsrfToken::class,
+        ]);
     });
 });
