@@ -1,14 +1,15 @@
 @extends('admin.default')
 
 @section('page-header')
-Users <small>{{ trans('app.manage') }}</small>
+Users <small> <i class="c-white-500 ti-harddrive"></i></small>
 @endsection
 
 @section('content')
 
 <div class="mB-20">
     <a href="{{ route(ADMIN . '.users.create') }}" class="btn btn-info">
-        {{ trans('app.add_button') }}
+        Create&nbsp;
+        <i class="c-white-500 ti-plus"></i>
     </a>
 </div>
 

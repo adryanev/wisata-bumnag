@@ -1,14 +1,16 @@
 @extends('admin.default')
 
 @section('page-header')
-Souvenirs <small>{{ trans('app.manage') }}</small>
+Souvenirs <small><i class="c-white-500 ti-harddrive"></i></small>
+
 @endsection
 
 @section('content')
 
 <div class="mB-20">
     <a href="{{ route(ADMIN . '.souvenirs.create') }}" class="btn btn-info">
-        {{ trans('app.add_button') }}
+        Create&nbsp;
+        <i class="c-white-500 ti-plus"></i>
     </a>
 </div>
 
