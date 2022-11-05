@@ -30,7 +30,7 @@ class Payment extends Model
         'danamon_online', 'akulaku', 'kioson', 'echannel',
     ];
 
-    protected $fillable = [];
+    protected $fillable = ['order_id', 'payment_create_date', 'payment_status', 'total', 'number'];
 
     /*
     |------------------------------------------------------------------------------------

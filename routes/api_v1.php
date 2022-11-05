@@ -41,7 +41,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     });
     Route::group(['prefix' => 'payments'], function () {
         Route::post('/', [PaymentController::class, 'create'])->middleware('auth:api');
-        Route::get('/notification', [PaymentController::class, 'notification'])->withoutMiddleware([
+        Route::post('/notification', [PaymentController::class, 'notification'])->withoutMiddleware([
             'application.token', 'access.time', 'signature', 'auth:api', \App\Http\Middleware\VerifyCsrfToken::class,
         ]);
     });

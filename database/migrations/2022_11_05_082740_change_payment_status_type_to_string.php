@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('device_token')->nullable();
+        Schema::table('payments', function (Blueprint $table) {
+            $table->string('payment_status')->change();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('device_token');
+        Schema::table('payments', function (Blueprint $table) {
+            $table->integer('payment_status')->change();
         });
     }
 };

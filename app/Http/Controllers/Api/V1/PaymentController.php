@@ -28,7 +28,9 @@ class PaymentController extends Controller
         try {
             DB::beginTransaction();
 
-            $payment = new Payment([
+            $payment = Payment::create([
+                'order_id' => $order->id,
+                'number' => "PAY/{$carbon->format('ymdhisu')}",
                 'payment_create_date' => $carbon,
                 'payment_status' => Payment::STATUS_PENDING,
                 'total' => $order->total_price,
@@ -39,14 +41,15 @@ class PaymentController extends Controller
             $snapPayload = $this->setupSnapPayload($order, $items, $user);
 
             $snap = Midtrans::createTransaction($snapPayload);
-            $payment->payment_token = $snap->token;
-            $payment->payment_url = $snap->url;
+            $payment->payment_token = "{$snap->token}";
+            $payment->payment_url = "{$snap->redirect_url}";
             $payment->save();
 
             DB::commit();
-            return response()->json(['url' => $snap->url, 'token' => $snap->token]);
+            return response()->json(['url' => $snap->redirect_url, 'token' => $snap->token]);
         } catch (Exception $e) {
             DB::rollBack();
+            throw $e;
         }
         return response()->json(['errors' => ['message' => 'Cannot create payment data']]);
     }
@@ -65,14 +68,13 @@ class PaymentController extends Controller
         $orderId = $notification->order_id;
         $amount = $notification->gross_amount;
 
-        $transaction = Order::where('note', $orderId)->first();
+        $transaction = Order::where('number', $orderId)->first();
         $user = $transaction->user;
-
-        $payment = Payment::where('transaction_code', $transaction->code)->first();
+        $payment = Payment::where(['order_id' => $transaction->id])->first();
         $decode = json_encode($notification);
-
         $payment->payment_payload = $decode;
         $payment->payment_update_date = now();
+        $payment->payment_method = $type;
 
         if ($notifTransactionStatus == 'capture') {
             // For credit card transaction, we need to check whether transaction is challenge by FDS or not
@@ -108,28 +110,36 @@ class PaymentController extends Controller
             DB::beginTransaction();
             if ($payment->payment_status === Payment::STATUS_SETTLEMENT || $payment->payment_status === Payment::STATUS_SUCCESS) {
                 $transaction->status = Order::STATUS_PAID;
-                OrderStatusHistory::create([
+
+                $history = new OrderStatusHistory([
+
                     'status' => Order::STATUS_PAID,
                     'description' => 'Pembayaran sudah diterima',
                 ]);
-                $payment->save();
 
+                $transaction->histories()->save($history);
+                $payment->total_paid = $amount;
+                $payment->save();
                 $transaction->save();
+
                 DB::commit();
 
                 if (!empty($user->device_token)) {
                     $user->notify(new PaymentReceived);
                 }
 
+
                 return response()->json(['message' => 'success']);
+            } else {
+                $payment->save();
             }
 
 
-            $payment->save();
             DB::commit();
             return response()->json(['message' => 'success']);
         } catch (Exception $e) {
             DB::rollBack();
+            return response()->json(['message' => 'failed'], 500);
         }
     }
 
@@ -169,8 +179,7 @@ class PaymentController extends Controller
             'country_code' => 'IDN',
         ];
         $customerDetail = [
-            'name' => $user->na,
-            'last_name' => $user->profile->nama_belakang,
+            'name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone_number,
             'billing_address' => $billingAddress,

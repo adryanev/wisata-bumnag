@@ -40,12 +40,12 @@ class OrderController extends Controller
                 'order_date' => $now,
                 'order_update_date' => $now,
             ]);
-            $history = OrderStatusHistory::create([
+            $history = new OrderStatusHistory([
                 'status' => Order::STATUS_CREATED,
                 'description' => 'Order berhasil dibuat',
 
             ]);
-            $order->histories()->create($history);
+            $order->histories()->saveMany([$history]);
             $details = [];
             foreach ($body['order_details'] as $key => $value) {
                 $details[] = new OrderDetail(array_merge($value));
@@ -55,7 +55,6 @@ class OrderController extends Controller
             return new OrderResource($order);
         } catch (Exception $e) {
             DB::rollBack();
-            throw $e;
         }
 
         return response()->json(['errors' => ['message' => 'Cannot create order']], 500);
