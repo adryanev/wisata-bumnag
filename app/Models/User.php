@@ -102,4 +102,14 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
     }
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        return $this->getDeviceTokens();
+    }
 }

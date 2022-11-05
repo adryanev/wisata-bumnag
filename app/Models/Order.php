@@ -42,6 +42,10 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
+    public function histories()
+    {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
     public function user()
     {
         return $this->hasOne(User::class);
