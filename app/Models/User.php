@@ -110,6 +110,6 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function routeNotificationForFcm()
     {
-        return $this->getDeviceTokens();
+        return $this->device_token;
     }
 }

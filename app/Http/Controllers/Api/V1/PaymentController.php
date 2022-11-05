@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\PaymentReceived;
 use App\Services\Midtrans\Facades\Midtrans;
 use App\Services\Midtrans\Notification;
 use Exception;
@@ -15,23 +17,41 @@ use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
+        $body = $request->all();
         $user = auth()->user();
+        $order = Order::where(['number' => $body['order_number']])->first();
 
         $carbon = Carbon::now();
 
         try {
             DB::beginTransaction();
 
-            DB::commit();
-        } catch (Exception $e) {
+            $payment = new Payment([
+                'payment_create_date' => $carbon,
+                'payment_status' => Payment::STATUS_PENDING,
+                'total' => $order->total_price,
+            ]);
+            $order->payments()->save($payment);
 
+            $items = $this->setupDetailOrder($order);
+            $snapPayload = $this->setupSnapPayload($order, $items, $user);
+
+            $snap = Midtrans::createTransaction($snapPayload);
+            $payment->payment_token = $snap->token;
+            $payment->payment_url = $snap->url;
+            $payment->save();
+
+            DB::commit();
+            return response()->json(['url' => $snap->url, 'token' => $snap->token]);
+        } catch (Exception $e) {
             DB::rollBack();
         }
+        return response()->json(['errors' => ['message' => 'Cannot create payment data']]);
     }
 
-    public function notification(Request $request)
+    public function notification()
     {
         $midtransNotification = Midtrans::notification();
         $notification = $midtransNotification->toObject();
@@ -46,11 +66,13 @@ class PaymentController extends Controller
         $amount = $notification->gross_amount;
 
         $transaction = Order::where('note', $orderId)->first();
+        $user = $transaction->user;
 
         $payment = Payment::where('transaction_code', $transaction->code)->first();
         $decode = json_encode($notification);
 
-        $payment->payload = $decode;
+        $payment->payment_payload = $decode;
+        $payment->payment_update_date = now();
 
         if ($notifTransactionStatus == 'capture') {
             // For credit card transaction, we need to check whether transaction is challenge by FDS or not
@@ -81,42 +103,34 @@ class PaymentController extends Controller
             $payment->payment_status = Payment::STATUS_CANCEL;
         }
 
-        try {
-            DB::beginTransaction();
-
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
 
         try {
             DB::beginTransaction();
-            $payment->save();
             if ($payment->payment_status === Payment::STATUS_SETTLEMENT || $payment->payment_status === Payment::STATUS_SUCCESS) {
                 $transaction->status = Order::STATUS_PAID;
                 OrderStatusHistory::create([
                     'status' => Order::STATUS_PAID,
-                    'description' => 'Pembayaran sudah diterima'
+                    'description' => 'Pembayaran sudah diterima',
                 ]);
+                $payment->save();
 
                 $transaction->save();
+                DB::commit();
+
+                if (!empty($user->device_token)) {
+                    $user->notify(new PaymentReceived);
+                }
+
+                return response()->json(['message' => 'success']);
             }
+
+
+            $payment->save();
+            DB::commit();
+            return response()->json(['message' => 'success']);
         } catch (Exception $e) {
+            DB::rollBack();
         }
-        // DB::transaction(function () use ($payment, $transaction) {
-        //     $payment->save();
-        //     if ($payment->payment_status === Payment::STATUS_SETTLEMENT || $payment->payment_status === Payment::STATUS_SUCCESS) {
-        //         $transaction->payment_status = Transaction::PAYMENT_STATUS_PAID;
-        //         $transaction->status = Transaction::STATUS_CONFIRMED;
-        //         TransactionHistory::create([
-        //             'transaction_id' => $transaction->id,
-        //             'status' => Transaction::STATUS_CONFIRMED
-        //         ]);
-        //     }
-        //     $transaction->save();
-        //     // PaymentConfirmed::dispatch($payment);
-        // });
     }
 
     private function verifyNotification(Notification $notification)
@@ -127,5 +141,54 @@ class PaymentController extends Controller
         $serverKey = config('midtrans.server_key');
         $hash = hash("sha512", $orderId . $statusCode . $grossAmount . $serverKey);
         return $notification->signature_key == $hash;
+    }
+
+    private function setupDetailOrder(Order $order)
+    {
+        $items = [];
+        $details = $order->orderDetails;
+        foreach ($details as $key => $item) {
+            $items[] = [
+                'id' => $item->orderable_id,
+                'price' => $item->orderable_price,
+                'quantity' => $item->quantity,
+                'name' => $item->orderable_name,
+            ];
+        }
+        return $items;
+    }
+
+    private function setupSnapPayload(Order $order, array $items, User $user)
+    {
+        $transactionDetail = [
+            'order_id' => $order->number,
+            'gross_amount' => $order->total_price,
+        ];
+        $billingAddress = [
+            'name' => $user->name,
+            'country_code' => 'IDN',
+        ];
+        $customerDetail = [
+            'name' => $user->na,
+            'last_name' => $user->profile->nama_belakang,
+            'email' => $user->email,
+            'phone' => $user->phone_number,
+            'billing_address' => $billingAddress,
+            'shipping_address' => $billingAddress,
+        ];
+
+        $snapPayload = [
+            'enable_payments' => Payment::PAYMENT_CHANNELS,
+            'transaction_details' => $transactionDetail,
+            'customer_details' => $customerDetail,
+            'item_details' => $items,
+            'expiry' => [
+                'start_time' => date('Y-m-d H:i:s T'),
+                'unit' => 'DAY',
+                'duration' => 1,
+            ],
+        ];
+
+        return $snapPayload;
     }
 }

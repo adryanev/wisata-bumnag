@@ -37,7 +37,7 @@ class Order extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function orderDetail()
+    public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
     }
@@ -49,6 +49,11 @@ class Order extends Model
     public function user()
     {
         return $this->hasOne(User::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
     /*
     |------------------------------------------------------------------------------------

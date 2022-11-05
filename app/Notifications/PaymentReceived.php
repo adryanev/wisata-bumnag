@@ -8,11 +8,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmChannel;
 use NotificationChannels\Fcm\FcmMessage;
-use NotificationChannels\Fcm\Resources\AndroidConfig;
-use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
-use NotificationChannels\Fcm\Resources\AndroidNotification;
-use NotificationChannels\Fcm\Resources\ApnsConfig;
-use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
 
 class PaymentReceived extends Notification
 {
@@ -36,7 +31,7 @@ class PaymentReceived extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', FcmChannel::class,];
+        return ['mail', FcmChannel::class];
     }
 
     /**
@@ -62,15 +57,6 @@ class PaymentReceived extends Notification
                 \NotificationChannels\Fcm\Resources\Notification::create()
                     ->setTitle('Payment Received')
                     ->setBody('Your payment successfully received')
-            )
-
-            ->setAndroid(
-                AndroidConfig::create()
-                    ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
-                    ->setNotification(AndroidNotification::create()->setColor('#0A0A0A'))
-            )->setApns(
-                ApnsConfig::create()
-                    ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios'))
             );
     }
 

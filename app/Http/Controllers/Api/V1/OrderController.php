@@ -25,6 +25,7 @@ class OrderController extends Controller
     {
 
         $body = $request->all();
+
         try {
             DB::beginTransaction();
             $now = now();
@@ -49,13 +50,14 @@ class OrderController extends Controller
             foreach ($body['order_details'] as $key => $value) {
                 $details[] = new OrderDetail(array_merge($value));
             }
-            $order->orderDetail()->saveMany($details);
+            $order->orderDetails()->saveMany($details);
             DB::commit();
             return new OrderResource($order);
         } catch (Exception $e) {
             DB::rollBack();
+            throw $e;
         }
 
-        return response()->json('Cannot create order', 500);
+        return response()->json(['errors' => ['message' => 'Cannot create order']], 500);
     }
 }

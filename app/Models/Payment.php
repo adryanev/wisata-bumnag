@@ -39,9 +39,7 @@ class Payment extends Model
     */
     public static function rules($update = false, $id = null)
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 
     /*
@@ -49,6 +47,11 @@ class Payment extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 
     /*
     |------------------------------------------------------------------------------------

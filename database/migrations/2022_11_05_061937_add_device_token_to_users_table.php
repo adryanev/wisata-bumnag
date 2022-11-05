@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_fcm_tokens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('token');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('device_token');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_fcm_tokens');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('device_token');
+        });
     }
 };
