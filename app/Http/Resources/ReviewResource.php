@@ -23,6 +23,7 @@ class ReviewResource extends JsonResource
             'reviewable_type' => $this->reviewable_type,
             'media' => $this->photos,
             'user' => $this->user,
+            'rating' => $this->rating,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
