@@ -17,8 +17,9 @@ class OrderController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $orders = $user->orders;
-        return OrderCollection::collection($orders);
+        $orders = $user->orders()->paginate(10);
+
+        return new OrderCollection($orders);
     }
 
     public function store(Request $request)

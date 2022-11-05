@@ -20,7 +20,6 @@ class OrderResource extends JsonResource
             'note' => $this->note,
             'status' => $this->status,
             'order_date' => $this->order_date,
-
             "total_price" => $this->total_price,
             "order_details" => OrderDetailResource::collection($order_detail->get()),
         ];

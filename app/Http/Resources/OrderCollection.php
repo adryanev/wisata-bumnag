@@ -14,8 +14,9 @@ class OrderCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+
         return [
-            'data' => new OrderResource($this->item),
+            'data' => OrderResource::collection($this->collection),
         ];
     }
 }
