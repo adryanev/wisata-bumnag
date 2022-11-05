@@ -117,6 +117,13 @@ class PaymentController extends Controller
                     'description' => 'Pembayaran sudah diterima',
                 ]);
 
+                foreach ($transaction->orderDetails as $orderDetail) {
+                    $orderable = $orderDetail->orderable;
+                    if ($orderable->quantity) {
+                        $orderable->quantity -= $orderDetail->quantity;
+                        $orderable->save();
+                    }
+                }
                 $transaction->histories()->save($history);
                 $payment->total_paid = $amount;
                 $payment->save();

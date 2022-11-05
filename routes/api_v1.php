@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\DestinationController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
+use App\Http\Controllers\Api\V1\SouvenirController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['application.token', 'access.time', 'signature'])->group(function () {
@@ -39,10 +40,17 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::get('/', [OrderController::class, 'index'])->middleware('auth:api');
         Route::post('/', [OrderController::class, 'store'])->middleware('auth:api');
     });
+    //=============== PAYMENT =============
     Route::group(['prefix' => 'payments'], function () {
         Route::post('/', [PaymentController::class, 'create'])->middleware('auth:api');
         Route::post('/notification', [PaymentController::class, 'notification'])->withoutMiddleware([
             'application.token', 'access.time', 'signature', 'auth:api', \App\Http\Middleware\VerifyCsrfToken::class,
         ]);
+    });
+
+    //=========== SOUVENIR ================
+    Route::group(['prefix' => 'souvenirs'], function () {
+        Route::get('/', [SouvenirController::class, 'index']);
+        Route::get('/destination/{destination}', [SouvenirController::class, 'destination']);
     });
 });
