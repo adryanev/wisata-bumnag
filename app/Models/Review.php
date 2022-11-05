@@ -12,9 +12,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Review extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [];
+    protected $appends = [
+        'photos',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -67,5 +70,12 @@ class Review extends Model implements HasMedia
     public function registerMediaCollections(Media $media = null): void
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
+    }
+
+    public function getPhotosAttribute()
+    {
+        return (empty($this->getMedia('Review'))) ? "" : $this->getMedia('Review')->map(function ($media) {
+            return $media->getFullUrl();
+        });
     }
 }
