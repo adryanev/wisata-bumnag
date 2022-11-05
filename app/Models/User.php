@@ -16,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, Notifiable,HasRoles,InteractsWithMedia;
+    use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -62,6 +62,11 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     |------------------------------------------------------------------------------------
     */
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /*
     |------------------------------------------------------------------------------------
     | Scopes
@@ -96,5 +101,15 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     public function registerMediaCollections(Media $media = null): void
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
+    }
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        return $this->device_token;
     }
 }

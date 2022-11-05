@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderStatusHistory extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = ['status', 'description',];
 
     /*
     |------------------------------------------------------------------------------------
@@ -19,9 +19,7 @@ class OrderStatusHistory extends Model
     */
     public static function rules($update = false, $id = null)
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 
     /*

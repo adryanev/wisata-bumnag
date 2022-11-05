@@ -8,7 +8,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    const STATUS_CREATED = 0;
+    const STATUS_PAID = 1;
+    const STATUS_CANCELLED = 2;
+    const STATUS_COMPLETED = 3;
+    const STATUS_REFUNDED = 4;
+
+    protected $fillable = [
+        'total_price',
+        'number',
+        'note',
+        'status',
+        'user_id',
+        'order_date',
+        'order_update_date',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -21,15 +37,48 @@ class Order extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-    public function orderDetail()
+    public function orderDetails()
     {
-        return $this->hasOne(OrderDetail::class);
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
     |------------------------------------------------------------------------------------
     */
+
+    public function scopeCreated($query)
+    {
+        return $query->where('status', self::STATUS_CREATED);
+    }
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', self::STATUS_COMPLETED);
+    }
+    public function scopePaid($query)
+    {
+        return $query->where('status', self::STATUS_PAID);
+    }
+    public function scopeRefunded($query)
+    {
+        return $query->where('status', self::STATUS_REFUNDED);
+    }
+
+
 
     /*
     |------------------------------------------------------------------------------------

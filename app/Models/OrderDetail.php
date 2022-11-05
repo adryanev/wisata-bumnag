@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderDetail extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'orderable_type', 'orderable_id', 'orderable_name', 'orderable_price', 'quantity', 'subtotal',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -19,9 +21,7 @@ class OrderDetail extends Model
     */
     public static function rules($update = false, $id = null)
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 
     /*
