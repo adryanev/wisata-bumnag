@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'themify';
-	src:url('../fonts/themify/themify.eot');
-	src:url('../fonts/themify/themify.eot') format('embedded-opentype'),
-		url('../fonts/themify/themify.woff') format('woff'),
-		url('../fonts/themify/themify.ttf') format('truetype'),
-		url('../fonts/themify/themify.svg?#themify') format('svg');
+	src:url('../static/fonts/icons/themify/themify.eot');
+	src:url('../static/fonts/icons/themify/themify.eot') format('embedded-opentype'),
+		url('../static/fonts/icons/themify/themify.woff') format('woff'),
+		url('../static/fonts/icons/themify/themify.ttf') format('truetype'),
+		url('../static/fonts/icons/themify/themify.svg?#themify') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

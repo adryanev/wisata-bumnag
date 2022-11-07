@@ -39,8 +39,8 @@
         </div>
     </div>
 
-    @vite('resources/js/app.js')
-    {{-- <script src="/js/app.js"></script> --}}
+
+    <script src="{{ mix('/js/app.js') }}"></script>
     <!-- Global js content -->
 
     <!-- End of global js content-->
