@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReviewResource extends JsonResource
+class SouvenirResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,19 +14,18 @@ class ReviewResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'reviewable_id' => $this->reviewable_id,
-            'reviewable_type' => $this->reviewable_type,
+            'name' => $this->name,
+            'price' => $this->price,
+            'is_free' => $this->is_free,
+            'term_and_conditions' => null,
+            'quantity' => 851,
+            'description' => 'Iusto dolorem sequi a fuga sunt.',
+            'destination_id' => 48,
             'media' => $this->photos,
-            'user' => $this->user,
-            'rating' => $this->rating,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
         ];
     }
 }

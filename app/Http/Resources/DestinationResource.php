@@ -25,6 +25,7 @@ class DestinationResource extends JsonResource
             'longitude' => $this->longitude,
             'opening_hours' => $this->opening_hours,
             'closing_hours' => $this->closing_hours,
+            'working_day' => $this->working_day,
             'instagram' => $this->instagram,
             'website' => $this->website,
             'capacity' => $this->capasity,

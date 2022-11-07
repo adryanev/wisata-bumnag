@@ -13,9 +13,13 @@ class Souvenir extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
-    protected $fillable = ['name','is_free','price','term_and_conditions','quantity','description','destination_id'];
+    protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity', 'description', 'destination_id'];
     protected $casts = [
         'is_free' => 'boolean',
+    ];
+    protected $appends = [
+        'photos',
+
     ];
 
     /*
@@ -45,7 +49,7 @@ class Souvenir extends Model implements HasMedia
     }
     public function destination()
     {
-        return $this->belongsTo(Destination::class);
+        return $this->belongsTo(Destination::class, 'destination_id');
     }
     /*
     |------------------------------------------------------------------------------------
@@ -53,6 +57,10 @@ class Souvenir extends Model implements HasMedia
     |------------------------------------------------------------------------------------
     */
 
+    public function scopeAvailable($query)
+    {
+        return $query->where('quantity', '>', 0);
+    }
     /*
     |------------------------------------------------------------------------------------
     | Attributes
@@ -61,5 +69,11 @@ class Souvenir extends Model implements HasMedia
     public function registerMediaCollections(Media $media = null): void
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
+    }
+    public function getPhotosAttribute()
+    {
+        return (empty($this->getMedia('Souvenir'))) ? "" : $this->getMedia('Souvenir')->map(function ($media) {
+            return $media->getFullUrl();
+        });
     }
 }
