@@ -15,7 +15,7 @@ class Destination extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'description', 'address', 'phone_number', 'email', 'latitude',
-        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity','working_day',
+        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity', 'working_day',
     ];
 
     protected $appends = [
@@ -77,6 +77,11 @@ class Destination extends Model implements HasMedia
     public function recommendation()
     {
         return $this->hasOne(Recommendation::class);
+    }
+
+    public function souvenirs()
+    {
+        return $this->hasMany(Souvenir::class);
     }
     /*
     |------------------------------------------------------------------------------------

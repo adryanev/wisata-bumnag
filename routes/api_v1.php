@@ -5,20 +5,23 @@ use App\Http\Controllers\Api\V1\ApplicationController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
+use App\Http\Controllers\Api\V1\SouvenirController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['application.token', 'access.time', 'signature'])->group(function () {
     Route::get('banners', [AdBannerController::class, 'index']);
-    Route::get('/', function () {
-        return response('data');
-    });
     Route::get('applications', [ApplicationController::class, 'index']);
+    Route::get('recommendations', [RecommendationController::class, 'index']);
+    //================ Destination ==========
     Route::group(['prefix' => 'destinations'], function () {
         Route::get('/', [DestinationController::class, 'index']);
         Route::get('/{id}', [DestinationController::class, 'detail']);
     });
-    Route::get('recommendations', [RecommendationController::class, 'index']);
 
+    //=============== Catagories ===============
     Route::group(['prefix' => 'categories'], function () {
 
         Route::get('main', [CategoryController::class, 'main']);
@@ -28,13 +31,26 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('register', [AuthController::class, 'register']);
-        Route::post('logout', [AuthController::class, 'logout']);
-        Route::post('refresh', [AuthController::class, 'refresh']);
+        Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+        Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
     });
-    // Route::controller(AuthController::class)->group(function () {
-    //     Route::post('login', 'login');
-    //     Route::post('register', 'register');
-    //     Route::post('logout', 'logout');
-    //     Route::post('refresh', 'refresh');
-    // });
+
+    //============= ORDER ================
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->middleware('auth:api');
+        Route::post('/', [OrderController::class, 'store'])->middleware('auth:api');
+    });
+    //=============== PAYMENT =============
+    Route::group(['prefix' => 'payments'], function () {
+        Route::post('/', [PaymentController::class, 'create'])->middleware('auth:api');
+        Route::post('/notification', [PaymentController::class, 'notification'])->withoutMiddleware([
+            'application.token', 'access.time', 'signature', 'auth:api', \App\Http\Middleware\VerifyCsrfToken::class,
+        ]);
+    });
+
+    //=========== SOUVENIR ================
+    Route::group(['prefix' => 'souvenirs'], function () {
+        Route::get('/', [SouvenirController::class, 'index']);
+        Route::get('/destination/{destination}', [SouvenirController::class, 'destination']);
+    });
 });
