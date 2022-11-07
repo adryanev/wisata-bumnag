@@ -24,6 +24,7 @@ class SouvenirResource extends JsonResource
             'description' => 'Iusto dolorem sequi a fuga sunt.',
             'destination_id' => 48,
             'media' => $this->photos,
+            'reviews' => new ReviewAggregateCollection($this->reviews),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
