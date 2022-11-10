@@ -30,6 +30,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('adbanners', 'AdBannerController');
     Route::resource('souvenirs', 'SouvenirController');
     Route::resource('tickets', 'TicketController');
+    Route::resource('packages', 'PackageController');
 });
 
 Route::get('/', function () {
