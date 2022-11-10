@@ -23,6 +23,7 @@ class Order extends Model
         'status',
         'user_id',
         'order_date',
+        'payment_type'
     ];
 
     /*

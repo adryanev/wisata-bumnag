@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
@@ -21,6 +22,7 @@ class PaymentController extends Controller
     {
         $body = $request->all();
         $user = auth()->user();
+
         $order = Order::where(['number' => $body['order_number']])->first();
 
         $carbon = Carbon::now();
@@ -35,7 +37,14 @@ class PaymentController extends Controller
                 'payment_status' => Payment::STATUS_PENDING,
                 'total' => $order->total_price,
             ]);
+            $order->payment_type = $body['payment_type'];
+            $order->save();
             $order->payments()->save($payment);
+
+            if ($order->payment_type == 'onsite') {
+                DB::commit();
+                return new OrderResource($order);
+            }
 
             $items = $this->setupDetailOrder($order);
             $snapPayload = $this->setupSnapPayload($order, $items, $user);
