@@ -23,7 +23,12 @@ class Order extends Model
         'status',
         'user_id',
         'order_date',
-        'payment_type'
+        'payment_type',
+    ];
+
+    protected $casts = [
+        'status' => 'int',
+        'total_price' => 'double',
     ];
 
     /*
