@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\OrderStatusHistory;
 
 class OrderController extends Controller
 {
@@ -15,7 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::latest('updated_at')->get();
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -45,9 +47,12 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $orderDetail = $order->orderDetails;
+        $orderHistories = $order->histories;
+        return view('admin.orders.show', compact('order', 'orderDetail', 'orderHistories'));
     }
 
     /**
@@ -79,8 +84,58 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->histories()->delete();
+        $order->delete();
+        return back()->withSuccess('Success Delete Order');
+    }
+    public function paid($id)
+    {
+        $order = Order::find($id);
+        $history = new OrderStatusHistory([
+            'status' => Order::STATUS_PAID,
+            'description' => 'Order telah dibayar',
+        ]);
+        $order->histories()->saveMany([$history]);
+        $order->status = Order::STATUS_PAID;
+        $order->save();
+        return back()->withSuccess('Success Update Order');
+    }
+    public function cancel($id)
+    {
+        $order = Order::find($id);
+        $history = new OrderStatusHistory([
+            'status' => Order::STATUS_CANCELLED,
+            'description' => 'Order telah dibatalkan',
+        ]);
+        $order->histories()->saveMany([$history]);
+        $order->status = Order::STATUS_CANCELLED;
+        $order->save();
+        return back()->withSuccess('Success Update Order');
+    }
+    public function compelete($id)
+    {
+        $order = Order::find($id);
+        $history = new OrderStatusHistory([
+            'status' => Order::STATUS_COMPLETED,
+            'description' => 'Order telah diselesaikan',
+        ]);
+        $order->histories()->saveMany([$history]);
+        $order->status = Order::STATUS_COMPLETED;
+        return back()->withSuccess('Success Update Order');
+    }
+    public function refund($id)
+    {
+        $order = Order::find($id);
+        $history = new OrderStatusHistory([
+            'status' => Order::STATUS_REFUNDED,
+            'description' => 'Order telah diselesaikan',
+        ]);
+        $order->histories()->saveMany([$history]);
+        $order->status = Order::STATUS_REFUNDED;
+        $order->save();
+        return back()->withSuccess('Success Update Order');
     }
 }

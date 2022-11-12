@@ -1,14 +1,14 @@
 @extends('admin.default')
 
 @section('page-header')
-Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
+Tickets <small><i class="c-white-500 ti-harddrive"></i></small>
 
 @endsection
 
 @section('content')
 
 <div class="mB-20">
-    <a href="{{ route(ADMIN . '.destinations.create') }}" class="btn btn-info">
+    <a href="{{ route(ADMIN . '.tickets.create') }}" class="btn btn-info">
         Create&nbsp;
         <i class="c-white-500 ti-plus"></i>
     </a>
@@ -21,9 +21,10 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Phone_Number</th>
+                    <th>Price</th>
+                    <th>Is Free</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,9 +32,10 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <tfoot>
                 <tr>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
+                    <th>Price</th>
+                    <th>Is Free</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </tfoot>
@@ -41,18 +43,30 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <tbody>
                 @foreach ($items as $item)
                 <tr>
-                    <td><a href="{{ route(ADMIN . '.destinations.show', $item->id) }}">{{ $item->name }}</a></td>
-                    <td>{{ $item->address }}</td>
-                    <td>{{ $item->email }}</td>
-                    <td>{{ $item->phone_number }}</td>
+                    <td><a href="{{ route(ADMIN . '.tickets.show', $item->id) }}">{{ $item->name }}</a></td>
+                    <td>{{ $item->price }}</td>
+                    <td>@switch($item->is_free)
+                        @case(0)
+                        False
+                        @break
+                        @case(1)
+                        True
+                        @break
+
+                        @default
+                        {{ $item->is_free }}
+                        @endswitch
+                    </td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{ $item->description}}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a href="{{ route(ADMIN . '.destinations.edit', $item->id) }}" title="Edit" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                <a href="{{ route(ADMIN . '.tickets.edit', $item->id) }}" title="Edit" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                             <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
-                                'url' => route(ADMIN . '.destinations.destroy', $item->id),
+                                'url' => route(ADMIN . '.tickets.destroy', $item->id),
                                 'method' => 'DELETE',
                                 ])
                                 !!}

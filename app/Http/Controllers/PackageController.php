@@ -16,7 +16,9 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        $items = Package::latest('updated_at')->get();
+
+        return view('admin.packages.index', compact('items'));
     }
 
     /**

@@ -1,7 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-User <small>{{ trans('app.add_new_item') }}</small>
+User <small><i class="c-white-500 ti-cloud-up"></small>
+
 @stop
 
 @section('content')

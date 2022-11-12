@@ -16,7 +16,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $items = Ticket::latest('updated_at')->get();
+
+        return view('admin.tickets.index', compact('items'));
     }
 
     /**
@@ -46,9 +48,12 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show($id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticketable_type = explode('\\', $ticket->ticketable_type);
+        $ticketable_type = end($ticketable_type);
+        return view('admin.tickets.show', compact('ticket', 'ticketable_type'));
     }
 
     /**
@@ -80,8 +85,10 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
+    public function destroy($id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticket->delete();
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }

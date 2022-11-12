@@ -1,14 +1,14 @@
 @extends('admin.default')
 
 @section('page-header')
-Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
+Packages <small><i class="c-white-500 ti-harddrive"></i></small>
 
 @endsection
 
 @section('content')
 
 <div class="mB-20">
-    <a href="{{ route(ADMIN . '.destinations.create') }}" class="btn btn-info">
+    <a href="{{ route(ADMIN . '.packages.create') }}" class="btn btn-info">
         Create&nbsp;
         <i class="c-white-500 ti-plus"></i>
     </a>
@@ -21,9 +21,10 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Phone_Number</th>
+                    <th>Price Include</th>
+                    <th>Price Exclude</th>
+                    <th>Activities</th>
+                    <th>Destinations</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,9 +32,10 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <tfoot>
                 <tr>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
+                    <th>Price Include</th>
+                    <th>Price Exclude</th>
+                    <th>Activities</th>
+                    <th>Destinations</th>
                     <th>Actions</th>
                 </tr>
             </tfoot>
@@ -41,18 +43,21 @@ Destinations <small><i class="c-white-500 ti-harddrive"></i></small>
             <tbody>
                 @foreach ($items as $item)
                 <tr>
-                    <td><a href="{{ route(ADMIN . '.destinations.show', $item->id) }}">{{ $item->name }}</a></td>
-                    <td>{{ $item->address }}</td>
-                    <td>{{ $item->email }}</td>
-                    <td>{{ $item->phone_number }}</td>
+                    <td><a href="{{ route(ADMIN . '.packages.show', $item->id) }}">{{ $item->name }}</a></td>
+                    <td>{{ $item->price_include }}</td>
+                    <td>
+                        {{ $item->price_exclude }}
+                    </td>
+                    <td>{{ $item->activities }}</td>
+                    <td>{{ $item->destination}}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a href="{{ route(ADMIN . '.destinations.edit', $item->id) }}" title="Edit" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                <a href="{{ route(ADMIN . '.packages.edit', $item->id) }}" title="Edit" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                             <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
-                                'url' => route(ADMIN . '.destinations.destroy', $item->id),
+                                'url' => route(ADMIN . '.packages.destroy', $item->id),
                                 'method' => 'DELETE',
                                 ])
                                 !!}
