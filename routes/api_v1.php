@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\PackageController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
 use App\Http\Controllers\Api\V1\SouvenirController;
@@ -52,5 +53,10 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     Route::group(['prefix' => 'souvenirs'], function () {
         Route::get('/', [SouvenirController::class, 'index']);
         Route::get('/destination/{destination}', [SouvenirController::class, 'destination']);
+    });
+
+    Route::group(['prefix' => 'packages'], function () {
+        Route::get('/', [PackageController::class, 'index']);
+        Route::get('/{id}', [PackageController::class, 'detail']);
     });
 });

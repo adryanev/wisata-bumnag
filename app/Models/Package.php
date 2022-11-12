@@ -14,6 +14,11 @@ class Package extends Model implements HasMedia
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [];
+    protected $appends = [
+        'photos',
+        // 'review_aggregate',
+        // 'tickets',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -22,9 +27,7 @@ class Package extends Model implements HasMedia
     */
     public static function rules($update = false, $id = null)
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 
     /*
@@ -48,11 +51,31 @@ class Package extends Model implements HasMedia
     {
         return $this->morphMany(Ticket::class, 'ticketable');
     }
+
+
     /*
     |------------------------------------------------------------------------------------
     | Scopes
     |------------------------------------------------------------------------------------
     */
+
+
+    public function scopeCategory($query, $id)
+    {
+
+        return $query->whereHas('categories', function ($query) use ($id) {
+            $category = Category::where(['id' => $id])->first()->getChildren()->pluck('id')->toArray();
+            $query->whereIn('categories.id', [$id, ...$category]);
+        });
+    }
+
+    public function scopeLowestPriceTicket($query)
+    {
+        return $query->whereHas('tickets', function ($query) {
+            $query->orderBy('tickets.price', 'ASC')->first();
+        });
+    }
+
 
     /*
     |------------------------------------------------------------------------------------
@@ -62,5 +85,16 @@ class Package extends Model implements HasMedia
     public function registerMediaCollections(Media $media = null): void
     {
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
+    }
+
+    public function getPhotosAttribute()
+    {
+        return (empty($this->getMedia('Package'))) ? "" : $this->getMedia('Package')->map(function ($media) {
+            return $media->getFullUrl();
+        });
+    }
+    public function getReviewAggregateAttribute()
+    {
+        return ['count' => $this->reviews->count(), 'rating' => $this->reviews->avg('rating')];
     }
 }
