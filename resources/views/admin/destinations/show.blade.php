@@ -1,7 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-Destination {{ $destination->name }} <small>{{ trans('app.show_item') }}</small>
+Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></small>
+
 <img src="{{ $latestMedia }}" alt="User {{ $destination->name }} image" height="100" width="100">
 
 @endsection

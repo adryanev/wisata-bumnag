@@ -62,7 +62,7 @@ Tickets <small><i class="c-white-500 ti-harddrive"></i></small>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a href="{{ route(ADMIN . '.tickets.edit', $item->id) }}" title="{{ trans('app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                <a href="{{ route(ADMIN . '.tickets.edit', $item->id) }}" title="Edit" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                             <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
@@ -71,7 +71,7 @@ Tickets <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>

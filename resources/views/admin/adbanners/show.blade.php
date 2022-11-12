@@ -1,7 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-AdBanner {{ $adBanner->name }} <small>{{ trans('app.show_item') }}</small>
+AdBanner {{ $adBanner->name }} <small><i class="c-white-500 ti-eye"></i></small>
+
 <img src="{{ $latestMedia }}" alt="User {{ $adBanner->name }} image" height="100" width="100">
 
 

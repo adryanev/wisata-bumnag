@@ -80,7 +80,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>
@@ -169,7 +169,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>
@@ -255,7 +255,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>
@@ -337,7 +337,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>
@@ -420,7 +420,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 ])
                                 !!}
 
-                                <button class="btn btn-danger btn-sm" title="{{ trans('app.delete_title') }}"><i class="ti-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
                             </li>

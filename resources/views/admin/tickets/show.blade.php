@@ -1,7 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-Ticket {{ $ticket->name }} <small>{{ trans('app.show_item') }}</small>
+Ticket {{ $ticket->name }} <small><i class="c-white-500 ti-eye"></small>
+
 {{-- <img src="{{ $latestMedia }}" alt="User {{ $ticket->name }} image" height="100" width="100"> --}}
 
 @endsection

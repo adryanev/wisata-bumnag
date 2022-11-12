@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Orders {{ $order->id }} <small><i class="c-white-500 ti-brush"></i></small>
+Orders {{ $order->id }} <small><i class="c-white-500 ti-eye"></i></small>
 
 @endsection
 
