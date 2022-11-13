@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -55,7 +56,7 @@ class UserController extends Controller
         ]);
 
         $data = $request->except('avatar');
-        $data['password'] = bcrypt(request('password'));
+        $data['password'] = Hash::make(request('password'));
 
         $user = User::create($data);
         if ($request['avatar'] != null) {
@@ -133,7 +134,7 @@ class UserController extends Controller
         $data = $request->except('password', 'avatar');
 
         if (request('password')) {
-            $data['password'] = bcrypt(request('password'));
+            $data['password'] = Hash::make(request('password'));
         }
 
         $user->update($data);

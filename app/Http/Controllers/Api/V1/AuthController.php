@@ -51,7 +51,7 @@ class AuthController extends Controller
             'password' => Hash::make($decoded),
         ]);
 
-        $role = Role::findByName('super-admin');
+        $role = Role::findByName('user');
         $user->assignRole($role);
 
         $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
