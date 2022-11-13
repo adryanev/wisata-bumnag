@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Souvenir {{ $souvenir->name }} <small><i class="c-white-500 ti-eye"></small>
+Souvenir {{ $souvenir->name }} <small><i class="c-white-500 ti-eye"></i></small>
 
 <img src="{{ $latestMedia }}" alt="User {{ $souvenir->name }} image" height="100" width="100">
 

@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Packages <small>{{ trans('app.update_item') }}</small>
+Packages <small><i class="c-white-500 ti-brush"></i></small>
 <img src="{{ $latestMedia }}" alt="Package {{ $package->name }} image" height="100" width="100">
 @stop
 
