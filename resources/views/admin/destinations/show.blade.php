@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></small>
+Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></i></small>
 
 <img src="{{ $latestMedia }}" alt="User {{ $destination->name }} image" height="100" width="100">
 
