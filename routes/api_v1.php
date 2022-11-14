@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\ApplicationController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
+use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PackageController;
 use App\Http\Controllers\Api\V1\PaymentController;
@@ -55,8 +56,15 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::get('/destination/{destination}', [SouvenirController::class, 'destination']);
     });
 
+    //=========== Packages ================
     Route::group(['prefix' => 'packages'], function () {
         Route::get('/', [PackageController::class, 'index']);
         Route::get('/{id}', [PackageController::class, 'detail']);
+    });
+
+    //=========== Events ================
+    Route::group(['prefix' => 'events'], function () {
+        Route::get('/', [EventController::class, 'index']);
+        Route::get('/{id}', [EventController::class, 'detail']);
     });
 });

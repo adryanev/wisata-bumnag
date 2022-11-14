@@ -16,6 +16,7 @@ class PackageDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'price_include' => $this->price_include,
             'price_exclude' => $this->price_exclude,
