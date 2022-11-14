@@ -14,7 +14,14 @@ class Review extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'reviewable_type',
+        'reviewable_id',
+        'rating',
+        'title',
+        'description',
+        'user_id',
+    ];
     protected $appends = [
         'photos',
     ];

@@ -6,6 +6,12 @@ use App\Models\Review;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Models\Destination;
+use App\Models\Package;
+use App\Models\Souvenir;
+use App\Models\Ticket;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
@@ -16,7 +22,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $items = Review::latest('updated_at')->get();
+        return view('admin.reviews.index', compact('items'));
     }
 
     /**
@@ -26,7 +33,46 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $reviewable_type = [
+            Souvenir::class => 'Souvenir',
+            Ticket::class => 'Ticket',
+            Package::class => 'Package',
+            Destination::class => 'Destination',
+        ];
+        $destination = Destination::all('id', 'name');
+        $destinations = $destination->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $souvenir = Souvenir::all('id', 'name');
+        $souvenirs = $souvenir->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $package = Package::all('id', 'name');
+        $packages = $package->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $ticket = Ticket::all('id', 'name');
+        $tickets = $ticket->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $user = User::all('id', 'name');
+        $users = $user->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $latestMedia = null;
+        $review = null;
+        $reviewUser = null;
+        return view('admin.reviews.create', compact(
+            'review',
+            'reviewable_type',
+            'destinations',
+            'souvenirs',
+            'packages',
+            'tickets',
+            'users',
+            'reviewUser',
+            'latestMedia'
+        ));
     }
 
     /**
@@ -37,7 +83,12 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        $data = $request->except('review_photo');
+        $review = Review::create($data);
+        if ($request['review_photo'] != null) {
+            $review->addMedia($request['review_photo'])->toMediaCollection('Review');
+        }
+        return back()->withSuccess('Success Create Review');
     }
 
     /**
@@ -46,9 +97,16 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show($id)
     {
-        //
+        $review = Review::find($id);
+        $media = $review->getMedia('Review');
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.reviews.show', compact('review', 'latestMedia'));
     }
 
     /**
@@ -57,9 +115,47 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit($id)
     {
-        //
+        $reviewable_type = [
+            Souvenir::class => 'Souvenir',
+            Ticket::class => 'Ticket',
+            Package::class => 'Package',
+            Destination::class => 'Destination',
+        ];
+        $destination = Destination::all('id', 'name');
+        $destinations = $destination->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $souvenir = Souvenir::all('id', 'name');
+        $souvenirs = $souvenir->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $package = Package::all('id', 'name');
+        $packages = $package->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $ticket = Ticket::all('id', 'name');
+        $tickets = $ticket->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $user = User::all('id', 'name');
+        $users = $user->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $review = DB::table('reviews')->where('id', $id)->first();
+        $reviewUser = User::find($review->user_id);
+        // dd($review,$reviewUser);
+        return view('admin.reviews.edit', compact(
+            'review',
+            'reviewable_type',
+            'destinations',
+            'souvenirs',
+            'packages',
+            'tickets',
+            'users',
+            'reviewUser',
+        ));
     }
 
     /**
@@ -69,9 +165,15 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(UpdateReviewRequest $request, $id)
     {
-        //
+        $data = $request->except('review_photo');
+        $review = Review::find($id);
+        $review->update($data);
+        if ($request['review_photo'] != null) {
+            $review->addMedia($request['review_photo'])->toMediaCollection('Review');
+        }
+        return redirect(route('admin.reviews.index'))->withSuccess('Success Update Review');
     }
 
     /**
@@ -80,8 +182,11 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy($id)
     {
-        //
+        $review = Review::find($id);
+        $reviewName = $review->title;
+        $review->delete();
+        return back()->withSuccess('Success Delete Review '.$reviewName);
     }
 }
