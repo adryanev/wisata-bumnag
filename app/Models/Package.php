@@ -13,7 +13,13 @@ class Package extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'price_include',
+        'price_exclude',
+        'activities',
+        'destination',
+    ];
     protected $appends = [
         'photos',
         // 'review_aggregate',

@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-User <small><i class="c-white-500 ti-cloud-up"></small>
+User <small><i class="c-white-500 ti-cloud-up"></i></small>
 
 @stop
 

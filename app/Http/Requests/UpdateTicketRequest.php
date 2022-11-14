@@ -13,7 +13,7 @@ class UpdateTicketRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class UpdateTicketRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'price' => 'numeric',
+            'quantity' => 'numeric|nullable',
+            'ticketable_id' => 'numeric',
+            'pax_constraint' => 'numeric',
+            'age_constraint' => 'numeric',
         ];
     }
 }

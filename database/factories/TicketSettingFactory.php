@@ -22,7 +22,7 @@ class TicketSettingFactory extends Factory
             'is_per_pax'=>false,
             'pax_constraint'=>0,
             'is_per_day'=>false,
-            'day_constraint'=>0,
+            'day_constraint'=>'',
             'is_per_age'=>false,
             'age_constraint'=>0,
         ];
@@ -34,9 +34,16 @@ class TicketSettingFactory extends Factory
         ]);
     }
     public function perDay(){
+        $days = ['senin','selasa','rabu','kamis','jumat','sabtu','minggu'];
+        $day1 = $days[fake()->numberBetween(0,count($days))-1];
+        $day2 = $days[fake()->numberBetween(0,count($days))-1];
+        while ($day1 == $day2){
+            $day1 = $days[fake()->numberBetween(0,count($days)-1)];
+            $day2 = $days[fake()->numberBetween(0,count($days)-1)];
+        }
         return $this->state(fn (array $attributes) => [
             'is_per_day' =>  true,
-            'day_constraint'=> fake()->numberBetween(1,7),
+            'day_constraint'=> $day1.'-'.$day2,
         ]);
     }
     public function perAge(){

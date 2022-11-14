@@ -1,8 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-Ticket <small>{{ trans('app.update_item') }}</small>
-<img src="{{ $latestMedia }}" alt="User {{ $ticket->name }} image" height="100" width="100">
+Ticket <small><i class="c-white-500 ti-brush"></i></small>
+{{-- <img src="{{ $latestMedia }}" alt="User {{ $ticket->name }} image" height="100" width="100"> --}}
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@ Ticket <small>{{ trans('app.update_item') }}</small>
 ])
 !!}
 
-@include('admin.tickets.form',['ticket'=>$ticket,'categories'=>$categories,'ticketCategory'=>$ticketCategory,'ticketDestination'=>$ticketDestination])
+@include('admin.tickets.form',['ticket_setting'=>$ticket_setting])
 
 
 <button type="submit" class="btn btn-primary "><i class="c-white-500 ti-save"></i>&nbsp;Submit</button>

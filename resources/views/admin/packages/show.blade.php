@@ -1,9 +1,9 @@
 @extends('admin.default')
 
 @section('page-header')
-Souvenir {{ $souvenir->name }} <small><i class="c-white-500 ti-eye"></small>
+Package {{ $package->name }} <small><i class="c-white-500 ti-eye"></i></small>
 
-<img src="{{ $latestMedia }}" alt="User {{ $souvenir->name }} image" height="100" width="100">
+<img src="{{ $latestMedia }}" alt="Package {{ $package->name }} image" height="100" width="100">
 
 @endsection
 
@@ -11,51 +11,32 @@ Souvenir {{ $souvenir->name }} <small><i class="c-white-500 ti-eye"></small>
 <table class="table align-item-center mb-0">
     <tr>
         <td>ID</td>
-        <td>{{ $souvenir->id }}</td>
+        <td>{{ $package->id }}</td>
     </tr>
     <tr>
         <td>Name</td>
-        <td>{{ $souvenir->name}}</td>
+        <td>{{ $package->name}}</td>
     </tr>
     <tr>
-        <td>Price</td>
-        <td>{{ $souvenir->price}}</td>
+        <td>Activities</td>
+        <td>{{ $package->activities}}</td>
     </tr>
     <tr>
-        <td>Is Free</td>
-        <td>@switch($souvenir->is_free)
-            @case(0)
-            False
-            @break
-            @case(1)
-            True
-            @break
-
-            @default
-            {{ $souvenir->is_free }}
-            @endswitch
-        </td>
+        <td>Price Include</td>
+        <td>{{ $package->price_include}}</td>
     </tr>
     <tr>
-        <td>Term and Conditions</td>
-        <td>{{ $souvenir->term_and_conditions}}</td>
+        <td>Price Exclude</td>
+        <td>{{ $package->price_exclude}}</td>
     </tr>
     <tr>
-        <td>Quantity</td>
-        <td>{{ $souvenir->quantity}}</td>
+        <td>Destination</td>
+        <td>{{ $package->destination}}</td>
     </tr>
     <tr>
-        <td>Description</td>
-        <td>{{ $souvenir->description}}</td>
-    </tr>
-    <tr>
-        <td>Souvenir Destination</td>
-        <td>{{ $souvenirDestination}}</td>
-    </tr>
-    <tr>
-        <td>Souvenir Category</td>
+        <td>Package Category</td>
         <td>
-            @foreach ($souvenirCategory as $category)
+            @foreach ($packageCategory as $category)
             {{ $category->name }}
             <br>
             @endforeach
