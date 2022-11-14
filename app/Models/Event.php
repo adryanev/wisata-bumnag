@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Event extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -34,13 +35,7 @@ class Event extends Model implements HasMedia
         // 'tickets',
     ];
 
-    protected $casts = [
-        'latitude' => 'double',
-        'longitude' => 'double',
-        'capacity' => 'int',
-        'start_date' => 'datetime',
-        'end_date' => 'datetime'
-    ];
+
 
     /*
     |------------------------------------------------------------------------------------
