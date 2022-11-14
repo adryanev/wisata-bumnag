@@ -84,3 +84,13 @@ $route = (isset($r['as'])) ? $r['as'] : '';
         <span class="title">Events</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, 'admin.reviews') ? 'actived' : '' }}" href="{{ route(ADMIN . '.reviews.index') }}">
+        <span class="icon-holder">
+            <i class="
+            {{ Str::startsWith($route, 'admin.reviews') ? 'c-blue-500 ti-comments' : 'c-brown-500 ti-comments' }}
+            "></i>
+        </span>
+        <span class="title">Reviews</span>
+    </a>
+</li>

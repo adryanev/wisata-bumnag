@@ -39,6 +39,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
         Route::get('/refund/{id}', 'OrderController@refund')->name('refund');
     });
     Route::resource('events', 'EventController');
+    Route::resource('reviews', 'ReviewController');
 });
 
 Route::get('/', function () {
