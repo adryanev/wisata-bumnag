@@ -33,46 +33,47 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        $reviewable_type = [
-            Souvenir::class => 'Souvenir',
-            Ticket::class => 'Ticket',
-            Package::class => 'Package',
-            Destination::class => 'Destination',
-        ];
-        $destination = Destination::all('id', 'name');
-        $destinations = $destination->mapWithKeys(function ($item) {
-            return [$item->id => $item->name];
-        });
-        $souvenir = Souvenir::all('id', 'name');
-        $souvenirs = $souvenir->mapWithKeys(function ($item) {
-            return [$item->id => $item->name];
-        });
-        $package = Package::all('id', 'name');
-        $packages = $package->mapWithKeys(function ($item) {
-            return [$item->id => $item->name];
-        });
-        $ticket = Ticket::all('id', 'name');
-        $tickets = $ticket->mapWithKeys(function ($item) {
-            return [$item->id => $item->name];
-        });
-        $user = User::all('id', 'name');
-        $users = $user->mapWithKeys(function ($item) {
-            return [$item->id => $item->name];
-        });
-        $latestMedia = null;
-        $review = null;
-        $reviewUser = null;
-        return view('admin.reviews.create', compact(
-            'review',
-            'reviewable_type',
-            'destinations',
-            'souvenirs',
-            'packages',
-            'tickets',
-            'users',
-            'reviewUser',
-            'latestMedia'
-        ));
+        // $reviewable_type = [
+        //     Souvenir::class => 'Souvenir',
+        //     Ticket::class => 'Ticket',
+        //     Package::class => 'Package',
+        //     Destination::class => 'Destination',
+        // ];
+        // $destination = Destination::all('id', 'name');
+        // $destinations = $destination->mapWithKeys(function ($item) {
+        //     return [$item->id => $item->name];
+        // });
+        // $souvenir = Souvenir::all('id', 'name');
+        // $souvenirs = $souvenir->mapWithKeys(function ($item) {
+        //     return [$item->id => $item->name];
+        // });
+        // $package = Package::all('id', 'name');
+        // $packages = $package->mapWithKeys(function ($item) {
+        //     return [$item->id => $item->name];
+        // });
+        // $ticket = Ticket::all('id', 'name');
+        // $tickets = $ticket->mapWithKeys(function ($item) {
+        //     return [$item->id => $item->name];
+        // });
+        // $user = User::all('id', 'name');
+        // $users = $user->mapWithKeys(function ($item) {
+        //     return [$item->id => $item->name];
+        // });
+        // $latestMedia = null;
+        // $review = null;
+        // $reviewUser = null;
+        // return view('admin.reviews.create', compact(
+        //     'review',
+        //     'reviewable_type',
+        //     'destinations',
+        //     'souvenirs',
+        //     'packages',
+        //     'tickets',
+        //     'users',
+        //     'reviewUser',
+        //     'latestMedia'
+        // ));
+        return redirect(route('admin.reviews.index'))->with('warning', 'Cannot Create Review');
     }
 
     /**

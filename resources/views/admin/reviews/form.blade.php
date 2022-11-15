@@ -1,15 +1,15 @@
 <div class="row mB-40">
     <div class="col-sm-8">
         <div class="bgc-white p-20 bd">
-            {!! Form::mySelect('reviewable_type', 'reviewable Type', $reviewable_type, $review ? $review->reviewable_type : null , ['class' => 'form-control select2','onchange'=>'selected()','id'=>'reviewable_type']) !!}
+            {!! Form::mySelect('reviewable_type', 'reviewable Type', $reviewable_type, $review ? $review->reviewable_type : null , ['class' => 'form-control select2','onchange'=>'selected()','id'=>'reviewable_type','disabled']) !!}
 
-            {!! Form::mySelect('reviewable_id', 'reviewable Model', [''=>'select reviewable type first'], $review ? $review->reviewable_id : null , ['class' => 'form-control select2','id'=>'reviewable_id']) !!}
+            {!! Form::mySelect('reviewable_id', 'reviewable Model', [''=>'select reviewable type first'], $review ? $review->reviewable_id : null , ['class' => 'form-control select2','id'=>'reviewable_id','disabled']) !!}
 
             {!! Form::myInput('number','rating','Rating') !!}
             {!! Form::myInput('text','title','Title') !!}
             {!! Form::myTextArea('description','Description') !!}
 
-            {!! Form::mySelect('user_id', 'User', $users, $reviewUser ? $reviewUser->id : null , ['class' => 'form-control select2']) !!}
+            {!! Form::mySelect('user_id', 'User', $users, $reviewUser ? $reviewUser->id : null , ['class' => 'form-control select2','disabled']) !!}
 
             {!! Form::myFile('review_photo','Review Photo') !!}
 
