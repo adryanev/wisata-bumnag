@@ -34,7 +34,10 @@ class Event extends Model implements HasMedia
         // 'review_aggregate',
         // 'tickets',
     ];
-
+    protected $casts = [
+	'latitude' => 'double',
+	'longitude' => 'double',
+    ];
 
 
     /*
