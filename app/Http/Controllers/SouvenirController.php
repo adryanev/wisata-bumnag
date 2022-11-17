@@ -148,7 +148,7 @@ class SouvenirController extends Controller
      */
     public function update(UpdateSouvenirRequest $request, $id)
     {
-        $data = $request->except('photo', 'souvenir_category');
+        $data = $request->except('souvenir_photo', 'souvenir_category');
         $data['is_free'] = boolval($data['is_free']);
         if ($data['is_free']) {
             $data['price'] = 0;

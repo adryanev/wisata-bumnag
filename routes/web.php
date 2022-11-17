@@ -29,6 +29,17 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('destinations', 'DestinationController');
     Route::resource('adbanners', 'AdBannerController');
     Route::resource('souvenirs', 'SouvenirController');
+    Route::resource('tickets', 'TicketController');
+    Route::resource('packages', 'PackageController');
+    Route::resource('orders', 'OrderController');
+    Route::group(['prefix' => 'orders','as' => 'orders'.'.'], function () {
+        Route::get('/paid/{id}', 'OrderController@paid')->name('paid');
+        Route::get('/cancel/{id}', 'OrderController@cancel')->name('cancel');
+        Route::get('/complete/{id}', 'OrderController@complete')->name('complete');
+        Route::get('/refund/{id}', 'OrderController@refund')->name('refund');
+    });
+    Route::resource('events', 'EventController');
+    Route::resource('reviews', 'ReviewController');
 });
 
 Route::get('/', function () {

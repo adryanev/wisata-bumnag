@@ -24,8 +24,8 @@ class EventFactory extends Factory
             'email' => fake()->companyEmail(),
             'longitude' => fake()->longitude(),
             'latitude' => fake()->latitude(),
-            'start_date' => now(),
-            'end_date' => now()->addDay(fake()->randomNumber(3, 60)),
+            'start_date' => fake()->dateTimeBetween($startdate = '-2 weeks', $endDate = '+ 1 year'),
+            'end_date' => fake()->dateTimeBetween($startdate = '-2 weeks', $endDate = '+ 1 year'),
             'term_and_condition' => fake()->text(),
         ];
     }

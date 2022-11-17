@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Souvenir <small>{{ trans('app.update_item') }}</small>
+Souvenir <small><i class="c-white-500 ti-brush"></i></small>
 <img src="{{ $latestMedia }}" alt="User {{ $souvenir->name }} image" height="100" width="100">
 @stop
 

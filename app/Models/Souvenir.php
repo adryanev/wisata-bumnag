@@ -30,9 +30,7 @@ class Souvenir extends Model implements HasMedia
     */
     public static function rules($update = false, $id = null)
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 
     /*
@@ -52,6 +50,12 @@ class Souvenir extends Model implements HasMedia
     {
         return $this->belongsTo(Destination::class, 'destination_id');
     }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
     /*
     |------------------------------------------------------------------------------------
     | Scopes

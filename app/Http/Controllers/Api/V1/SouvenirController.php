@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class SouvenirController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $data = Destination::whereHas('souvenirs')->paginate();
         return new DestinationSouvenirCollection($data);

@@ -35,11 +35,10 @@ class AppServiceProvider extends ServiceProvider
         }
         require_once base_path('resources/macros/form.php');
 
-        Relation::morphMap([
-            'souvenir' => Souvenir::class,
-            'ticket' => Ticket::class,
-            'package' => Package::class,
+        // Relation::morphMap([
+        //     'souvenir' => Souvenir::class,
+        //     'ticket' => Ticket::class,
 
-        ]);
+        // ]);
     }
 }

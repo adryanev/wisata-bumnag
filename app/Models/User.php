@@ -17,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, Notifiable, HasRoles, InteractsWithMedia, PowerJoins;
+    use HasFactory, Notifiable, HasRoles, InteractsWithMedia, SoftDeletes, PowerJoins;
 
     /**
      * The attributes that are mass assignable.

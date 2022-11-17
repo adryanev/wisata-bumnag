@@ -1,7 +1,9 @@
 @extends('admin.default')
 
 @section('page-header')
-Ad Banner <small>{{ trans('app.add_new_item') }}</small>
+Ad Banner <small><i class="c-white-500 ti-cloud-up"></i></small>
+
+
 @stop
 
 @section('content')

@@ -18,7 +18,7 @@
         </ul>
         <ul class="nav-right">
             <li class="notifications dropdown">
-                <span class="counter bgc-red">3</span>
+                <span class="counter bgc-red">0</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-bell"></i>
                 </a>
@@ -29,7 +29,7 @@
                         <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
                     </li>
                     <li>
-                        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+                        {{-- <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
                             <li>
                                 <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
                                     <div class="peer mR-15">
@@ -81,7 +81,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </li>
                     <li class="pX-20 pY-15 ta-c bdT">
                         <span>
@@ -93,13 +93,13 @@
                 </ul>
             </li>
             <li class="notifications dropdown">
-                <span class="counter bgc-blue">3</span>
+                <span class="counter bgc-blue">0</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-email"></i>
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li class="pX-20 pY-15 bdB">
+                    {{-- <li class="pX-20 pY-15 bdB">
                         <i class="ti-email pR-10"></i>
                         <span class="fsz-sm fw-600 c-grey-900">Emails</span>
                     </li>
@@ -172,7 +172,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="pX-20 pY-15 ta-c bdT">
                         <span>
                             <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Email <i class="fs-xs ti-angle-right mL-10"></i>

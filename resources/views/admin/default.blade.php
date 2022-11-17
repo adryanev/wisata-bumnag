@@ -33,14 +33,16 @@
             <!-- ### $App Screen Footer ### -->
             <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
                 <span>Copyright © {{ date('Y') }} Designed by
-                    <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>. All rights
+                    <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>.
+                    Developed by <a href="https://topapp.id/">TopApp.id</a>.
+                    All rights
                     reserved.</span>
             </footer>
         </div>
     </div>
 
-    @vite('resources/js/app.js')
-    {{-- <script src="/js/app.js"></script> --}}
+
+    <script src="{{ mix('/js/app.js') }}"></script>
     <!-- Global js content -->
 
     <!-- End of global js content-->

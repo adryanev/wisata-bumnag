@@ -11,7 +11,17 @@ class Ticket extends Model
 {
     use HasFactory, SoftDeletes, PowerJoins;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'price',
+        'is_free',
+        'term_and_conditions',
+        'is_quantity_limited',
+        'quantity',
+        'description',
+        'ticketable_type',
+        'ticketable_id',
+    ];
     protected $casts = [
         'is_free' => 'boolean',
         'is_quantity_limited' => 'boolean',

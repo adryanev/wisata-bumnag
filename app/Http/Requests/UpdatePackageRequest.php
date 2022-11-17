@@ -13,7 +13,7 @@ class UpdatePackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'price_include' => 'required',
+            'price_exclude' => 'required',
+            'activities' => 'required',
+            'destination' => 'required',
+            'package_category' => 'required',
+            'package_photo' => 'image',
         ];
     }
 }

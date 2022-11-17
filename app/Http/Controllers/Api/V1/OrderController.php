@@ -10,6 +10,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderStatusHistory;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -17,7 +18,7 @@ class OrderController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $orders = $user->orders()->paginate(10);
+        $orders = $user->orders()->orderBy('created_at', 'desc')->paginate(10);
 
         return new OrderCollection($orders);
     }
@@ -38,8 +39,7 @@ class OrderController extends Controller
                 'note' => $note,
                 'status' => Order::STATUS_CREATED,
                 'user_id' => auth()->user()->id,
-                'order_date' => $now,
-                'order_update_date' => $now,
+                'order_date' => Carbon::parse($body['order_date']),
             ]);
             $history = new OrderStatusHistory([
                 'status' => Order::STATUS_CREATED,

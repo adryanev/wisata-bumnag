@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
@@ -21,12 +22,24 @@ class PaymentController extends Controller
     {
         $body = $request->all();
         $user = auth()->user();
-        $order = Order::where(['number' => $body['order_number']])->first();
 
+        $order = Order::where(['number' => $body['order_number']])->firstOrFail();
+        if ($order->status > 0) {
+            return response()->json([
+                'errors' => 'Order already paid',
+            ], 400);
+        }
         $carbon = Carbon::now();
 
         try {
             DB::beginTransaction();
+
+            // $checkPayment = Payment::where(['order_id' => $order->id])->orderBy('id', 'DESC')->first();
+            // if ($checkPayment) {
+            //     return response()->json([
+            //         'errors' => 'Already waiting for payment',
+            //     ], 400);
+            // }
 
             $payment = Payment::create([
                 'order_id' => $order->id,
@@ -35,7 +48,14 @@ class PaymentController extends Controller
                 'payment_status' => Payment::STATUS_PENDING,
                 'total' => $order->total_price,
             ]);
+            $order->payment_type = $body['payment_type'];
+            $order->save();
             $order->payments()->save($payment);
+
+            if ($order->payment_type == 'onsite') {
+                DB::commit();
+                return new OrderResource($order);
+            }
 
             $items = $this->setupDetailOrder($order);
             $snapPayload = $this->setupSnapPayload($order, $items, $user);
@@ -70,7 +90,7 @@ class PaymentController extends Controller
 
         $transaction = Order::where('number', $orderId)->first();
         $user = $transaction->user;
-        $payment = Payment::where(['order_id' => $transaction->id])->first();
+        $payment = Payment::where(['order_id' => $transaction->id])->orderBy('id', 'DESC')->first();
         $decode = json_encode($notification);
         $payment->payment_payload = $decode;
         $payment->payment_update_date = now();

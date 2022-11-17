@@ -15,6 +15,14 @@ class OrderDetail extends Model
         'orderable_type', 'orderable_id', 'orderable_name', 'orderable_price', 'quantity', 'subtotal',
     ];
 
+    protected $casts = [
+        'orderable_id' => 'int',
+        'order_id' => 'int',
+        'quantity' => 'int',
+        'orderable_price' => 'double',
+        'subtotal' => 'double',
+    ];
+
     /*
     |------------------------------------------------------------------------------------
     | Validations

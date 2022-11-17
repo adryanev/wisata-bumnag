@@ -17,7 +17,7 @@ class PackageSeeder extends Seeder
     {
         $categories = Category::all();
         foreach ($categories as $category) {
-            if ($category->id < 25) continue;
+            if ($category->id < 26) continue;
             Package::factory()->count(25)->create()->each(function ($package) use ($category) {
                 $package->categories()->attach($category->id);
                 $package->addMedia(storage_path('Package/Package' . fake()->numberBetween(1, 18) . '.jpg'))->preservingOriginal()->toMediaCollection('Package');

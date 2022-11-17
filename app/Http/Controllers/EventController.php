@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -16,7 +17,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $items = Event::latest('updated_at')->get();
+        return view('admin.events.index', compact('items'));
     }
 
     /**
@@ -26,7 +28,10 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $latestMedia = null;
+        return view('admin.events.create', compact(
+            'latestMedia'
+        ));
     }
 
     /**
@@ -37,7 +42,12 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $data = $request->except('event_photo');
+        $event = Event::create($data);
+        if ($request['event_photo'] != null) {
+            $event->addMedia($request['event_photo'])->toMediaCollection('Event');
+        }
+        return back()->withSuccess('Success Create Event '.$event->name);
     }
 
     /**
@@ -46,9 +56,20 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        //
+        $event = Event::find($id);
+        $media = $event->getMedia('Event');
+        //check has media
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.events.show', compact(
+            'event',
+            'latestMedia',
+        ));
     }
 
     /**
@@ -57,9 +78,23 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+        $event = Event::find($id);
+        $event['start_date'] = Carbon::parse($event['start_date'])->toDateString();
+        $event['end_date'] = Carbon::parse($event['end_date'])->toDateString();
+        $media = $event->getMedia('Event');
+        //check has media
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+
+        return view('admin.events.edit', compact(
+            'event',
+            'latestMedia',
+        ));
     }
 
     /**
@@ -69,9 +104,15 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEventRequest $request, Event $event)
+    public function update(UpdateEventRequest $request, $id)
     {
-        //
+        $data = $request->except('event_photo');
+        $event = Event::find($id);
+        $updated = $event->update($data);
+        if ($request['event_photo'] != null) {
+            $event->addMedia($request['event_photo'])->toMediaCollection('Event');
+        }
+        return redirect(route('admin.events.index'))->withSuccess('Success Update Event');
     }
 
     /**
@@ -80,8 +121,11 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+        $eventName = $event->name;
+        $event->delete();
+        return back()->withSuccess('Success Delete Event '.$eventName);
     }
 }

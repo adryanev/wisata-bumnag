@@ -1,7 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-Souvenirs <small>{{ trans('app.add_new_item') }}</small>
+Souvenirs <small><i class="c-white-500 ti-cloud-up"></i></small>
+
 @stop
 
 @section('content')
