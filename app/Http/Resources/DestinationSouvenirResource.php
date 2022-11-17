@@ -17,6 +17,17 @@ class DestinationSouvenirResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
+            'address' => $this->address,
+            'phone_number' => $this->phone_number,
+            'email' => $this->email,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'opening_hours' => $this->opening_hours,
+            'closing_hours' => $this->closing_hours,
+            'working_day' => $this->working_day,
+            'instagram' => $this->instagram,
+            'website' => $this->website,
             'souvenirs' => SouvenirResource::collection($this->souvenirs()->with('media')->get()),
         ];
     }
