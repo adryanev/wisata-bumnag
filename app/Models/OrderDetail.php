@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class OrderDetail extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, PowerJoins;
 
     protected $fillable = [
         'orderable_type', 'orderable_id', 'orderable_name', 'orderable_price', 'quantity', 'subtotal',
