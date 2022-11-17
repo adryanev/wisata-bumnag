@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class AdBanner extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins;
     /*
     |------------------------------------------------------------------------------------
     | Validations
     |------------------------------------------------------------------------------------
     */
-    protected $fillable = ['name','action','target'];
+    protected $fillable = ['name', 'action', 'target'];
     /*
     |------------------------------------------------------------------------------------
     | Relations

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class Payment extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, PowerJoins;
 
     const STATUS_PENDING = 'pending';
     const STATUS_SUCCESS = 'success';
@@ -26,7 +27,8 @@ class Payment extends Model
     const STATUS_CHALLENGED = 'challenged';
 
     const PAYMENT_CHANNELS = [
-        'credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikbca', 'bca_klikpay', 'bri_epay', 'echannel', 'permata_va', 'bca_va', 'bni_va', 'other_va', 'gopay', 'indomaret',
+        'credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikbca', 'bca_klikpay',
+        'bri_epay', 'echannel', 'permata_va', 'bca_va', 'bni_va', 'other_va', 'gopay', 'indomaret',
         'danamon_online', 'akulaku', 'kioson', 'echannel',
     ];
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kirschbaum\PowerJoins\PowerJoins;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -16,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, Notifiable,HasRoles,InteractsWithMedia,SoftDeletes;
+    use HasFactory, Notifiable, HasRoles, InteractsWithMedia, SoftDeletes, PowerJoins;
 
     /**
      * The attributes that are mass assignable.
