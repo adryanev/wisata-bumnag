@@ -17,6 +17,9 @@ class Souvenir extends Model implements HasMedia
     protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity', 'description', 'destination_id'];
     protected $casts = [
         'is_free' => 'boolean',
+        'price_double' => 'double',
+        'quantity' => 'int',
+        'destination_id' => 'int'
     ];
     protected $appends = [
         'photos',

@@ -23,7 +23,7 @@
 
             {!! Form::myInput('url','website','Website') !!}
 
-            {!! Form::myInput('number','capacity','Capasity') !!}
+            {!! Form::myInput('number','capacity','Capacity') !!}
 
             {!! Form::myInput('text','working_day','Working Day',['placeholder'=>'senin-rabu,kamis-jumat']) !!}
 
