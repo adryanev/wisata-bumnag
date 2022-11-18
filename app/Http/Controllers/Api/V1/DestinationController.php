@@ -29,7 +29,7 @@ class DestinationController extends Controller
 
     public function detail($id)
     {
-        $destination = Destination::where(['id' => $id])->with('reviews')->first();
+        $destination = Destination::where(['id' => $id])->with('reviews')->firstOrFail();
         return new DestinationDetailResource($destination);
     }
 }

@@ -21,7 +21,7 @@ class PackageController extends Controller
 
     public function detail($id)
     {
-        $package = Package::where(['id' => $id])->with('reviews')->first();
+        $package = Package::where(['id' => $id])->with('reviews')->firstOrFail();
         return new PackageDetailResource($package);
     }
 }
