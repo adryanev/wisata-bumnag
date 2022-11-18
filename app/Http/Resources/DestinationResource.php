@@ -28,7 +28,7 @@ class DestinationResource extends JsonResource
             'working_day' => $this->working_day,
             'instagram' => $this->instagram,
             'website' => $this->website,
-            'capacity' => $this->capasity,
+            'capacity' => $this->capacity,
             'categories' => $this->categories,
             'media' => $this->photos,
             'reviews' => new ReviewAggregateCollection($this->reviews),

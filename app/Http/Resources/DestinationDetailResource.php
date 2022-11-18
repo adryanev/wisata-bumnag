@@ -28,7 +28,7 @@ class DestinationDetailResource extends JsonResource
             'closing_hours' => $this->closing_hours,
             'instagram' => $this->instagram,
             'website' => $this->website,
-            'capacity' => $this->capasity,
+            'capacity' => $this->capacity,
             'categories' => $this->categories,
             'media' => $this->photos,
             'reviews' => new ReviewCollection($this->reviews),

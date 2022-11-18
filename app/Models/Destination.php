@@ -16,13 +16,18 @@ class Destination extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'description', 'address', 'phone_number', 'email', 'latitude',
-        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capasity', 'working_day',
+        'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capacity', 'working_day',
     ];
 
     protected $appends = [
         'photos',
         // 'review_aggregate',
         // 'tickets',
+    ];
+
+    protected $casts = [
+        'latitude' => 'double',
+        'longitude' => 'double',
     ];
 
     /*
@@ -44,7 +49,7 @@ class Destination extends Model implements HasMedia
             'closing_hours' => 'date_format:H:i|nullable',
             'instagram' => 'nullable',
             'website' => 'url|nullable',
-            'capasity' => 'numeric|min:1|nullable',
+            'capacity' => 'numeric|min:1|nullable',
             'destination_photo' => 'image',
             'destination_category' => 'required|numeric',
         ];
