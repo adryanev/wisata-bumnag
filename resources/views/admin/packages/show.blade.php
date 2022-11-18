@@ -8,42 +8,45 @@ Package {{ $package->name }} <small><i class="c-white-500 ti-eye"></i></small>
 @endsection
 
 @section('content')
-<table class="table align-item-center mb-0">
-    <tr>
-        <td>ID</td>
-        <td>{{ $package->id }}</td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td>{{ $package->name}}</td>
-    </tr>
-    <tr>
-        <td>Activities</td>
-        <td>{{ $package->activities}}</td>
-    </tr>
-    <tr>
-        <td>Price Include</td>
-        <td>{{ $package->price_include}}</td>
-    </tr>
-    <tr>
-        <td>Price Exclude</td>
-        <td>{{ $package->price_exclude}}</td>
-    </tr>
-    <tr>
-        <td>Destination</td>
-        <td>{{ $package->destination}}</td>
-    </tr>
-    <tr>
-        <td>Package Category</td>
-        <td>
-            @foreach ($packageCategory as $category)
-            {{ $category->name }}
-            <br>
-            @endforeach
-        </td>
+<div class="conatainer bgc-white p-20">
+    <table class="table align-item-center mb-0">
+        <tr>
+            <td>ID</td>
+            <td>{{ $package->id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ $package->name}}</td>
+        </tr>
+        <tr>
+            <td>Activities</td>
+            <td>{{ $package->activities}}</td>
+        </tr>
+        <tr>
+            <td>Price Include</td>
+            <td>{{ $package->price_include}}</td>
+        </tr>
+        <tr>
+            <td>Price Exclude</td>
+            <td>{{ $package->price_exclude}}</td>
+        </tr>
+        <tr>
+            <td>Destination</td>
+            <td>{{ $package->destination}}</td>
+        </tr>
+        <tr>
+            <td>Package Category</td>
+            <td>
+                @foreach ($packageCategory as $category)
+                {{ $category->name }}
+                <br>
+                @endforeach
+            </td>
 
-    </tr>
+        </tr>
 
-</table>
+    </table>
+</div>
+
 
 @endsection
