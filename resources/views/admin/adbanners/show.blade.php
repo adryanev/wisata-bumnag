@@ -11,24 +11,25 @@ AdBanner {{ $adBanner->name }} <small><i class="c-white-500 ti-eye"></i></small>
 @endsection
 
 @section('content')
-<table class="table align-item-center mb-0">
-    <tr>
-        <td>ID</td>
-        <td>{{ $adBanner->id }}</td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td>{{ $adBanner->name }}</td>
-    </tr>
-    <tr>
-        <td>Action</td>
-        <td>{{ $adBanner->Action }}</td>
-    </tr>
-    <tr>
-        <td>Target</td>
-        <td>{{ $adBanner->target }}</td>
-    </tr>
-
-</table>
+<div class="conatainer bgc-white p-20">
+    <table class="table align-item-center mb-0">
+        <tr>
+            <td>ID</td>
+            <td>{{ $adBanner->id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ $adBanner->name }}</td>
+        </tr>
+        <tr>
+            <td>Action</td>
+            <td>{{ $adBanner->Action }}</td>
+        </tr>
+        <tr>
+            <td>Target</td>
+            <td>{{ $adBanner->target }}</td>
+        </tr>
+    </table>
+</div>
 
 @endsection

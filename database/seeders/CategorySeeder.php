@@ -59,49 +59,45 @@ class CategorySeeder extends Seeder
             //Kuliner
             new Category([
                 'name' => 'Rumah Makan',
-                'parent_id' => 4,
+                'parent_id' => 3,
             ]),
             new Category([
                 'name' => 'Restoran',
-                'parent_id' => 4,
+                'parent_id' => 3,
             ]),
             //Akomodasi
             new Category([
                 'name' => 'Hotel Non Bintang',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             new Category([
                 'name' => 'Hotel Bintang 1',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             new Category([
                 'name' => 'Hotel Bintang 2',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             new Category([
                 'name' => 'Hotel Bintang 3',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             new Category([
                 'name' => 'Hotel Bintang 4',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             new Category([
                 'name' => 'Hotel Bintang 5',
-                'parent_id' => 5,
+                'parent_id' => 4,
             ]),
             // Desa Wisata
             new Category([
-                'name' => 'Desa Wisata',
-                'parent_id' => 6,
-            ]),
-            new Category([
                 'name' => 'Desa Wisata Alam',
-                'parent_id' => 6,
+                'parent_id' => 5,
             ]),
             new Category([
                 'name' => 'Desa Wisata Kerajinan',
-                'parent_id' => 6,
+                'parent_id' => 5,
             ]),
             //souvenir
             new Category([
