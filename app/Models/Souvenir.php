@@ -20,6 +20,7 @@ class Souvenir extends Model implements HasMedia
         'price_double' => 'double',
         'quantity' => 'int',
         'destination_id' => 'int',
+        'price' => 'double',
     ];
     protected $appends = [
         'photos',
