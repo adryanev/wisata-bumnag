@@ -12,10 +12,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalUser = count(User::all());
-        $totalDestination = count(Destination::all());
-        $totalPackage = count(Package::all());
-        $totalEvent = count(Event::all());
+        $totalUser = User::count();
+        $totalDestination = Destination::count();
+        $totalPackage = Package::count();
+        $totalEvent = Event::count();
         return view('admin.dashboard.index', compact(
             'totalUser',
             'totalDestination',
