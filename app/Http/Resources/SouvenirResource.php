@@ -24,6 +24,7 @@ class SouvenirResource extends JsonResource
             'description' => $this->description,
             'destination_id' => $this->destination_id,
             'media' => $this->photos,
+            'reviews' => new ReviewAggregateCollection($this->reviews),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'categories' => $this->categories,
