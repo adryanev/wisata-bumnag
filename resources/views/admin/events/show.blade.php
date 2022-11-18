@@ -63,8 +63,8 @@ Event {{ $event->name }} <small><i class="c-white-500 ti-eye"></i></small>
             <td><a href="{{ $event->website}}">{{ $event->website}}</a></td>
         </tr>
         <tr>
-            <td>Capasity</td>
-            <td>{{$event->capasity}}</td>
+            <td>Capacity</td>
+            <td>{{$event->capacity}}</td>
         </tr>
 
 

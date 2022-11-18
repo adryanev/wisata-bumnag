@@ -4,10 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DestinationResource extends JsonResource
+class DestinationSouvenirResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -28,12 +28,7 @@ class DestinationResource extends JsonResource
             'working_day' => $this->working_day,
             'instagram' => $this->instagram,
             'website' => $this->website,
-            'capacity' => $this->capacity,
-            'categories' => $this->categories,
-            'media' => $this->photos,
-            'reviews' => new ReviewAggregateCollection($this->reviews),
-            'tickets' => new TicketCollection($this->tickets()->orderBy('price', 'ASC')->get()),
-
+            'souvenirs' => SouvenirResource::collection($this->souvenirs()->with('media')->get()),
         ];
     }
 }

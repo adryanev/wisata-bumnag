@@ -35,7 +35,7 @@ class UpdateDestinationRequest extends FormRequest
             'closing_hours' => 'date_format:H:i:s|nullable',
             'instagram' => 'nullable',
             'website' => 'url | nullable',
-            'capasity' => 'numeric | min:1 | nullable',
+            'capacity' => 'numeric | min:1 | nullable',
             'destination_photo' => 'image',
             'destination_category' => 'required | numeric',
         ];

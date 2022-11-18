@@ -1,12 +1,14 @@
 <?php
+
 namespace App\Models;
 
 use Franzose\ClosureTable\Models\ClosureTable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class CategoryClosure extends ClosureTable
 {
-    use SoftDeletes;
+    use SoftDeletes, PowerJoins;
     /**
      * The table associated with the model.
      *

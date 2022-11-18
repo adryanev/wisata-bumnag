@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $orders = $user->orders()->paginate(10);
+        $orders = $user->orders()->orderBy('created_at', 'desc')->paginate(10);
 
         return new OrderCollection($orders);
     }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Franzose\ClosureTable\Models\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class Category extends Entity
 {
-    use SoftDeletes;
+    use SoftDeletes, PowerJoins;
     /**
      * The table associated with the model.
      *

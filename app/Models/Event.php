@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kirschbaum\PowerJoins\PowerJoins;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -11,7 +12,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Event extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, SoftDeletes;
+    use HasFactory, InteractsWithMedia, SoftDeletes, PowerJoins;
 
     protected $fillable = [
         'name',
@@ -34,7 +35,10 @@ class Event extends Model implements HasMedia
         // 'review_aggregate',
         // 'tickets',
     ];
-
+    protected $casts = [
+        'latitude' => 'double',
+        'longitude' => 'double',
+    ];
 
 
     /*

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class OrderStatusHistory extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, PowerJoins;
 
-    protected $fillable = ['status', 'description',];
+    protected $fillable = ['status', 'description'];
 
     /*
     |------------------------------------------------------------------------------------

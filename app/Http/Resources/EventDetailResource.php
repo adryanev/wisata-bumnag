@@ -35,7 +35,7 @@ class EventDetailResource extends JsonResource
             'media' => $this->photos,
             'reviews' => new ReviewCollection($this->reviews),
             'tickets' => new TicketCollection($this->tickets()->orderBy('price', 'ASC')->get()),
-            'recommendations' => DestinationResource::collection(Event::inRandomOrder()->take(5)->get()),
+            'recommendations' => EventResource::collection(Event::inRandomOrder()->take(5)->get()),
         ];
     }
 }

@@ -62,8 +62,8 @@ Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></i></
             <td><a href="{{ $destination->website}}">{{ $destination->website}}</a></td>
         </tr>
         <tr>
-            <td>Capasity</td>
-            <td>{{$destination->capasity}}</td>
+            <td>Capacity</td>
+            <td>{{$destination->capacity}}</td>
         </tr>
         <tr>
             <td>Working Day</td>
@@ -73,9 +73,6 @@ Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></i></
             <td>Destination Category</td>
             <td>{{$destinationCategory}}</td>
         </tr>
-
-
-
     </table>
 </div>
 
