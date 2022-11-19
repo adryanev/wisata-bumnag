@@ -27,6 +27,7 @@ class DestinationFactory extends Factory
             'instagram' => fake()->userName(),
             'website' => fake()->url(),
             'capacity' => strval(fake()->numberBetween(100, 10000)),
+            'created_by'=> fake()->numberBetween(1,2),
         ];
     }
     public function allAttributes()
@@ -44,7 +45,8 @@ class DestinationFactory extends Factory
             'instagram' => fake()->userName(),
             'website' => fake()->url(),
             'capacity' => strval(fake()->numberBetween(100, 10000)),
-            'working_day' => "senin-jumat"
+            'working_day' => "senin-jumat",
+            'created_by'=> fake()->numberBetween(1,2),
         ]);
     }
 }
