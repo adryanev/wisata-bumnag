@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderStatusHistory;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,20 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest('updated_at')->get();
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $itemss = Order::latest('updated_at')->get();
+            $orders = [];
+            foreach ($itemss as $item) {
+                if (count($item->orderDetails->first()->orderable_type::where([
+                    'id' => $item->orderDetails->first()->orderable_id,
+                    'created_by' => Auth::user()->id,
+                ])->get()) != 0) {
+                    array_push($items, $item);
+                }
+            }
+        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+             $orders = Order::latest('updated_at')->get();
+        }
         return view('admin.orders.index', compact('orders'));
     }
 
