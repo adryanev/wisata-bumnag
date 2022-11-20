@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Destination;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,12 +28,14 @@ class PackageFactory extends Factory
             array_push($destinationName,$destinasi->name);
         }
         $destination = fake()->randomElement($destinationName).','.fake()->randomElement($destinationName).',';
+        Auth::attempt(['email'=>env('SEEDER_EMAIL'),'password'=>env('SEEDER_PASS')]);
         return [
             'name'=>fake()->sentence(4),
             'price_include'=>$price_include,
             'price_exclude'=>$price_exclude,
             'activities'=>$activites,
             'destination'=>$destination,
+            'created_by'=>Auth::user()->id,
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePackageRequest;
 use App\Http\Requests\UpdatePackageRequest;
 use App\Models\Category;
+use Auth;
 
 class PackageController extends Controller
 {
@@ -17,8 +18,11 @@ class PackageController extends Controller
      */
     public function index()
     {
-        $items = Package::latest('updated_at')->get();
-
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $items = Package::createdBy(Auth::getUser()->id)->get();
+        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+            $items = Package::latest('updated_at')->get();
+        }
         return view('admin.packages.index', compact('items'));
     }
 
@@ -49,6 +53,7 @@ class PackageController extends Controller
     public function store(StorePackageRequest $request)
     {
         $data = $request->except('package_photo');
+        $data['created_by'] = Auth::user()->id;
         // dd($request);
         $package = Package::create($data);
         $packageCategory = $package->categories()->attach($data['package_category']);
@@ -119,8 +124,9 @@ class PackageController extends Controller
      */
     public function update(UpdatePackageRequest $request, $id)
     {
-         $data = $request->except('package_photo');
-        // dd($request);
+        $data = $request->except('package_photo');
+        $data['updated_by'] = Auth::user()->id;
+         // dd($request);
         $package = Package::find($id);
         $packageUpdated = $package->update($data);
         if (count($package->categories) != 0) {

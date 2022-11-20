@@ -21,6 +21,9 @@ class Package extends Model implements HasMedia
         'price_exclude',
         'activities',
         'destination',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
     protected $appends = [
         'photos',
