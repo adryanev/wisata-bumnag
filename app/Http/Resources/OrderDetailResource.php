@@ -26,7 +26,7 @@ class OrderDetailResource extends JsonResource
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             "order_id" => 11,
-            "orderable_detail" => new OrderableDetailResource($this->orderable)
+            "orderable_detail" => new OrderableDetailResource($this->orderable),
 
         ];
     }
