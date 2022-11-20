@@ -63,6 +63,10 @@ Souvenir {{ $souvenir->name }} <small><i class="c-white-500 ti-eye"></i></small>
             </td>
 
         </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$souvenir->creator->name}} ({{ $souvenir->creator->id }})</td>
+        </tr>
 
     </table>
 </div>

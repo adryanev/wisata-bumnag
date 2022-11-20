@@ -15,7 +15,9 @@ class Souvenir extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins, BlameableTrait;
 
-    protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity', 'description', 'destination_id'];
+    protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity',
+        'description', 'destination_id','created_by','updated_by','deleted_by',
+    ];
     protected $casts = [
         'is_free' => 'boolean',
         'price_double' => 'double',
