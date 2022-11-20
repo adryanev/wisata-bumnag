@@ -29,6 +29,11 @@ AdBanner {{ $adBanner->name }} <small><i class="c-white-500 ti-eye"></i></small>
             <td>Target</td>
             <td>{{ $adBanner->target }}</td>
         </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$adBanner->creator->name}} ({{ $adBanner->creator->id }})</td>
+        </tr>
+
     </table>
 </div>
 

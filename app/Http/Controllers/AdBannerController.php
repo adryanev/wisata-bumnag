@@ -22,7 +22,6 @@ class AdBannerController extends Controller
         } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
               $items = AdBanner::latest('updated_at')->get();
         }
-
         return view('admin.adbanners.index', compact('items'));
     }
 
@@ -45,10 +44,11 @@ class AdBannerController extends Controller
     public function store(StoreAdBannerRequest $request)
     {
         $data = $request->except('media');
-        // dd($data);
+        $data['created_by'] = Auth::user()->id;
+        // dd($data, $request['media']);
         $adBanner = AdBanner::create($data);
         $adBanner->addMedia($request['media'])->toMediaCollection('Banner');
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess('Create Ad Banner');
     }
 
     /**
@@ -100,13 +100,14 @@ class AdBannerController extends Controller
     public function update(UpdateAdBannerRequest $request, $id)
     {
         $data = $request->except('media');
+        $data['updated_by'] = Auth::user()->id;
         $adBanner = AdBanner::find($id);
         $adBanner->update($data);
 
         if ($request['avatar'] != null) {
             $adBanner->addMedia($request['media'])->toMediaCollection('Banner');
         }
-        return redirect()->route(ADMIN . '.adbanners.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(ADMIN . '.adbanners.index')->withSuccess('Success Update '.$adBanner->name);
     }
 
     /**
@@ -118,7 +119,8 @@ class AdBannerController extends Controller
     public function destroy($id)
     {
         $adBanner = AdBanner::find($id);
+        $adbannerName = $adBanner->name;
         $adBanner->delete();
-         return back()->withSuccess(trans('app.success_destroy'));
+         return back()->withSuccess('Success Delete '.$adbannerName);
     }
 }
