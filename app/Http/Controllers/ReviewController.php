@@ -11,6 +11,7 @@ use App\Models\Package;
 use App\Models\Souvenir;
 use App\Models\Ticket;
 use App\Models\User;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
@@ -22,7 +23,20 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $items = Review::latest('updated_at')->get();
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $itemss = Review::latest('updated_at')->get();
+            $items = [];
+            foreach ($itemss as $item) {
+                if (count($item->reviewable_type::where([
+                    'id' => $item->reviewable_id,
+                    'created_by' => Auth::user()->id,
+                ])->get()) != 0) {
+                    array_push($items, $item);
+                }
+            }
+        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+             $items = Review::latest('updated_at')->get();
+        }
         return view('admin.reviews.index', compact('items'));
     }
 
