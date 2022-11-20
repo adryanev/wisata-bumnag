@@ -54,6 +54,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     Route::group(['prefix' => 'souvenirs'], function () {
         Route::get('/', [SouvenirController::class, 'index']);
         Route::get('/destination/{destination}', [SouvenirController::class, 'destination']);
+        Route::get('/{id}', [SouvenirController::class, 'detail']);
     });
     Route::group(['prefix' => 'packages'], function () {
         Route::get('/', [PackageController::class, 'index']);

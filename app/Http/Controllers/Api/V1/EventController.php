@@ -25,7 +25,7 @@ class EventController extends Controller
 
     public function detail($id)
     {
-        $event = Event::where(['id' => $id])->with('reviews')->first();
+        $event = Event::where(['id' => $id])->with('reviews')->firstOrFail();
         return new EventDetailResource($event);
     }
 }
