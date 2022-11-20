@@ -29,6 +29,9 @@ class Event extends Model implements HasMedia
         'instagram',
         'website',
         'capacity',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $appends = [

@@ -66,6 +66,10 @@ Event {{ $event->name }} <small><i class="c-white-500 ti-eye"></i></small>
             <td>Capacity</td>
             <td>{{$event->capacity}}</td>
         </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$event->creator->name}} ({{ $event->creator->id }})</td>
+        </tr>
 
 
 
