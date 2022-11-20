@@ -22,6 +22,7 @@ class OrderResource extends JsonResource
             'order_date' => $this->order_date,
             "total_price" => $this->total_price,
             'qr_code' => $this->qrCode,
+            'payment_type' => $this->payment_type,
             "order_details" => OrderDetailResource::collection($order_detail->get()),
         ];
     }

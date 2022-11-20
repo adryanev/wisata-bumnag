@@ -110,6 +110,6 @@ class Order extends Model implements HasMedia
     {
         return (empty($this->getMedia('QRCode'))) ? "" : $this->getMedia('QRCode')->map(function ($media) {
             return $media->getFullUrl();
-        });
+        })->first();
     }
 }
