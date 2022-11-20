@@ -117,19 +117,19 @@ class CategorySeeder extends Seeder
             ]),
             new Category([
                 'name' => 'Paket 3 Hari',
-                'parent_id' => 26
+                'parent_id' => 25
             ]),
             new Category([
                 'name' => 'Paket 7 Hari',
-                'parent_id' => 26
+                'parent_id' => 25
             ]),
             new Category([
                 'name' => 'Paket 14 Hari',
-                'parent_id' => 26
+                'parent_id' => 25
             ]),
             new Category([
                 'name' => 'Paket 30 Hari',
-                'parent_id' => 26
+                'parent_id' => 25
             ]),
         ];
         foreach ($categories as $category) {
