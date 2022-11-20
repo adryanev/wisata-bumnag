@@ -12,6 +12,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class OrderController extends Controller
 {
@@ -28,6 +30,8 @@ class OrderController extends Controller
 
         $body = $request->all();
 
+        $tempDir = (new TemporaryDirectory())->create();
+
         try {
             DB::beginTransaction();
             $now = now();
@@ -41,6 +45,8 @@ class OrderController extends Controller
                 'user_id' => auth()->user()->id,
                 'order_date' => Carbon::parse($body['order_date']),
             ]);
+            $qr = QrCode::generate($note, $tempDir->path("${order_number}.svg"));
+            $order->addMedia($tempDir->path("${order_number}.svg"))->toMediacollection('QRCode');
             $history = new OrderStatusHistory([
                 'status' => Order::STATUS_CREATED,
                 'description' => 'Order berhasil dibuat',
@@ -53,8 +59,11 @@ class OrderController extends Controller
             }
             $order->orderDetails()->saveMany($details);
             DB::commit();
+            $tempDir->delete();
             return new OrderResource($order);
         } catch (Exception $e) {
+            $tempDir->delete();
+            dd($e);
             DB::rollBack();
         }
 

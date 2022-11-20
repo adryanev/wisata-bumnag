@@ -35,6 +35,8 @@ class LoginResource extends JsonResource
                     'phone_number' => $this->phone_number,
                     'nik' => $this->nik,
                     'avatar' => $this->avatar,
+                    "roles" => $this->roles()->pluck('name')->first(),
+
                 ],
                 'authorization' => [
                     'token' => $this->token,
