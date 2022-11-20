@@ -10,6 +10,7 @@ use App\Models\Destination;
 use App\Models\Event;
 use App\Models\Package;
 use App\Models\TicketSetting;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
@@ -21,8 +22,11 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $items = Ticket::latest('updated_at')->get();
-
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $items = Ticket::createdBy(Auth::getUser()->id)->get();
+        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+              $items = Ticket::latest('updated_at')->get();
+        }
         return view('admin.tickets.index', compact('items'));
     }
 
@@ -35,15 +39,15 @@ class TicketController extends Controller
     {
         $ticket = null;
         $ticketable_type = [Event::class => 'Event',Package::class => 'Package',Destination::class => 'Destination'];
-        $destination  = DB::table('destinations')->select('id', 'name')->get();
+        $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
         $destinations = $destination->mapWithKeys(function ($destination) {
             return [$destination->id => $destination->name];
         });
-        $event = Event::latest('updated_at')->get();
+        $event = Event::createdBy(Auth::user()->id)->get();
         $events = $event->mapWithKeys(function ($event) {
             return [$event->id => $event->name];
         });
-        $package = Package::latest('updated_at')->get();
+        $package = Package::createdBy(Auth::user()->id)->get();
         $packages = $package->mapWithKeys(function ($package) {
             return [$package->id => $package->name];
         });
@@ -88,6 +92,7 @@ class TicketController extends Controller
         if (!$data['is_per_age']) {
             $data['age_constraint'] = 0;
         }
+        $data['updated_by'] = Auth::user()->id;
         $ticket = Ticket::create($data->except([
             'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
         ]));
@@ -124,15 +129,16 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         $ticketable_type = [Event::class => 'Event',Package::class => 'Package',Destination::class => 'Destination'];
-        $destination  = DB::table('destinations')->select('id', 'name')->get();
+        $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
         $destinations = $destination->mapWithKeys(function ($destination) {
             return [$destination->id => $destination->name];
         });
-        $event = Event::latest('updated_at')->get();
+        $event = Event::createdBy(Auth::user()->id)->get();
+
         $events = $event->mapWithKeys(function ($event) {
             return [$event->id => $event->name];
         });
-        $package = Package::latest('updated_at')->get();
+        $package = Package::createdBy(Auth::user()->id)->get();
         $packages = $package->mapWithKeys(function ($package) {
             return [$package->id => $package->name];
         });
@@ -178,6 +184,7 @@ class TicketController extends Controller
         if (!$data['is_per_age']) {
             $data['age_constraint'] = 0;
         }
+        $data['updated_by'] = Auth::user()->id;
         $ticket->update($data->except([
             'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
         ]));
@@ -203,7 +210,8 @@ class TicketController extends Controller
     public function destroy($id)
     {
         $ticket = Ticket::find($id);
+        $ticketName = $ticket->name;
         $ticket->delete();
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess('Success Delete '.$ticketName);
     }
 }
