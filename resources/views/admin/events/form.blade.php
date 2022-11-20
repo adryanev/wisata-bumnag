@@ -21,7 +21,14 @@
 
             {!! Form::myTextArea('term_and_condition', 'Term and Condition') !!}
 
-            {!! Form::myInput('text','instagram','Instagram') !!}
+            {{-- {!! Form::myInput('text','instagram','Instagram') !!} --}}
+            <div class='form-group'>
+                {!! Form::label('instagram','Instagram') !!}
+                <br>
+                <small>Untuk Isi Tidak Perlu Menambahkan @ pada inputan</small>
+                {!! Form::input('text', 'instagram', null, array_merge(["class" => "form-control"])) !!}
+            </div>
+
 
             {!! Form::myInput('url','website','Website') !!}
 
