@@ -3,7 +3,7 @@
 @section('page-header')
 Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></i></small>
 
-<img src="{{ $latestMedia }}" alt="User {{ $destination->name }} image" height="100" width="100">
+<img src="{{ $latestMedia }}" alt="Destination {{ $destination->name }} image" height="100" width="100">
 
 @endsection
 
@@ -73,6 +73,11 @@ Destination {{ $destination->name }} <small><i class="c-white-500 ti-eye"></i></
             <td>Destination Category</td>
             <td>{{$destinationCategory}}</td>
         </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$destination->creator->name}} ({{ $destination->creator->id }})</td>
+        </tr>
+
     </table>
 </div>
 

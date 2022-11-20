@@ -19,7 +19,7 @@ class AdBanner extends Model implements HasMedia
     | Validations
     |------------------------------------------------------------------------------------
     */
-    protected $fillable = ['name', 'action', 'target'];
+    protected $fillable = ['name', 'action', 'target','created_by','updated_by','deleted_by'];
     /*
     |------------------------------------------------------------------------------------
     | Relations
