@@ -8,7 +8,7 @@ use App\Models\Souvenir;
 use App\Models\Ticket;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderableDetailResource extends JsonResource
+class ReviewableResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -25,6 +25,14 @@ class OrderableDetailResource extends JsonResource
                 'type' => $this->ticketable_type,
                 'name' => $ticketable->name,
                 'media' => $ticketable->photos,
+            ];
+        }
+        if ($this->resource instanceof Destination) {
+            return [
+                'id' => $this->id,
+                'type' => Destination::class,
+                'name' => $this->name,
+                'media' => $this->photos,
             ];
         }
         if ($this->resource instanceof Souvenir) {

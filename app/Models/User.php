@@ -42,6 +42,10 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         'remember_token',
     ];
 
+    protected $appends = [
+        'avatar',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -79,6 +83,13 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     | Attributes
     |------------------------------------------------------------------------------------
     */
+
+    public function getAvatarAttribute()
+    {
+        return (empty($this->getMedia('Avatar'))) ? "" : $this->getMedia('Avatar')->map(function ($media) {
+            return $media->getFullUrl();
+        })->sortDesc()->first();
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

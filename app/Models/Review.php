@@ -22,6 +22,7 @@ class Review extends Model implements HasMedia
         'title',
         'description',
         'user_id',
+        'order_detail_id',
     ];
     protected $appends = [
         'photos',
@@ -60,9 +61,17 @@ class Review extends Model implements HasMedia
     {
         return $this->morphTo(Destination::class);
     }
+    public function reviewable()
+    {
+        return $this->morphTo();
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function orderDetail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'order_detail_id');
     }
     /*
     |------------------------------------------------------------------------------------
