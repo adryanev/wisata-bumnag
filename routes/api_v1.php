@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PackageController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
+use App\Http\Controllers\Api\V1\ReviewController;
 use App\Http\Controllers\Api\V1\SouvenirController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,5 +66,17 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     Route::group(['prefix' => 'events'], function () {
         Route::get('/', [EventController::class, 'index']);
         Route::get('/{id}', [EventController::class, 'detail']);
+    });
+
+    //=========== Explore ================
+    Route::group(['prefix' => 'explores'], function () {
+        Route::get('/', [ReviewController::class, 'index']);
+    });
+
+    //=========== Revoew ================
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::post('/', [ReviewController::class, 'add'])->middleware('auth:api');
+        Route::get('/', [ReviewController::class, 'waiting'])->middleware('auth:api');
+        Route::get('/history', [ReviewController::class, 'history'])->middleware('auth:api');
     });
 });

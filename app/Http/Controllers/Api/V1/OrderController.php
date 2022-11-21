@@ -37,15 +37,16 @@ class OrderController extends Controller
             $now = now();
             $order_number = $now->format('ymdhisu');
             $note = "ORD/{$order_number}";
+            $order_date = Carbon::parse($body['order_date']);
             $order = Order::create([
                 'total_price' => $body['total_price'],
                 'number' => $order_number,
                 'note' => $note,
                 'status' => Order::STATUS_CREATED,
                 'user_id' => auth()->user()->id,
-                'order_date' => Carbon::parse($body['order_date']),
+                'order_date' => $order_date,
             ]);
-            $qr = QrCode::generate($note, $tempDir->path("${order_number}.svg"));
+            $qr = QrCode::generate("${note};${order_date}}", $tempDir->path("${order_number}.svg"));
             $order->addMedia($tempDir->path("${order_number}.svg"))->toMediacollection('QRCode');
             $history = new OrderStatusHistory([
                 'status' => Order::STATUS_CREATED,

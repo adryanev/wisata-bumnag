@@ -40,17 +40,26 @@ class OrderDetail extends Model
     */
     public function order()
     {
-        $this->belongsTo('order', 'order_id');
+        return $this->belongsTo(Order::class, 'order_id');
     }
     public function orderable()
     {
         return $this->morphTo();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'order_detail_id');
     }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
     |------------------------------------------------------------------------------------
     */
+
+    // public function scopeNotReviewed($query){
+    //     return $query->
+    // }
 
     /*
     |------------------------------------------------------------------------------------
