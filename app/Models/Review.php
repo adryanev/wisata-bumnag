@@ -28,6 +28,10 @@ class Review extends Model implements HasMedia
         'photos',
     ];
 
+    protected $casts = [
+        'rating' => 'double',
+    ];
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
