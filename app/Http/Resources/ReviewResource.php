@@ -22,7 +22,7 @@ class ReviewResource extends JsonResource
             'reviewable_id' => $this->reviewable_id,
             'reviewable_type' => $this->reviewable_type,
             'media' => $this->photos,
-            'user' => $this->user,
+            'user' => new UserResource($this->user),
             'rating' => $this->rating,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
