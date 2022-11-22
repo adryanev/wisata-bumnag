@@ -60,6 +60,7 @@ return [
             'driver' => 'local',
             'root'   => storage_path('media'),
             'url'    => env('APP_URL') . '/media',
+            'visibility' => 'public',
             'throw' => false,
             'permissions' => [
                 'file' => [
