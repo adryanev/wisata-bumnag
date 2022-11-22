@@ -91,6 +91,11 @@ class Order extends Model implements HasMedia
         return $query->where('status', self::STATUS_REFUNDED);
     }
 
+    public function scopeIncomplete($query)
+    {
+        return $query->where('status', self::STATUS_CREATED)->orWhere('status', self::STATUS_PAID);
+    }
+
 
 
     /*

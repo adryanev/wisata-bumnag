@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\RecommendationController;
 use App\Http\Controllers\Api\V1\ReviewController;
 use App\Http\Controllers\Api\V1\SouvenirController;
+use App\Http\Controllers\Api\V1\TicketerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['application.token', 'access.time', 'signature'])->group(function () {
@@ -73,10 +74,17 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::get('/', [ReviewController::class, 'index']);
     });
 
-    //=========== Revoew ================
+    //=========== Review ================
     Route::group(['prefix' => 'reviews'], function () {
         Route::post('/', [ReviewController::class, 'add'])->middleware('auth:api');
         Route::get('/', [ReviewController::class, 'waiting'])->middleware('auth:api');
         Route::get('/history', [ReviewController::class, 'history'])->middleware('auth:api');
+    });
+
+    //=========== Ticketer ================
+    Route::group(['prefix' => 'ticketers', 'middleware' => ['auth:api', 'role:ticketer']], function () {
+        Route::post('/check', [TicketerController::class, 'check']);
+        Route::post('/payment', [TicketerController::class, 'payment']);
+        Route::post('/approve', [TicketerController::class, 'approve']);
     });
 });
