@@ -98,11 +98,11 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        $data = $request->except('review_photo');
-        $review = Review::create($data);
-        if ($request['review_photo'] != null) {
-            $review->addMedia($request['review_photo'])->toMediaCollection('Review');
-        }
+        // $data = $request->except('review_photo');
+        // $review = Review::create($data);
+        // if ($request['review_photo'] != null) {
+        //     $review->addMedia($request['review_photo'])->toMediaCollection('Review');
+        // }
         return back()->withSuccess('Success Create Review');
     }
 

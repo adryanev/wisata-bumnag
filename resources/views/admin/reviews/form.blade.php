@@ -9,7 +9,7 @@
             {!! Form::myInput('text','title','Title') !!}
             {!! Form::myTextArea('description','Description') !!}
 
-            {!! Form::mySelect('user_id', 'User', $users, $reviewUser ? $reviewUser->id : null , ['class' => 'form-control select2','disabled']) !!}
+            {!! Form::mySelect('user_id', 'User', $users, $reviewUser ? $reviewUser->id : null , ['class' => 'form-control select2','disabled','id'=>'user_id']) !!}
 
             {!! Form::myFile('review_photo','Review Photo') !!}
 

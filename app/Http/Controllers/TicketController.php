@@ -198,7 +198,7 @@ class TicketController extends Controller
         $ticket_settings = new TicketSetting($ticket_setting_data);
         $ticket_setting = $ticket->ticketSetting()->save($ticket_settings);
         // dd($ticket, $ticket_settings, $ticket->ticketSetting);
-        return redirect(route('admin.tickets.index'))->withSuccess('Success Edit '.$ticket->id);
+        return redirect(route('admin.tickets.index'))->withSuccess('Success Edit '.$ticket->name);
     }
 
     /**

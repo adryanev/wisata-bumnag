@@ -105,11 +105,11 @@ class CategorySeeder extends Seeder
             ]),
             new Category([
                 'name' => 'Makanan dan Minuman',
-                'parent_id' => 23,
+                'parent_id' => 22,
             ]),
             new Category([
                 'name' => 'Kerajinan',
-                'parent_id' => 23,
+                'parent_id' => 22,
             ]),
             //packages
             new Category([
