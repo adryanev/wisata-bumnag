@@ -16,8 +16,20 @@ Review <small><i class="c-white-500 ti-brush"></i></small>
 @include('admin.reviews.form',[])
 
 
-<button type="submit" class="btn btn-primary "><i class="c-white-500 ti-save"></i>&nbsp;Submit</button>
+<button type="submit" class="btn btn-primary " onclick="undisable()"><i class="c-white-500 ti-save"></i>&nbsp;Submit</button>
 
 {!! Form::close() !!}
+<script>
+    function undisable() {
+        var reviewable_type = document.getElementById('reviewable_type');
+        var reviewable_id = document.getElementById('reviewable_id');
+        var user_id = document.getElementById('user_id')
+
+        $(reviewable_type).prop("disabled", false);
+        $(reviewable_id).prop("disabled", false);
+        $(user_id).prop("disabled", false);
+    }
+
+</script>
 
 @stop
