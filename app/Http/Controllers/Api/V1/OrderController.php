@@ -46,7 +46,7 @@ class OrderController extends Controller
                 'user_id' => auth()->user()->id,
                 'order_date' => $order_date,
             ]);
-            $qr = QrCode::generate("${note};${order_date}}", $tempDir->path("${order_number}.svg"));
+            $qr = QrCode::generate("${note};${order_date}", $tempDir->path("${order_number}.svg"));
             $order->addMedia($tempDir->path("${order_number}.svg"))->toMediacollection('QRCode');
             $history = new OrderStatusHistory([
                 'status' => Order::STATUS_CREATED,
