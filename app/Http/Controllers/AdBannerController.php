@@ -19,7 +19,7 @@ class AdBannerController extends Controller
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
             $items = AdBanner::createdBy(Auth::getUser()->id)->get();
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
               $items = AdBanner::latest('updated_at')->get();
         }
         return view('admin.adbanners.index', compact('items'));

@@ -34,7 +34,7 @@ class ReviewController extends Controller
                     array_push($items, $item);
                 }
             }
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
              $items = Review::latest('updated_at')->get();
         }
         return view('admin.reviews.index', compact('items'));

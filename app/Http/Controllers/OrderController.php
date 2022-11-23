@@ -28,7 +28,7 @@ class OrderController extends Controller
                     array_push($items, $item);
                 }
             }
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
              $orders = Order::latest('updated_at')->get();
         }
         return view('admin.orders.index', compact('orders'));

@@ -20,7 +20,7 @@ class EventController extends Controller
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
             $items = Event::createdBy(Auth::getUser()->id)->get();
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
              $items = Event::latest('updated_at')->get();
         }
         return view('admin.events.index', compact('items'));

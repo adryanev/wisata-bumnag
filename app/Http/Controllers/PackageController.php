@@ -20,7 +20,7 @@ class PackageController extends Controller
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
             $items = Package::createdBy(Auth::getUser()->id)->get();
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
             $items = Package::latest('updated_at')->get();
         }
         return view('admin.packages.index', compact('items'));

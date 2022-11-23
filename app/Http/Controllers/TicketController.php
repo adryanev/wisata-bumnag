@@ -24,7 +24,7 @@ class TicketController extends Controller
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
             $items = Ticket::createdBy(Auth::getUser()->id)->get();
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
               $items = Ticket::latest('updated_at')->get();
         }
         return view('admin.tickets.index', compact('items'));
@@ -39,15 +39,21 @@ class TicketController extends Controller
     {
         $ticket = null;
         $ticketable_type = [Event::class => 'Event',Package::class => 'Package',Destination::class => 'Destination'];
-        $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
-        $destinations = $destination->mapWithKeys(function ($destination) {
-            return [$destination->id => $destination->name];
-        });
-        $event = Event::createdBy(Auth::user()->id)->get();
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+            $event = Event::all();
+            $package = Package::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
+            $event = Event::createdBy(Auth::user()->id)->get();
+            $package = Package::createdBy(Auth::user()->id)->get();
+        }
         $events = $event->mapWithKeys(function ($event) {
             return [$event->id => $event->name];
         });
-        $package = Package::createdBy(Auth::user()->id)->get();
+        $destinations = $destination->mapWithKeys(function ($destination) {
+            return [$destination->id => $destination->name];
+        });
         $packages = $package->mapWithKeys(function ($package) {
             return [$package->id => $package->name];
         });
@@ -129,16 +135,22 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         $ticketable_type = [Event::class => 'Event',Package::class => 'Package',Destination::class => 'Destination'];
-        $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
-        $destinations = $destination->mapWithKeys(function ($destination) {
-            return [$destination->id => $destination->name];
-        });
-        $event = Event::createdBy(Auth::user()->id)->get();
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+            $event = Event::all();
+            $package = Package::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination  = DB::table('destinations')->where('created_by', Auth::user()->id)->select('id', 'name')->get();
+            $event = Event::createdBy(Auth::user()->id)->get();
+            $package = Package::createdBy(Auth::user()->id)->get();
+        }
 
         $events = $event->mapWithKeys(function ($event) {
             return [$event->id => $event->name];
         });
-        $package = Package::createdBy(Auth::user()->id)->get();
+        $destinations = $destination->mapWithKeys(function ($destination) {
+            return [$destination->id => $destination->name];
+        });
         $packages = $package->mapWithKeys(function ($package) {
             return [$package->id => $package->name];
         });

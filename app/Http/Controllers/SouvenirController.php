@@ -22,7 +22,7 @@ class SouvenirController extends Controller
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
             $items = Souvenir::createdBy(Auth::getUser()->id)->get();
-        } elseif (Auth::getUser()->roles->first()->name == 'superadmin') {
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
               $items = Souvenir::latest('updated_at')->get();
         }
 
@@ -37,11 +37,15 @@ class SouvenirController extends Controller
     public function create()
     {
         $category = Category::where('parent_id', Category::where('name', 'souvenir')->first()->id)->get();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
-        $destination = Destination::createdBy(Auth::user()->id)->get();
-        $destinations = $destination->mapWithKeys(function ($item, $key) {
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination = Destination::createdBy(Auth::user()->id)->get();
+        }
+        $destinations = $destination->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $souvenirCategory = null;
@@ -114,11 +118,15 @@ class SouvenirController extends Controller
     public function edit($id)
     {
         $category = Category::where('parent_id', Category::where('name', 'souvenir')->first()->id)->get();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
-        $destination = Destination::createdBy(Auth::user()->id)->get();
-        $destinations = $destination->mapWithKeys(function ($item, $key) {
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination = Destination::createdBy(Auth::user()->id)->get();
+        }
+        $destinations = $destination->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $souvenir = Souvenir::find($id);
