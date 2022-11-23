@@ -20,6 +20,7 @@ class TicketerController extends Controller
         $order = Order::incomplete()
             ->where(['number' => $data['number'], 'order_date' => Carbon::parse($data['order_date'])])->firstOrFail();
 
+
         return new OrderResource($order);
     }
     public function payment(Request $request)

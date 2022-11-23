@@ -43,7 +43,7 @@ class ReviewController extends Controller
     {
         $user = auth()->user()->id;
         $waiting = OrderDetail::joinRelationship('order', function ($join) use ($user) {
-            $join->where('orders.user_id', '=', $user);
+            $join->where('orders.user_id', '=', $user)->completed();
         })->whereDoesntHave('reviews')->orderBy('created_at', 'DESC')->paginate(10);
         return OrderDetailResource::collection($waiting);
     }
@@ -51,7 +51,7 @@ class ReviewController extends Controller
     {
         $user = auth()->user()->id;
         $waiting = OrderDetail::joinRelationship('order', function ($join) use ($user) {
-            $join->where('orders.user_id', '=', $user);
+            $join->where('orders.user_id', '=', $user)->completed();
         })->whereHas('reviews')->orderBy('created_at', 'DESC')->paginate(10);
         return OrderDetailResource::collection($waiting);
     }
