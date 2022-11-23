@@ -8,9 +8,9 @@
             <div class="hero-inner">
                 <div class="hero-copy">
                     <h1 class="hero-title mt-0">Aplikasi Wisata Pulau Sultan</h1>
-                    <p class="hero-paragraph">Memudahkan Pemesanan Tiket Anda dengan Aplikasi Wisata Pulau Sultan</p>
+                    <p class="hero-paragraph">Memudahkan pemesanan tiket anda dengan Aplikasi Wisata Pulau Sultan</p>
                     <div class="hero-cta">
-                        <a class="button button-primary button-wide-mobile" href="#download">Dapatkan Aplikasi</a>
+                        <a class="button button-primary button-wide-mobile" href="#download" style="color: white !important">Dapatkan Aplikasi</a>
                     </div>
                 </div>
                 <div class="mockup-container">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="feature-extended-body is-revealing">
                             <h3 class="mt-0 mb-16">Pilihan Wisata.</h3>
-                            <p class="m-0">Dapat Memesan Tiket Wisata</p>
+                            <p class="m-0">Pilih dan pesan destinasi wisata anda dengan mudah dan aman.</p>
                         </div>
                     </div>
                     <div class="feature-extended">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="feature-extended-body is-revealing">
                             <h3 class="mt-0 mb-16">Pilihan Paket Wisata.</h3>
-                            <p class="m-0">Dapat Memesan Paket Wisata</p>
+                            <p class="m-0">Berbagai paket wisata tersedia untuk anda dan keluarga.</p>
                         </div>
                     </div>
                     <div class="feature-extended">
@@ -60,7 +60,7 @@
                         </div>
                         <div class="feature-extended-body is-revealing">
                             <h3 class="mt-0 mb-16">Pilihan Event</h3>
-                            <p class="m-0">Dapat Memesan Tiket Event yang Berlangsung</p>
+                            <p class="m-0">Temukan event favorit anda dan pesan tiketnya dengan mudah.</p>
                         </div>
                     </div>
                     <div class="feature-extended">
@@ -72,7 +72,7 @@
                         </div>
                         <div class="feature-extended-body is-revealing">
                             <h3 class="mt-0 mb-16">Pilhan Suvenir</h3>
-                            <p class="m-0">Dapat Memesan Suvenir yang ada pada Destinasi Wisata</p>
+                            <p class="m-0">Berbagai pilihan suvenir tersedia sebagai kenang-kenangan.</p>
                         </div>
                     </div>
                 </div>
