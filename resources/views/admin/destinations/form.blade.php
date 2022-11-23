@@ -19,13 +19,26 @@
             {!! Form::myInput('time','opening_hours','Opening Hours',['step'=>'2']) !!}
             {!! Form::myInput('time','closing_hours','Closing Hours',['step'=>'2']) !!}
 
-            {!! Form::myInput('text','instagram','Instagram') !!}
+            {{-- {!! Form::myInput('text','instagram','Instagram') !!} --}}
+
+            <div class='form-group'>
+                {!! Form::label('instagram','Instagram') !!}
+                <br>
+                <small>Untuk Isi Tidak Perlu Menambahkan @ pada inputan</small>
+                {!! Form::input('text', 'instagram', null, array_merge(["class" => "form-control"])) !!}
+            </div>
 
             {!! Form::myInput('url','website','Website') !!}
 
             {!! Form::myInput('number','capacity','Capacity') !!}
 
-            {!! Form::myInput('text','working_day','Working Day',['placeholder'=>'senin-rabu,kamis-jumat']) !!}
+            {{-- {!! Form::myInput('text','working_day','Working Day',['placeholder'=>'senin-rabu,kamis-jumat']) !!} --}}
+            <div class='form-group'>
+                {!! Form::label('working_day','Working Day') !!}
+                <br>
+                <small>Untuk isi Setiap Hari Silahkan isi Senin-Minggu</small>
+                {!! Form::input('text', 'working_day', null, array_merge(["class" => "form-control"], ["placeholder"=>"senin-rabu,kamis-jumat"])) !!}
+            </div>
 
             {!! Form::myFile('destination_photo','Destination Photo') !!}
 

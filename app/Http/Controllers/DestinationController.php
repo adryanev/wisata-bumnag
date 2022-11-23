@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDestinationRequest;
 use App\Http\Requests\UpdateDestinationRequest;
 use App\Models\Category;
 use App\Models\DestinationCategory;
+use Auth;
 use View;
 
 class DestinationController extends Controller
@@ -18,8 +19,11 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        $items = Destination::latest('updated_at')->get();
-
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $items = Destination::createdBy(Auth::getUser()->id)->get();
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
+              $items = Destination::latest('updated_at')->get();
+        }
         return view('admin.destinations.index', compact('items'));
     }
 
@@ -30,8 +34,13 @@ class DestinationController extends Controller
      */
     public function create()
     {
-        $category = Category::all();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $category = Category::whereIn('parent_id', [
+            Category::where('name', 'Wisata')->first()->id,
+            Category::where('name', 'Kuliner')->first()->id,
+            Category::where('name', 'Akomodasi')->first()->id,
+            Category::where('name', 'Desa Wisata')->first()->id,
+        ])->get();
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $destinationCategory = null;
@@ -47,6 +56,7 @@ class DestinationController extends Controller
     public function store(StoreDestinationRequest $request)
     {
         $data = $request->except('destination_photo');
+        $data['created_by'] = Auth::user()->id;
 
         // dd($request);
 
@@ -60,7 +70,7 @@ class DestinationController extends Controller
             fake()->numberBetween(1, 10).'.jpg'))
             ->preservingOriginal()->toMediaCollection('Destination');
         }
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess('Success Create Destination');
     }
 
     /**
@@ -98,8 +108,13 @@ class DestinationController extends Controller
     public function edit($id)
     {
         $destination = Destination::find($id);
-        $category = Category::all();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $category = Category::whereIn('parent_id', [
+            Category::where('name', 'Wisata')->first()->id,
+            Category::where('name', 'Kuliner')->first()->id,
+            Category::where('name', 'Akomodasi')->first()->id,
+            Category::where('name', 'Desa Wisata')->first()->id,
+        ])->get();
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $media = $destination->getMedia('Destination');
@@ -120,6 +135,7 @@ class DestinationController extends Controller
             'categories',
             'destinationCategory',
             'latestMedia',
+            'media'
         ));
     }
 
@@ -133,6 +149,7 @@ class DestinationController extends Controller
     public function update(UpdateDestinationRequest $request, $id)
     {
         $data = $request->except('destination_photo');
+        $data['updated_by'] = Auth::user()->id;
         $destination = Destination::findOrFail($id);
         $destination->update($data);
         if (count($destination->categories) != 0) {
@@ -146,7 +163,7 @@ class DestinationController extends Controller
         }
 
         // dd($data, $destination, $destinationCategory);
-        return redirect()->route(ADMIN . '.destinations.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(ADMIN . '.destinations.index')->withSuccess('Success Update '.$destination->name);
     }
 
     /**
@@ -158,8 +175,9 @@ class DestinationController extends Controller
     public function destroy($id)
     {
         $destination = Destination::find($id);
+        $destinationName = $destination->name;
         $destination->delete();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess('Success Delete '.$destinationName);
     }
 }

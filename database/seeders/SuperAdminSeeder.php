@@ -31,5 +31,25 @@ class SuperAdminSeeder extends Seeder
         $admin->roles()->detach();
         $admin->assignRole($role);
         $admin->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+
+        $admin = User::factory()->state([
+            'name' => 'MFRozi',
+            'email' => 'mfrozi@mail.com',
+            'password' => Hash::make('12345678'),
+        ])->create();
+        $role = Role::findByName('admin');
+        $admin->roles()->detach();
+        $admin->assignRole($role);
+        $admin->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+
+        $admin = User::factory()->state([
+            'name' => 'Adryanev',
+            'email' => 'adryanev@mail.com',
+            'password' => Hash::make('12345678'),
+        ])->create();
+        $role = Role::findByName('admin');
+        $admin->roles()->detach();
+        $admin->assignRole($role);
+        $admin->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
     }
 }

@@ -24,8 +24,8 @@ class TicketSetting extends Model
         'is_per_pax' => 'boolean',
         'is_per_day' => 'boolean',
         'is_per_age' => 'boolean',
-	'ticket_id' => 'int',
-   ];
+        'ticket_id' => 'int',
+    ];
 
     /*
     |------------------------------------------------------------------------------------

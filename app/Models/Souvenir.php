@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirschbaum\PowerJoins\PowerJoins;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Souvenir extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins;
+    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins, BlameableTrait;
 
-    protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity', 'description', 'destination_id'];
+    protected $fillable = ['name', 'is_free', 'price', 'term_and_conditions', 'quantity',
+        'description', 'destination_id','created_by','updated_by','deleted_by',
+    ];
     protected $casts = [
         'is_free' => 'boolean',
         'price_double' => 'double',

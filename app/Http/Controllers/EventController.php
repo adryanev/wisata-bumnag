@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Auth;
 use Carbon\Carbon;
 
 class EventController extends Controller
@@ -17,7 +18,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        $items = Event::latest('updated_at')->get();
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $items = Event::createdBy(Auth::getUser()->id)->get();
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
+             $items = Event::latest('updated_at')->get();
+        }
         return view('admin.events.index', compact('items'));
     }
 
@@ -43,6 +48,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request)
     {
         $data = $request->except('event_photo');
+        $data['created_by'] = Auth::user()->id;
         $event = Event::create($data);
         if ($request['event_photo'] != null) {
             $event->addMedia($request['event_photo'])->toMediaCollection('Event');
@@ -107,12 +113,13 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, $id)
     {
         $data = $request->except('event_photo');
+        $data['updated_at'] = Auth::user()->id;
         $event = Event::find($id);
         $updated = $event->update($data);
         if ($request['event_photo'] != null) {
             $event->addMedia($request['event_photo'])->toMediaCollection('Event');
         }
-        return redirect(route('admin.events.index'))->withSuccess('Success Update Event');
+        return redirect(route('admin.events.index'))->withSuccess('Success Update Event '.$event->name);
     }
 
     /**

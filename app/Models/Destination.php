@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirschbaum\PowerJoins\PowerJoins;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Destination extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins;
+    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins, BlameableTrait;
 
     protected $fillable = [
         'name', 'description', 'address', 'phone_number', 'email', 'latitude',
         'longitude', 'opening_hours', 'closing_hours', 'instagram', 'website', 'capacity', 'working_day',
+        'created_by','updated_by','deleted_by',
     ];
 
     protected $appends = [

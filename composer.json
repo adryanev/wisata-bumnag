@@ -22,6 +22,7 @@
         "laravelcollective/html": "^6.3",
         "midtrans/midtrans-php": "^2.5",
         "php-open-source-saver/jwt-auth": "^2.0",
+        "richan-fongdasen/eloquent-blameable": "^1.8",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-fractal": "^6.0",
         "spatie/laravel-medialibrary": "10.2.*",

@@ -9,16 +9,17 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Kirschbaum\PowerJoins\PowerJoins;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class AdBanner extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins;
+    use HasFactory, SoftDeletes, InteractsWithMedia, PowerJoins, BlameableTrait;
     /*
     |------------------------------------------------------------------------------------
     | Validations
     |------------------------------------------------------------------------------------
     */
-    protected $fillable = ['name', 'action', 'target'];
+    protected $fillable = ['name', 'action', 'target','created_by','updated_by','deleted_by'];
     /*
     |------------------------------------------------------------------------------------
     | Relations

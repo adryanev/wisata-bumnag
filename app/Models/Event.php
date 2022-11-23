@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Event extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, SoftDeletes, PowerJoins;
+    use HasFactory, InteractsWithMedia, SoftDeletes, PowerJoins, BlameableTrait;
 
     protected $fillable = [
         'name',
@@ -28,6 +29,9 @@ class Event extends Model implements HasMedia
         'instagram',
         'website',
         'capacity',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $appends = [

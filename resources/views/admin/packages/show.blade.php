@@ -42,7 +42,10 @@ Package {{ $package->name }} <small><i class="c-white-500 ti-eye"></i></small>
                 <br>
                 @endforeach
             </td>
-
+        </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$package->creator->name}} ({{ $package->creator->id }})</td>
         </tr>
 
     </table>

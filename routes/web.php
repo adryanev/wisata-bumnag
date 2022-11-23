@@ -42,6 +42,4 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('reviews', 'ReviewController');
 });
 
-Route::get('/', function () {
-    return redirect(route('admin.dash'));
-});
+Route::get('/', 'LandingController@index');

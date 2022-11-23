@@ -57,6 +57,10 @@ Ticket {{ $ticket->name }} <small><i class="c-white-500 ti-eye"></i></small>
             <td>Ticketable id</td>
             <td>{{ $ticket->ticketable_id }}</td>
         </tr>
+        <tr>
+            <td>Created By</td>
+            <td>{{$ticket->creator->name}} ({{ $ticket->creator->id }})</td>
+        </tr>
 
     </table>
 </div>

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +18,7 @@ class DestinationFactory extends Factory
      */
     public function definition()
     {
+        Auth::attempt(['email'=>env('SEEDER_EMAIL'),'password'=>env('SEEDER_PASS')]);
         return [
             'name' => fake()->company(),
             'description' => fake()->paragraph(),
@@ -27,7 +30,9 @@ class DestinationFactory extends Factory
             'instagram' => fake()->userName(),
             'website' => fake()->url(),
             'capacity' => strval(fake()->numberBetween(100, 10000)),
+            'created_by'=> Auth::user()->id,
         ];
+
     }
     public function allAttributes()
     {
@@ -44,7 +49,7 @@ class DestinationFactory extends Factory
             'instagram' => fake()->userName(),
             'website' => fake()->url(),
             'capacity' => strval(fake()->numberBetween(100, 10000)),
-            'working_day' => "senin-jumat"
+            'working_day' => "senin-jumat",
         ]);
     }
 }

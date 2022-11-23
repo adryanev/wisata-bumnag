@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateSouvenirRequest;
 use App\Models\Category;
 use App\Models\Destination;
 use App\Models\SouvenirCategory;
+use Auth;
 
 class SouvenirController extends Controller
 {
@@ -19,7 +20,11 @@ class SouvenirController extends Controller
      */
     public function index()
     {
-        $items = Souvenir::latest('updated_at')->get();
+        if (Auth::getUser()->roles->first()->name == 'admin') {
+            $items = Souvenir::createdBy(Auth::getUser()->id)->get();
+        } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
+              $items = Souvenir::latest('updated_at')->get();
+        }
 
         return view('admin.souvenirs.index', compact('items'));
     }
@@ -32,11 +37,15 @@ class SouvenirController extends Controller
     public function create()
     {
         $category = Category::where('parent_id', Category::where('name', 'souvenir')->first()->id)->get();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
-        $destination = Destination::all();
-        $destinations = $destination->mapWithKeys(function ($item, $key) {
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination = Destination::createdBy(Auth::user()->id)->get();
+        }
+        $destinations = $destination->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $souvenirCategory = null;
@@ -65,12 +74,13 @@ class SouvenirController extends Controller
         if ($data['is_free']) {
             $data['price'] = 0;
         }
+        $data['created_by'] = Auth::user()->id;
         $souvenir = Souvenir::create($data);
         $souvenir->categories()->attach($request['souvenir_category']);
         if ($request['souvenir_photo'] != null) {
             $souvenir->addMedia($request['souvenir_photo'])->toMediaCollection('Souvenir');
         }
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess('Success Create Souvenir');
     }
 
     /**
@@ -108,11 +118,15 @@ class SouvenirController extends Controller
     public function edit($id)
     {
         $category = Category::where('parent_id', Category::where('name', 'souvenir')->first()->id)->get();
-        $categories = $category->mapWithKeys(function ($item, $key) {
+        $categories = $category->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
-        $destination = Destination::all();
-        $destinations = $destination->mapWithKeys(function ($item, $key) {
+        if (Auth::getUser()->roles->first()->name == 'super-admin') {
+            $destination = Destination::all();
+        } elseif (Auth::getUser()->roles->first()->name == 'admin') {
+            $destination = Destination::createdBy(Auth::user()->id)->get();
+        }
+        $destinations = $destination->mapWithKeys(function ($item) {
             return [$item->id => $item->name];
         });
         $souvenir = Souvenir::find($id);
@@ -153,6 +167,7 @@ class SouvenirController extends Controller
         if ($data['is_free']) {
             $data['price'] = 0;
         }
+        $data['updated_by'] = Auth::user()->id;
         $souvenir = Souvenir::find($id);
         $souvenir->update($data);
         if (count($souvenir->categories) != 0) {
@@ -162,7 +177,7 @@ class SouvenirController extends Controller
         if ($request['souvenir_photo'] != null) {
             $souvenir->addMedia($request['souvenir_photo'])->toMediaCollection('Souvenir');
         }
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess('Success Create Souvenir');
     }
 
     /**
@@ -174,8 +189,9 @@ class SouvenirController extends Controller
     public function destroy($id)
     {
         $souvenir = Souvenir::find($id);
+        $souvenirName = $souvenir->name;
         $souvenir->delete();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess('Success Delete '.$souvenirName);
     }
 }

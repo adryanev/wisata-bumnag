@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirschbaum\PowerJoins\PowerJoins;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class Ticket extends Model
 {
-    use HasFactory, SoftDeletes, PowerJoins;
+    use HasFactory, SoftDeletes, PowerJoins, BlameableTrait;
 
     protected $fillable = [
         'name',

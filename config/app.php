@@ -212,6 +212,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        RichanFongdasen\EloquentBlameable\ServiceProvider::class
 
     ],
 

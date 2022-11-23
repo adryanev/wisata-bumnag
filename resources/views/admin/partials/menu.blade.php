@@ -45,16 +45,6 @@ $route = (isset($r['as'])) ? $r['as'] : '';
     </a>
 </li>
 <li class="nav-item">
-    <a class="sidebar-link {{ Str::startsWith($route, 'admin.tickets') ? 'actived' : '' }}" href="{{ route(ADMIN . '.tickets.index') }}">
-        <span class="icon-holder">
-            <i class="
-            {{ Str::startsWith($route, 'admin.tickets') ? 'c-blue-500 ti-receipt' : 'c-brown-500 ti-receipt' }}
-            "></i>
-        </span>
-        <span class="title">Tickets</span>
-    </a>
-</li>
-<li class="nav-item">
     <a class="sidebar-link {{ Str::startsWith($route, 'admin.packages') ? 'actived' : '' }}" href="{{ route(ADMIN . '.packages.index') }}">
         <span class="icon-holder">
             <i class="
@@ -62,16 +52,6 @@ $route = (isset($r['as'])) ? $r['as'] : '';
             "></i>
         </span>
         <span class="title">Packages</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="sidebar-link {{ Str::startsWith($route, 'admin.orders') ? 'actived' : '' }}" href="{{ route(ADMIN . '.orders.index') }}">
-        <span class="icon-holder">
-            <i class="
-            {{ Str::startsWith($route, 'admin.orders') ? 'c-blue-500 ti-folder' : 'c-brown-500 ti-folder' }}
-            "></i>
-        </span>
-        <span class="title">Orders</span>
     </a>
 </li>
 <li class="nav-item">
@@ -85,6 +65,16 @@ $route = (isset($r['as'])) ? $r['as'] : '';
     </a>
 </li>
 <li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, 'admin.tickets') ? 'actived' : '' }}" href="{{ route(ADMIN . '.tickets.index') }}">
+        <span class="icon-holder">
+            <i class="
+            {{ Str::startsWith($route, 'admin.tickets') ? 'c-blue-500 ti-receipt' : 'c-brown-500 ti-receipt' }}
+            "></i>
+        </span>
+        <span class="title">Tickets</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="sidebar-link {{ Str::startsWith($route, 'admin.reviews') ? 'actived' : '' }}" href="{{ route(ADMIN . '.reviews.index') }}">
         <span class="icon-holder">
             <i class="
@@ -92,5 +82,15 @@ $route = (isset($r['as'])) ? $r['as'] : '';
             "></i>
         </span>
         <span class="title">Reviews</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, 'admin.orders') ? 'actived' : '' }}" href="{{ route(ADMIN . '.orders.index') }}">
+        <span class="icon-holder">
+            <i class="
+            {{ Str::startsWith($route, 'admin.orders') ? 'c-blue-500 ti-folder' : 'c-brown-500 ti-folder' }}
+            "></i>
+        </span>
+        <span class="title">Orders</span>
     </a>
 </li>

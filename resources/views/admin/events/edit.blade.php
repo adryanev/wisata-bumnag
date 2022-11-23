@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('page-header')
-Event <small><i class="c-white-500 ti-brush"></i></small>
+Event {{ $event->name }}<small><i class="c-white-500 ti-brush"></i></small>
 <img src="{{ $latestMedia }}" alt="User {{ $event->name }} image" height="100" width="100">
 @stop
 

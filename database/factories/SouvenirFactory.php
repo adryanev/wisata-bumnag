@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Destination;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class SouvenirFactory extends Factory
     public function definition()
     {
         $destinations = Destination::all();
+        Auth::attempt(['email'=>env('SEEDER_EMAIL'),'password'=>env('SEEDER_PASS')]);
         return [
             'name'=>fake()->word(),
             'price'=>fake()->numberBetween(5000,500000),
@@ -25,6 +27,7 @@ class SouvenirFactory extends Factory
             'is_free'=>false,
             'description'=>fake()->sentence(),
             'destination_id'=>fake()->numberBetween(1,count($destinations)),
+            'created_by'=>Auth::user()->id,
         ];
     }
     public function isFree(){

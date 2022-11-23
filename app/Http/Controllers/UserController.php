@@ -67,7 +67,7 @@ class UserController extends Controller
         $role = Role::find($data['role']);
         $user->roles()->detach();
         $user->assignRole($role);
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess('Success Create User');
     }
 
     /**
@@ -145,7 +145,7 @@ class UserController extends Controller
         $user->roles()->detach();
         $user->assignRole($role);
 
-        return redirect()->route(ADMIN . '.users.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(ADMIN . '.users.index')->withSuccess('Success Update '.$user->name);
     }
 
     /**
@@ -157,8 +157,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $userName = $user->name;
         $user->delete();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess('Success Delete '.$userName);
     }
 }
