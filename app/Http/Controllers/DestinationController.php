@@ -20,9 +20,9 @@ class DestinationController extends Controller
     public function index()
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
-            $items = Destination::createdBy(Auth::getUser()->id)->get();
+            $items = Destination::createdBy(Auth::getUser()->id)->latest('created_at')->get();
         } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
-              $items = Destination::latest('updated_at')->get();
+              $items = Destination::latest('created_at')->get();
         }
         return view('admin.destinations.index', compact('items'));
     }
