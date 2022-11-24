@@ -13,7 +13,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $eventPaginator = Event::upcoming()->with(['reviews'])->whereHas('tickets');
+        $eventPaginator = Event::upcoming()->with(['reviews'])->whereHas('tickets')->latest('created_at');
         $queryBuilder = QueryBuilder::for($eventPaginator)
             ->allowedFilters(['start_date'])
             ->allowedSorts('start_date')

@@ -13,7 +13,7 @@ class PackageController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('category');
-        $packagePaginator = Package::category($id)->with(['reviews'])->whereHas('tickets')->paginate(10);
+        $packagePaginator = Package::category($id)->with(['reviews'])->whereHas('tickets')->latest('created_at')->paginate(10);
         return new PackageCollection($packagePaginator);
     }
 

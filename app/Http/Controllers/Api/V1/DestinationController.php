@@ -16,7 +16,7 @@ class DestinationController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('category');
-        $destinationPaginator = Destination::category($id)->with(['reviews', 'tickets'])->paginate(10);
+        $destinationPaginator = Destination::category($id)->with(['reviews', 'tickets'])->latest('created_at')->paginate(10);
         return new DestinationCollection($destinationPaginator);
 
         // $destionation = QueryBuilder::for(Destination::class)
