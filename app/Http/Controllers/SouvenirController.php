@@ -21,9 +21,9 @@ class SouvenirController extends Controller
     public function index()
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
-            $items = Souvenir::createdBy(Auth::getUser()->id)->get();
+            $items = Souvenir::createdBy(Auth::getUser()->id)->latest('created_at')->get();
         } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
-              $items = Souvenir::latest('updated_at')->get();
+              $items = Souvenir::latest('created_at')->get();
         }
 
         return view('admin.souvenirs.index', compact('items'));

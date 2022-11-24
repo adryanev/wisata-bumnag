@@ -19,9 +19,9 @@ class PackageController extends Controller
     public function index()
     {
         if (Auth::getUser()->roles->first()->name == 'admin') {
-            $items = Package::createdBy(Auth::getUser()->id)->get();
+            $items = Package::createdBy(Auth::getUser()->id)->latest('created_at')->get();
         } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
-            $items = Package::latest('updated_at')->get();
+            $items = Package::latest('created_at')->get();
         }
         return view('admin.packages.index', compact('items'));
     }
