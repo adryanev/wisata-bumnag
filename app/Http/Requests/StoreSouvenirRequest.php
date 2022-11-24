@@ -32,7 +32,8 @@ class StoreSouvenirRequest extends FormRequest
             'description' => 'nullable',
             'souvenir_category' => 'required|numeric',
             'destination_id' => 'required|numeric',
-            'souvenir_photo' => 'image|required'
+            'souvenir_photo' => 'nullable',
+            'souvenir_photo.*' => 'mimes:png,jpg'
         ];
     }
 }

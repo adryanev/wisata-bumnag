@@ -77,8 +77,14 @@ class SouvenirController extends Controller
         $data['created_by'] = Auth::user()->id;
         $souvenir = Souvenir::create($data);
         $souvenir->categories()->attach($request['souvenir_category']);
-        if ($request['souvenir_photo'] != null) {
-            $souvenir->addMedia($request['souvenir_photo'])->toMediaCollection('Souvenir');
+        if ($request->hasFile('souvenir_photo')) {
+            $souvenir->addMultipleMediaFromRequest(['souvenir_photo'])->each(function ($file) {
+                $file->toMediaCollection('Souvenir');
+            });
+        } else {
+            $souvenir->addMedia(storage_path('Souvenir/Souvenir'.
+            fake()->numberBetween(1, 10).'.jpg'))
+            ->preservingOriginal()->toMediaCollection('Souvenir');
         }
         return back()->withSuccess('Success Create Souvenir');
     }
@@ -174,8 +180,10 @@ class SouvenirController extends Controller
             $souvenir->categories()->detach();
         }
         $souvenir->categories()->attach($request['souvenir_category']);
-        if ($request['souvenir_photo'] != null) {
-            $souvenir->addMedia($request['souvenir_photo'])->toMediaCollection('Souvenir');
+        if ($request->hasFile('souvenir_photo')) {
+            $souvenir->addMultipleMediaFromRequest(['souvenir_photo'])->each(function ($file) {
+                $file->toMediaCollection('Souvenir');
+            });
         }
         return back()->withSuccess('Success Create Souvenir');
     }
