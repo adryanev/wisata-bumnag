@@ -40,7 +40,7 @@
                 {!! Form::input('text', 'working_day', null, array_merge(["class" => "form-control"], ["placeholder"=>"senin-rabu,kamis-jumat"])) !!}
             </div>
 
-            {!! Form::myFile('destination_photo','Destination Photo') !!}
+            {!! Form::myFile('destination_photo[]','Destination Photo',['multiple'=>true]) !!}
 
             {!! Form::mySelect('destination_category', 'Destination Category', $categories, $destinationCategory ? $destinationCategory->id : null , ['class' => 'form-control select2']) !!}
 

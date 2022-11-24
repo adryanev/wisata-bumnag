@@ -63,8 +63,10 @@ class DestinationController extends Controller
         $destination = Destination::create($data);
         $destinationCategory = $destination->categories()->attach($request['destination_category']);
 
-        if ($request['destination_photo'] != null) {
-            $destination->addMedia($request['destination_photo'])->toMediaCollection('Destination');
+        if ($request->hasFile('destination_photo')) {
+            $destination->addMultipleMediaFromRequest(['destination_photo'])->each(function ($file) {
+                $file->toMediaCollection('Destination');
+            });
         } else {
             $destination->addMedia(storage_path('Destination/Destination'.
             fake()->numberBetween(1, 10).'.jpg'))
@@ -158,8 +160,10 @@ class DestinationController extends Controller
         $destinationCategory = $destination->categories()->attach($request['destination_category']);
         // dump($destination, $destinationCategory, $destination->getMedia('Destination'));
 
-        if ($request['destination_photo'] != null) {
-            $destination->addMedia($request['destination_photo'])->toMediaCollection('Destination');
+        if ($request->hasFile('destination_photo')) {
+            $destination->addMultipleMediaFromRequest(['destination_photo'])->each(function ($file) {
+                $file->toMediaCollection('Destination');
+            });
         }
 
         // dd($data, $destination, $destinationCategory);

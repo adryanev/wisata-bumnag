@@ -36,7 +36,8 @@ class UpdateDestinationRequest extends FormRequest
             'instagram' => 'nullable',
             'website' => 'url | nullable',
             'capacity' => 'numeric | min:1 | nullable',
-            'destination_photo' => 'image',
+            'destination_photo' => 'nullable',
+            'destination_photo.*' => 'mimes:png,jpg',
             'destination_category' => 'required | numeric',
         ];
     }
