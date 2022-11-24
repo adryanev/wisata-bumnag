@@ -14,7 +14,7 @@ class SouvenirController extends Controller
 {
     public function index()
     {
-        $data = Destination::whereHas('souvenirs')->paginate();
+        $data = Destination::whereHas('souvenirs')->latest('created_at')->paginate();
         return new DestinationSouvenirCollection($data);
     }
 
