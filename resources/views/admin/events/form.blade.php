@@ -35,7 +35,7 @@
             {!! Form::myInput('number','capacity','Capacity') !!}
 
 
-            {!! Form::myFile('event_photo','Event Photo') !!}
+            {!! Form::myFile('event_photo[]','Event Photo',['multiple'=>true]) !!}
 
 
 

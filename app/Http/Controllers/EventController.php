@@ -50,8 +50,14 @@ class EventController extends Controller
         $data = $request->except('event_photo');
         $data['created_by'] = Auth::user()->id;
         $event = Event::create($data);
-        if ($request['event_photo'] != null) {
-            $event->addMedia($request['event_photo'])->toMediaCollection('Event');
+        if ($request->hasFile('event_photo')) {
+             $event->addMultipleMediaFromRequest(['event_photo'])->each(function ($file) {
+                $file->toMediaCollection('Event');
+             });
+        } else {
+            $event->addMedia(storage_path('Event/Event'.
+            fake()->numberBetween(1, 10).'.jpg'))
+            ->preservingOriginal()->toMediaCollection('Event');
         }
         return back()->withSuccess('Success Create Event '.$event->name);
     }
@@ -116,8 +122,10 @@ class EventController extends Controller
         $data['updated_at'] = Auth::user()->id;
         $event = Event::find($id);
         $updated = $event->update($data);
-        if ($request['event_photo'] != null) {
-            $event->addMedia($request['event_photo'])->toMediaCollection('Event');
+        if ($request->hasFile('event_photo')) {
+            $event->addMultipleMediaFromRequest(['event_photo'])->each(function ($file) {
+                $file->toMediaCollection('Event');
+            });
         }
         return redirect(route('admin.events.index'))->withSuccess('Success Update Event '.$event->name);
     }
