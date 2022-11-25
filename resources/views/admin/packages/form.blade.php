@@ -41,7 +41,7 @@
 
             {!! Form::mySelect('package_category', 'Package Category', $categories, $packageCategory ? $packageCategory->first()->id : null , ['class' => 'form-control select2']) !!}
 
-            {!! Form::myFile('package_photo','Package Photo') !!}
+            {!! Form::myFile('package_photo[]','Package Photo',['multiple'=>true]) !!}
 
         </div>
     </div>

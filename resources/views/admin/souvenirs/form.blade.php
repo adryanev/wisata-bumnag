@@ -22,7 +22,7 @@
 
             {!! Form::mySelect('destination_id', 'Souvenir Destination', $destinations, $souvenirDestination ? $souvenirDestination->id : null , ['class' => 'form-control select2']) !!}
 
-            {!! Form::myFile('souvenir_photo','Souvenir Photo') !!}
+            {!! Form::myFile('souvenir_photo[]','Souvenir Photo',['multiple'=>true]) !!}
 
         </div>
     </div>

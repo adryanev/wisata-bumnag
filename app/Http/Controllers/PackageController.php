@@ -57,8 +57,14 @@ class PackageController extends Controller
         // dd($request);
         $package = Package::create($data);
         $packageCategory = $package->categories()->attach($data['package_category']);
-        if ($request['package_photo'] != null) {
-            $package->addMedia($request['package_photo'])->toMediaCollection('Package');
+        if ($request->hasFile('package_photo')) {
+            $package->addMultipleMediaFromRequest(['package_photo'])->each(function ($file) {
+                $file->toMediaCollection('Package');
+            });
+        } else {
+            $package->addMedia(storage_path('Package/Package'.
+            fake()->numberBetween(1, 10).'.jpg'))
+            ->preservingOriginal()->toMediaCollection('Package');
         }
         return back()->withSuccess('Success add Package '.$package->name);
     }
@@ -133,8 +139,10 @@ class PackageController extends Controller
             $package->categories()->detach();
         }
         $packageCategory = $package->categories()->attach($request['package_category']);
-        if ($request['package_photo'] != null) {
-            $package->addMedia($request['package_photo'])->toMediaCollection('Package');
+        if ($request->hasFile('package_photo')) {
+            $package->addMultipleMediaFromRequest(['package_photo'])->each(function ($file) {
+                $file->toMediaCollection('Package');
+            });
         }
         return back()->withSuccess('Success add Package '.$package->name);
     }

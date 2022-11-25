@@ -37,7 +37,8 @@ class UpdateEventRequest extends FormRequest
             'instagram' => 'nullable',
             'website' => 'url|nullable',
             'capacity' => 'numeric|min:1|nullable',
-            'event_photo' => 'image',
+            'event_photo' => 'nullable',
+            'event_photo.*' => 'mimes:png,jpg',
         ];
     }
 }

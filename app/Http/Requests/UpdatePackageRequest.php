@@ -30,7 +30,8 @@ class UpdatePackageRequest extends FormRequest
             'activities' => 'required',
             'destination' => 'required',
             'package_category' => 'required',
-            'package_photo' => 'image',
+            'package_photo' => 'nullable',
+            'package_photo.*' => 'mimes:png,jpg'
         ];
     }
 }
