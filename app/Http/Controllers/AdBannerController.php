@@ -104,7 +104,7 @@ class AdBannerController extends Controller
         $adBanner = AdBanner::find($id);
         $adBanner->update($data);
 
-        if ($request['avatar'] != null) {
+        if ($request['media'] != null) {
             $adBanner->addMedia($request['media'])->toMediaCollection('Banner');
         }
         return redirect()->route(ADMIN . '.adbanners.index')->withSuccess('Success Update '.$adBanner->name);

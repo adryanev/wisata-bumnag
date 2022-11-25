@@ -39,6 +39,7 @@ class AdBanner extends Model implements HasMedia
     */
     public function registerMediaCollections(Media $media = null): void
     {
+        $this->addMediaCollection('Banner')->singleFile();
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
     }
 }
