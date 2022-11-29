@@ -23,7 +23,7 @@
             <div class="site-footer-inner">
                 <div class="brand footer-brand">
                     <a href="#">
-                        <img src="{{ asset("landing/images/logo.svg") }}" alt="App Wisata logo" height="100px" width="150px">
+                        <img src="{{ asset("landing/images/app_transparent_background.png") }}" alt="App Wisata logo" height="50px" width="100px">
                     </a>
                 </div>
                 <ul class="footer-links list-reset">

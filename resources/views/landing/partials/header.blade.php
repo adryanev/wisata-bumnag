@@ -4,7 +4,7 @@
             <div class="brand header-brand">
                 <h1 class="m-0">
                     <a href="#">
-                        <img class="header-logo-image" src="{{ asset('landing/images/logo.svg') }}" height="100px" width="150px" alt="Logo">
+                        <img class="header-logo-image" src="{{ asset('landing/images/app_transparent_background.png') }}" height="50px" width="100px" alt="Logo">
                     </a>
                 </h1>
             </div>

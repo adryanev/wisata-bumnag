@@ -1,7 +1,7 @@
 @extends('admin.default')
 
 @section('content')
-<h1>Dashboard Aplikasi Wisata Pulau Sultan</h1>
+<h1>Dashboard Aplikasi Wisata Pulau Setan</h1>
 <div class="row gap-20 masonry pos-r">
     <div class="masonry-sizer col-md-6"></div>
     <div class="masonry-item  w-100">

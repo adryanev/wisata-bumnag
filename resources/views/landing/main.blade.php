@@ -7,8 +7,8 @@
         <div class="container-sm">
             <div class="hero-inner">
                 <div class="hero-copy">
-                    <h1 class="hero-title mt-0">Aplikasi Wisata Pulau Sultan</h1>
-                    <p class="hero-paragraph">Memudahkan pemesanan tiket anda dengan Aplikasi Wisata Pulau Sultan</p>
+                    <h1 class="hero-title mt-0">Aplikasi Wisata Pulau Setan</h1>
+                    <p class="hero-paragraph">Memudahkan pemesanan tiket anda dengan Aplikasi Wisata Pulau Setan</p>
                     <div class="hero-cta">
                         <a class="button button-primary button-wide-mobile" href="#download" style="color: white !important">Dapatkan Aplikasi</a>
                     </div>
