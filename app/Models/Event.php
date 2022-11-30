@@ -98,7 +98,7 @@ class Event extends Model implements HasMedia
     public function scopeUpcoming($query)
     {
 
-        return $query->where('start_date', '>', now()->addHours(12));
+        return $query->where('start_date', '>=', now()->addHours(12));
     }
 
     /*
