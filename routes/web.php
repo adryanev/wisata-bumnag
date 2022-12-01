@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Models\Media;
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
@@ -40,6 +41,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     });
     Route::resource('events', 'EventController');
     Route::resource('reviews', 'ReviewController');
+    Route::resource('medias', 'MediaController');
 });
 
 Route::get('/', 'LandingController@index');
