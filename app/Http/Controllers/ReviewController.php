@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Destination;
+use App\Models\Media;
 use App\Models\Package;
 use App\Models\Souvenir;
 use App\Models\Ticket;
@@ -160,7 +161,9 @@ class ReviewController extends Controller
         });
         $review = DB::table('reviews')->where('id', $id)->first();
         $reviewUser = User::find($review->user_id);
-        // dd($review,$reviewUser);
+        // dd($review, $reviewUser);
+        $media = Media::where(['model_type' => 'App\\Models\\Review', 'model_id' => $id])->get();
+        // dd($media);
         return view('admin.reviews.edit', compact(
             'review',
             'reviewable_type',
@@ -170,6 +173,7 @@ class ReviewController extends Controller
             'tickets',
             'users',
             'reviewUser',
+            'media',
         ));
     }
 

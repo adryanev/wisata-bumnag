@@ -156,6 +156,7 @@ class SouvenirController extends Controller
             'souvenirCategory',
             'souvenirDestination',
             'latestMedia',
+            'media',
         ));
     }
 

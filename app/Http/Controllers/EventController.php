@@ -106,6 +106,7 @@ class EventController extends Controller
         return view('admin.events.edit', compact(
             'event',
             'latestMedia',
+            'media',
         ));
     }
 
