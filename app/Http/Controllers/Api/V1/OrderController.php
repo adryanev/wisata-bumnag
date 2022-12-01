@@ -8,6 +8,9 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatusHistory;
+use App\Models\User;
+use App\Notifications\AdminOrderCreated;
+use App\Notifications\UserOrderCreated;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -59,6 +62,12 @@ class OrderController extends Controller
                 $details[] = new OrderDetail(array_merge($value));
             }
             $order->orderDetails()->saveMany($details);
+            if (!empty($order->user->device_token)) {
+                $order->user->notify(new UserOrderCreated($order));
+            }
+
+            $adminId = $order->orderDetails->first()->orderable()->created_by;
+            User::find($adminId)->notify(new AdminOrderCreated($order));
             DB::commit();
             $tempDir->delete();
             return new OrderResource($order);
