@@ -118,6 +118,7 @@ class PackageController extends Controller
             'categories',
             'packageCategory',
             'latestMedia',
+            'media',
         ));
     }
 
