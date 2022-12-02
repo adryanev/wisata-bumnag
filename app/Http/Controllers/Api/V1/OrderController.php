@@ -66,7 +66,7 @@ class OrderController extends Controller
                 $order->user->notify(new UserOrderCreated($order));
             }
 
-            $adminId = $order->orderDetails->first()->orderable()->created_by;
+            $adminId = $order->orderDetails->first()->orderable->created_by;
             User::find($adminId)->notify(new AdminOrderCreated($order));
             DB::commit();
             $tempDir->delete();

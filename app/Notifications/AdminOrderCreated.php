@@ -52,7 +52,7 @@ class AdminOrderCreated extends Notification implements ShouldBroadcast
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Halo')
+            ->greeting('Halo,')
             ->line("Order dengan nomor {$this->order->number} sudah masuk.");
     }
 

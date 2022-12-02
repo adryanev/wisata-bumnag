@@ -83,7 +83,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
     });
 
     //=========== Ticketer ================
-    Route::group(['prefix' => 'ticketers', 'middleware' => ['auth:api', 'role:ticketer']], function () {
+    Route::group(['prefix' => 'ticketers', 'middleware' => ['auth:api', 'role:ticketer|admin|super-admin']], function () {
         Route::post('/check', [TicketerController::class, 'check']);
         Route::post('/payment', [TicketerController::class, 'payment']);
         Route::post('/approve', [TicketerController::class, 'approve']);

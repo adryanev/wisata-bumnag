@@ -151,8 +151,8 @@ class PaymentController extends Controller
                 $payment->save();
                 $transaction->save();
 
-                $adminId = $transaction->orderDetails->first()->orderable()->created_by;
-                User::find($adminId)->notify(new AdminPaymentReceived($$transaction));
+                $adminId = $transaction->orderDetails->first()->orderable->created_by;
+                User::find($adminId)->notify(new AdminPaymentReceived($transaction));
                 if (!empty($user->device_token)) {
                     $user->notify(new UserPaymentReceived($transaction));
                 }
@@ -171,6 +171,7 @@ class PaymentController extends Controller
             return response()->json(['message' => 'success']);
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             return response()->json(['message' => 'failed'], 500);
         }
     }

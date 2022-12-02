@@ -40,7 +40,11 @@ class UserPaymentReceived extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail', FcmChannel::class];
+        return [
+            'database',
+            'mail',
+            // FcmChannel::class,
+        ];
     }
 
     /**
@@ -53,7 +57,7 @@ class UserPaymentReceived extends Notification
     {
         return (new MailMessage)
             ->greeting('Halo!')
-            ->line('Pembayaran anda sudah diterima.')
+            ->line("Pembayaran untuk nomor order {$this->order->number} sudah diterima.")
             ->line('Silahkan cek status pesanan anda di aplikasi.')
             ->line('Terima kasih telah menggunakan Aplikasi Wisata Pulau Setan!');
     }
@@ -61,12 +65,17 @@ class UserPaymentReceived extends Notification
     public function toFcm($notifiable)
     {
         return FcmMessage::create()
-            ->setData(['data' => ['is_success' => true]])
-            ->setTopic('payment')
+            ->setData([
+                'id' => $this->order->id,
+                'order_number' => $this->order->number,
+                'total_price' => $this->order->total_price,
+                'is_success' => true,
+                'type' => Order::class,
+            ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
                     ->setTitle('Pembayaran diterima')
-                    ->setBody('Pembayaran anda telah kami terima')
+                    ->setBody("Pembayaran anda untuk nomor order {$this->order->number} telah kami terima")
             );
     }
 

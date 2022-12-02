@@ -39,7 +39,11 @@ class UserOrderCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail', FcmChannel::class];
+        return [
+            'database',
+            'mail',
+            // FcmChannel::class,
+        ];
     }
 
     /**
@@ -51,16 +55,24 @@ class UserOrderCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+
             ->greeting('Halo, Pesanan Dibuat.')
-            ->line('Pesanan Anda berhasil dibuat, silahkan bayar pesanan anda dalam waktu 24 Jam.')
+            ->subject("Order {$this->order->number} dibuat")
+            ->line("Pesanan Anda berhasil dibuat, dengan nomor order {$this->order->number}.")
+            ->line("Silahkan bayar pesanan anda dalam waktu 24 Jam.")
             ->line('Pembayaran hanya bisa dilakukan di dalam Aplikasi Wisata Pulau Setan.');
     }
 
     public function toFcm($notifiable)
     {
         return FcmMessage::create()
-            ->setData(['data' => ['is_success' => true]])
-            ->setTopic('order')
+            ->setData([
+                'id' => $this->order->id,
+                'type' => Order::class,
+                'number' => $this->order->number,
+                'title' => 'Order Dibuat',
+                'body' => 'Pesanan berhasil dibuat!',
+            ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
                     ->setTitle('Order Dibuat')

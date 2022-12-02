@@ -39,7 +39,11 @@ class UserTicketApproved extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail', FcmChannel::class];
+        return [
+            'database',
+            'mail',
+            // FcmChannel::class,
+        ];
     }
 
     /**
@@ -52,14 +56,19 @@ class UserTicketApproved extends Notification
     {
         return (new MailMessage)
             ->greeting('Tiket digunakan.')
-            ->line("Tiket anda untuk nomor order {$this->order->number} Sudah digunakan");
+            ->line("Tiket anda untuk nomor order {$this->order->number} sudah digunakan");
     }
 
     public function toFcm($notifiable)
     {
         return FcmMessage::create()
-            ->setData(['data' => ['is_success' => true]])
-            ->setTopic('ticket')
+            ->setData([
+                'id' => $this->order->id,
+                'type' => Ticket::class,
+                'number' => $this->order->number,
+                'title' => 'Tiket digunakan',
+                'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
+            ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
                     ->setTitle('Tiket digunakan')
