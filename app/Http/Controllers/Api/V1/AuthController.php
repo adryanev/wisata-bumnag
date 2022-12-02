@@ -8,6 +8,7 @@ use App\Http\Requests\Api\V1\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Spatie\Permission\Models\Role;
@@ -32,6 +33,11 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $data = $request->all();
+        $user->device_token = $data['fcm_token'];
+        $user->save();
+
+
         $media =
             $user->getMedia('Avatar')->map(function ($value) {
                 return $value->getUrl();
@@ -69,6 +75,18 @@ class AuthController extends Controller
                 'data' => 'USER_LOGGED_OUT',
             ]
         );
+    }
+
+    public function fcm(Request $request)
+    {
+        $user =
+            Auth::user();
+        $token = $request->all();
+        $user->device_token = $token['fcm_token'];
+        $user->save();
+        return response()->json([
+            'data' => 'FCM_UPDATED',
+        ]);
     }
 
     public function refresh()
