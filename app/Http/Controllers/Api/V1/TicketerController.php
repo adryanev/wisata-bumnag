@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\TicketerCheckResource;
 use App\Models\Order;
+use App\Models\OrderStatusHistory;
 use App\Models\Payment;
+use App\Notifications\UserTicketApproved;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -61,6 +63,16 @@ class TicketerController extends Controller
 
         $order->status = Order::STATUS_COMPLETED;
         $order->save();
+
+        $history = new OrderStatusHistory([
+
+            'status' => Order::STATUS_COMPLETED,
+            'description' => 'Tiket sudah digunakan',
+        ]);
+        $order->histories()->save($history);
+        if (!empty($order->user->device_token)) {
+            $order->user->notify(new UserTicketApproved($order));
+        }
 
         return response()->json([
             'data' => 'Order Approved',

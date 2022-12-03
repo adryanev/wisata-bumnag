@@ -8,7 +8,9 @@ use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
 use App\Models\User;
+use App\Notifications\AdminPaymentReceived;
 use App\Notifications\PaymentReceived;
+use App\Notifications\UserPaymentReceived;
 use App\Services\Midtrans\Facades\Midtrans;
 use App\Services\Midtrans\Notification;
 use Exception;
@@ -149,11 +151,14 @@ class PaymentController extends Controller
                 $payment->save();
                 $transaction->save();
 
+                $adminId = $transaction->orderDetails->first()->orderable->created_by;
+                User::find($adminId)->notify(new AdminPaymentReceived($transaction));
+                if (!empty($user->device_token)) {
+                    $user->notify(new UserPaymentReceived($transaction));
+                }
                 DB::commit();
 
-                if (!empty($user->device_token)) {
-                    $user->notify(new PaymentReceived);
-                }
+
 
 
                 return response()->json(['message' => 'success']);
@@ -166,6 +171,7 @@ class PaymentController extends Controller
             return response()->json(['message' => 'success']);
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             return response()->json(['message' => 'failed'], 500);
         }
     }
