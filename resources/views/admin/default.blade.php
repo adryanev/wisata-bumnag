@@ -29,7 +29,6 @@
                     </div>
                 </div>
             </main>
-
             <!-- ### $App Screen Footer ### -->
             <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
                 <span>Copyright © {{ date('Y') }} Designed by
@@ -50,6 +49,25 @@
     <!-- Specific js content placeholder -->
     @stack('js')
     <!-- End of specific js content placeholder -->
+    <script>
+        let channel = window.Echo.private('App.Models.User.{{ Auth::user()->id }}');
+        channel.notification((data) => {
+            window.Toastify({
+                text: data.body
+                , duration: -1
+                , close: true
+                , gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "#E42C24"
+                , }
+                , onClick: function() {} // Callback after click
+            }).showToast();
+
+        })
+
+    </script>
 
 </body>
 

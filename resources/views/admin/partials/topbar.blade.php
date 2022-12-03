@@ -1,3 +1,5 @@
+<?php $userNotification = Auth::user()->unreadNotifications()->latest();?>
+
 <div class="header navbar">
     <div class="header-container">
         <ul class="nav-left">
@@ -17,8 +19,8 @@
             </li>
         </ul>
         <ul class="nav-right">
-            {{-- <li class="notifications dropdown">
-                <span class="counter bgc-red">0</span>
+            <li class="notifications dropdown">
+                <span class="counter bgc-red">{{ $userNotification->count() }}</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-bell"></i>
                 </a>
@@ -29,59 +31,28 @@
                         <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
                     </li>
                     <li>
+                        @foreach ($userNotification->limit(3)->get() as $notification )
+
                         <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
                             <li>
                                 <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/1.jpg" alt="">
-                                    </div>
                                     <div class="peer peer-greed">
                                         <span>
-                                            <span class="fw-500">John Doe</span>
-                                            <span class="c-grey-600">liked your <span class="text-dark">post</span>
+                                            <span class="fw-500">{{ $notification->data['title'] }}</span>
+                                            <br>
+                                            <span class="c-grey-600">{{ $notification->data['body'] }}
                                             </span>
                                         </span>
                                         <p class="m-0">
-                                            <small class="fsz-xs">5 mins ago</small>
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/2.jpg" alt="">
-                                    </div>
-                                    <div class="peer peer-greed">
-                                        <span>
-                                            <span class="fw-500">Moo Doe</span>
-                                            <span class="c-grey-600">liked your <span class="text-dark">cover image</span>
-                                            </span>
-                                        </span>
-                                        <p class="m-0">
-                                            <small class="fsz-xs">7 mins ago</small>
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/3.jpg" alt="">
-                                    </div>
-                                    <div class="peer peer-greed">
-                                        <span>
-                                            <span class="fw-500">Lee Doe</span>
-                                            <span class="c-grey-600">commented on your <span class="text-dark">video</span>
-                                            </span>
-                                        </span>
-                                        <p class="m-0">
-                                            <small class="fsz-xs">10 mins ago</small>
+                                            <small class="fsz-xs">{{ $notification->created_at->diffForHumans() }}</small>
+
                                         </p>
                                     </div>
                                 </a>
                             </li>
                         </ul>
+
+                        @endforeach
                     </li>
                     <li class="pX-20 pY-15 ta-c bdT">
                         <span>
@@ -92,7 +63,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="notifications dropdown">
+            {{-- <li class="notifications dropdown">
                 <span class="counter bgc-blue">0</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-email"></i>
