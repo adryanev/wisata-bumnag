@@ -41,7 +41,7 @@ class UserTicketApproved extends Notification implements ShouldQueue
         return [
             'database',
             'mail',
-            // FcmChannel::class,
+            FcmChannel::class,
         ];
     }
 
@@ -66,6 +66,7 @@ class UserTicketApproved extends Notification implements ShouldQueue
                 'object_type' => Order::class,
                 'title' => 'Tiket digunakan',
                 'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
+                'action' => null,
             ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
@@ -87,6 +88,7 @@ class UserTicketApproved extends Notification implements ShouldQueue
             'object_type' => Order::class,
             'title' => 'Tiket digunakan',
             'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
+            'action' => null,
         ];
     }
 }

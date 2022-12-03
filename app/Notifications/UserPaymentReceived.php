@@ -43,7 +43,7 @@ class UserPaymentReceived extends Notification implements ShouldQueue
         return [
             'database',
             'mail',
-            // FcmChannel::class,
+            FcmChannel::class,
         ];
     }
 
@@ -70,6 +70,8 @@ class UserPaymentReceived extends Notification implements ShouldQueue
                 'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
                 'title' => 'Pembayaran diterima',
                 'object_type' => Order::class,
+                'action' => null,
+
             ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
@@ -91,6 +93,7 @@ class UserPaymentReceived extends Notification implements ShouldQueue
             'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
             'title' => 'Pembayaran diterima',
             'object_type' => Order::class,
+            'action' => null,
         ];
     }
 }

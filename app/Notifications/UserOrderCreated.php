@@ -42,7 +42,7 @@ class UserOrderCreated extends Notification implements ShouldQueue
         return [
             'database',
             'mail',
-            // FcmChannel::class,
+            FcmChannel::class,
         ];
     }
 
@@ -71,6 +71,8 @@ class UserOrderCreated extends Notification implements ShouldQueue
                 'object_type' => Order::class,
                 'title' => 'Order Dibuat',
                 'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
+                'action' => null
+
             ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
@@ -92,6 +94,7 @@ class UserOrderCreated extends Notification implements ShouldQueue
             'object_type' => Order::class,
             'title' => 'Order Dibuat',
             'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
+            'action' => null
         ];
     }
 }

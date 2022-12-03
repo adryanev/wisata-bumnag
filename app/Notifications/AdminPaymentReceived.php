@@ -64,6 +64,7 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast, Shou
             'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
             'object_id' => $this->order->id,
             'object_type' => Order::class,
+            'action' => null,
 
         ]);
     }
@@ -81,6 +82,7 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast, Shou
             'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
             'object_id' => $this->order->id,
             'object_type' => Order::class,
+            'action' => null,
         ];
     }
 }

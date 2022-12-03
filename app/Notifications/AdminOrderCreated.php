@@ -63,6 +63,7 @@ class AdminOrderCreated extends Notification implements ShouldBroadcast, ShouldQ
             'body' => "Order dengan nomor {$this->order->number} sudah masuk",
             'object_id' => $this->order->id,
             'object_type' => Order::class,
+            'action' => null,
 
         ]);
     }
@@ -80,6 +81,7 @@ class AdminOrderCreated extends Notification implements ShouldBroadcast, ShouldQ
             'body' => "Order dengan nomor {$this->order->number} sudah masuk",
             'object_id' => $this->order->id,
             'object_type' => Order::class,
+            'action' => null,
         ];
     }
 }
