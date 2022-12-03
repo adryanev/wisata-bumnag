@@ -11,5 +11,25 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js');
-mix.sass('resources/sass/app.scss', 'public/css');
+mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+                'window.jQuery': 'jquery',
+                Popper: ['popper.js', 'default'],
+            })
+        ]
+    };
+});
+
+
+mix.js('resources/js/app.js', 'public/js')
+    .vue()
+    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/rtl.scss', 'public/css')
+    .copyDirectory('resources/sass/static/images','public/images')
+    .browserSync(process.env.APP_URL)
+    .version()
+    .sourceMaps();

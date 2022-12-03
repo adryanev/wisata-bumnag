@@ -16,5 +16,4 @@
     <!-- Specific css content placeholder -->
     @stack('css')
     <!-- End of specific css content placeholder -->
-    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
