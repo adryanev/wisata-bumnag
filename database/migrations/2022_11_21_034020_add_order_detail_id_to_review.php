@@ -29,7 +29,6 @@ return new class extends Migration
     {
         Schema::table('reviews', function (Blueprint $table) {
             $table->dropConstrainedForeignId('order_detail_id');
-            $table->dropColumn('order_detail_id');
         });
     }
 };
