@@ -3,6 +3,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import 'spec/index';
 @import 'vendor/index';
+@import "toastify-js/src/toastify.css";
 
 #loader {
     transition: all 0.3s ease-in-out;
