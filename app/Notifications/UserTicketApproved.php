@@ -62,8 +62,8 @@ class UserTicketApproved extends Notification implements ShouldQueue
     {
         return FcmMessage::create()
             ->setData([
-                'id' => $this->order->id,
-                'type' => Order::class,
+                'object_id' => $this->order->id,
+                'object_type' => Order::class,
                 'title' => 'Tiket digunakan',
                 'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
             ])
@@ -83,8 +83,8 @@ class UserTicketApproved extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
             'title' => 'Tiket digunakan',
             'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
         ];

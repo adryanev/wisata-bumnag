@@ -67,8 +67,8 @@ class UserOrderCreated extends Notification implements ShouldQueue
     {
         return FcmMessage::create()
             ->setData([
-                'id' => $this->order->id,
-                'type' => Order::class,
+                'object_id' => $this->order->id,
+                'object_type' => Order::class,
                 'title' => 'Order Dibuat',
                 'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
             ])
@@ -88,8 +88,8 @@ class UserOrderCreated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
             'title' => 'Order Dibuat',
             'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
         ];

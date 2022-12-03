@@ -66,10 +66,10 @@ class UserPaymentReceived extends Notification implements ShouldQueue
     {
         return FcmMessage::create()
             ->setData([
-                'id' => $this->order->id,
+                'object_id' => $this->order->id,
                 'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
                 'title' => 'Pembayaran diterima',
-                'type' => Order::class,
+                'object_type' => Order::class,
             ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
@@ -87,10 +87,10 @@ class UserPaymentReceived extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->order->id,
+            'object_id' => $this->order->id,
             'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
             'title' => 'Pembayaran diterima',
-            'type' => Order::class,
+            'object_type' => Order::class,
         ];
     }
 }
