@@ -102,6 +102,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
 
     //======================== Profiles ====================
     Route::group(['prefix' => 'profiles', 'middleware' => ['auth:api']], function () {
+        Route::get('/', [ProfileController::class, 'index']);
         Route::put('/update', [ProfileController::class, 'update']);
         Route::put('/password', [ProfileController::class, 'password']);
         Route::post('/avatar', [ProfileController::class, 'avatar']);

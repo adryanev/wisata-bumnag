@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
 
+
+    public function index()
+    {
+        return new ProfileResource(Auth::user());
+    }
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
