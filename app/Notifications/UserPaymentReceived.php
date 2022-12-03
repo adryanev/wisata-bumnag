@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmChannel;
 use NotificationChannels\Fcm\FcmMessage;
 
-class UserPaymentReceived extends Notification
+class UserPaymentReceived extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -67,9 +67,8 @@ class UserPaymentReceived extends Notification
         return FcmMessage::create()
             ->setData([
                 'id' => $this->order->id,
-                'order_number' => $this->order->number,
-                'total_price' => $this->order->total_price,
-                'is_success' => true,
+                'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
+                'title' => 'Pembayaran diterima',
                 'type' => Order::class,
             ])
             ->setNotification(
@@ -89,9 +88,8 @@ class UserPaymentReceived extends Notification
     {
         return [
             'id' => $this->order->id,
-            'order_number' => $this->order->number,
-            'total_price' => $this->order->total_price,
-            'is_success' => true,
+            'body' => "Pembayaran anda untuk nomor order {$this->order->number} telah kami terima",
+            'title' => 'Pembayaran diterima',
             'type' => Order::class,
         ];
     }

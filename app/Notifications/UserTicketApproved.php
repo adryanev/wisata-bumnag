@@ -3,14 +3,13 @@
 namespace App\Notifications;
 
 use App\Models\Order;
-use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmMessage;
 
-class UserTicketApproved extends Notification
+class UserTicketApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -64,8 +63,7 @@ class UserTicketApproved extends Notification
         return FcmMessage::create()
             ->setData([
                 'id' => $this->order->id,
-                'type' => Ticket::class,
-                'number' => $this->order->number,
+                'type' => Order::class,
                 'title' => 'Tiket digunakan',
                 'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
             ])
@@ -86,11 +84,9 @@ class UserTicketApproved extends Notification
     {
         return [
             'id' => $this->order->id,
-            'type' => Ticket::class,
-            'number' => $this->order->number,
+            'type' => Order::class,
             'title' => 'Tiket digunakan',
             'body' => "Tiket anda untuk nomor order {$this->order->number} Sudah digunakan",
-
         ];
     }
 }

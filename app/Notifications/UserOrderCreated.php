@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmChannel;
 use NotificationChannels\Fcm\FcmMessage;
 
-class UserOrderCreated extends Notification
+class UserOrderCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -69,14 +69,13 @@ class UserOrderCreated extends Notification
             ->setData([
                 'id' => $this->order->id,
                 'type' => Order::class,
-                'number' => $this->order->number,
                 'title' => 'Order Dibuat',
-                'body' => 'Pesanan berhasil dibuat!',
+                'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
             ])
             ->setNotification(
                 \NotificationChannels\Fcm\Resources\Notification::create()
                     ->setTitle('Order Dibuat')
-                    ->setBody('Pesanan berhasil dibuat!')
+                    ->setBody("Pesanan dengan nomor order {$this->order->number} berhasil dibuat!")
             );
     }
 
@@ -91,10 +90,8 @@ class UserOrderCreated extends Notification
         return [
             'id' => $this->order->id,
             'type' => Order::class,
-            'number' => $this->order->number,
             'title' => 'Order Dibuat',
-            'body' => 'Pesanan berhasil dibuat!',
-
+            'body' => "Pesanan dengan nomor order {$this->order->number} berhasil dibuat!",
         ];
     }
 }

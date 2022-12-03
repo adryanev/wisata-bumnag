@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AdminPaymentReceived extends Notification implements ShouldBroadcast
+class AdminPaymentReceived extends Notification implements ShouldBroadcast, ShouldQueue
 {
     use Queueable;
 
@@ -61,9 +61,8 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast
     {
         return new BroadcastMessage([
             'title' => 'Pembayaran diterima',
-            'message' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
+            'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
             'id' => $this->order->id,
-            'total_price' => $this->order->total_price,
             'type' => Order::class,
 
         ]);
@@ -79,12 +78,9 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast
     {
         return [
             'title' => 'Pembayaran diterima',
-            'message' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
+            'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
             'id' => $this->order->id,
-            'total_price' => $this->order->total_price,
             'type' => Order::class,
-
-
         ];
     }
 }

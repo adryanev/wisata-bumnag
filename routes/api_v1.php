@@ -6,9 +6,11 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\DestinationController;
 use App\Http\Controllers\Api\V1\EventController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PackageController;
 use App\Http\Controllers\Api\V1\PaymentController;
+use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\RecommendationController;
 use App\Http\Controllers\Api\V1\ReviewController;
 use App\Http\Controllers\Api\V1\SouvenirController;
@@ -87,5 +89,20 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::post('/check', [TicketerController::class, 'check']);
         Route::post('/payment', [TicketerController::class, 'payment']);
         Route::post('/approve', [TicketerController::class, 'approve']);
+    });
+
+    Route::group(['prefix' => 'notifications', 'middleware' => ['auth:api']], function () {
+        Route::get('/', [NotificationController::class, 'index']);
+        Route::get('/paginate', [NotificationController::class, 'paginate']);
+        Route::post('/read', [NotificationController::class, 'read']);
+        Route::post('/read-all', [NotificationController::class, 'readAll']);
+        Route::delete('/delete', [NotificationController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'profiles', 'middleware' => ['auth:api']], function () {
+        Route::get('/', [ProfileController::class, 'index']);
+        Route::post('/update', [ProfileController::class, 'update']);
+        Route::post('/password', [ProfileController::class, 'password']);
+        Route::post('/avatar', [ProfileController::class, 'avatar']);
     });
 });
