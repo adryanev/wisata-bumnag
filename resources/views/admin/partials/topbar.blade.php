@@ -199,16 +199,16 @@
                     </li>
                     <li>
                         <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                            <i class="ti-user mR-10"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                             <i class="ti-email mR-10"></i>
                             <span>Messages</span>
                         </a>
                     </li> --}}
+                    <li>
+                        <a href="{{ route('admin.profiles.show') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                            <i class="ti-user mR-10"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
                     <li role="separator" class="divider"></li>
                     <li>
                         <a href="/logout" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">

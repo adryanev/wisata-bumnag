@@ -62,8 +62,8 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast, Shou
         return new BroadcastMessage([
             'title' => 'Pembayaran diterima',
             'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
 
         ]);
     }
@@ -79,8 +79,8 @@ class AdminPaymentReceived extends Notification implements ShouldBroadcast, Shou
         return [
             'title' => 'Pembayaran diterima',
             'body' => "Order dengan nomor {$this->order->number} sudah dibayar oleh pengguna.",
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
         ];
     }
 }

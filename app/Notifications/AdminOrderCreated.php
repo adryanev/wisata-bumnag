@@ -61,8 +61,8 @@ class AdminOrderCreated extends Notification implements ShouldBroadcast, ShouldQ
         return new BroadcastMessage([
             'title' => 'Pesanan Dibuat',
             'body' => "Order dengan nomor {$this->order->number} sudah masuk",
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
 
         ]);
     }
@@ -78,8 +78,8 @@ class AdminOrderCreated extends Notification implements ShouldBroadcast, ShouldQ
         return [
             'title' => 'Pesanan Dibuat',
             'body' => "Order dengan nomor {$this->order->number} sudah masuk",
-            'id' => $this->order->id,
-            'type' => Order::class,
+            'object_id' => $this->order->id,
+            'object_type' => Order::class,
         ];
     }
 }
