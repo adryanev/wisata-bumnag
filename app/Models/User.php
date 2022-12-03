@@ -110,8 +110,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         return [];
     }
-    public function registerMediaCollections(Media $media = null): void
+    public function registerMediaCollections(): void
     {
+        $this->addMediaCollection('Avatar')->singleFile();
         // $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 300, 300)->nonQueued();
     }
 

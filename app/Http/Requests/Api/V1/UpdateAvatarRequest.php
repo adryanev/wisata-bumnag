@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\V1;
 use App\Http\Requests\Api\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReviewRequest extends ApiRequest
+class UpdateAvatarRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,7 @@ class ReviewRequest extends ApiRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'rating' => 'required|numeric',
-            'user_id' => 'required|numeric',
-            'order_detail_id' => 'required|numeric',
-            'reviewable_id' => 'required|numeric',
-            'reviewable_type' => 'required|string',
-            'media' => 'nullable',
-            'media.*' => 'mimes:png,jpg,mp4,mov',
-
+            'avatar' => 'image',
 
         ];
     }

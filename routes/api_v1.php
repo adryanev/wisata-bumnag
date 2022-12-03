@@ -91,6 +91,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::post('/approve', [TicketerController::class, 'approve']);
     });
 
+    //=================== Notification ========================
     Route::group(['prefix' => 'notifications', 'middleware' => ['auth:api']], function () {
         Route::get('/', [NotificationController::class, 'index']);
         Route::get('/paginate', [NotificationController::class, 'paginate']);
@@ -99,10 +100,10 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::delete('/delete', [NotificationController::class, 'delete']);
     });
 
+    //======================== Profiles ====================
     Route::group(['prefix' => 'profiles', 'middleware' => ['auth:api']], function () {
-        Route::get('/', [ProfileController::class, 'index']);
-        Route::post('/update', [ProfileController::class, 'update']);
-        Route::post('/password', [ProfileController::class, 'password']);
+        Route::put('/update', [ProfileController::class, 'update']);
+        Route::put('/password', [ProfileController::class, 'password']);
         Route::post('/avatar', [ProfileController::class, 'avatar']);
     });
 });
