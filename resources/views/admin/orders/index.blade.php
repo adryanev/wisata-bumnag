@@ -49,7 +49,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         Cancelled
                         @break
                         @case(3)
-                        Compeleted
+                        Completed
                         @break
                         @case(4)
                         Refunded
@@ -71,7 +71,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <a href="{{ route(ADMIN . '.orders.cancel', $order->id) }}" title="Cancel" class="btn btn-warning btn-sm"><span class="ti-control-stop"></span></a>
                             </li>
 
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
                                 'url' => route(ADMIN . '.orders.destroy', $order->id),
@@ -83,7 +83,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -139,7 +139,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         Cancelled
                         @break
                         @case(3)
-                        Compeleted
+                        Completed
                         @break
                         @case(4)
                         Refunded
@@ -155,12 +155,15 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <a href="{{ route(ADMIN . '.orders.show', $order->id) }}" title="Show" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a>
                             </li>
                             <li class="list-inline-item">
+                                <a href="{{ route(ADMIN . '.orders.refund', $order->id) }}" title="Refund" class="btn btn-primary btn-sm"><span class="ti-archive"></span></a>
+                            </li>
+                            <li class="list-inline-item">
                                 <a href="{{ route(ADMIN . '.orders.complete', $order->id) }}" title="Compelete" class="btn btn-primary btn-sm"><span class="ti-check"></span></a>
                             </li>
                             <li class="list-inline-item">
                                 <a href="{{ route(ADMIN . '.orders.cancel', $order->id) }}" title="Cancel" class="btn btn-warning btn-sm"><span class="ti-control-stop"></span></a>
                             </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
                                 'url' => route(ADMIN . '.orders.destroy', $order->id),
@@ -172,7 +175,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -228,7 +231,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         Cancelled
                         @break
                         @case(3)
-                        Compeleted
+                        Completed
                         @break
                         @case(4)
                         Refunded
@@ -243,10 +246,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                             <li class="list-inline-item">
                                 <a href="{{ route(ADMIN . '.orders.show', $order->id) }}" title="Show" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="{{ route(ADMIN . '.orders.refund', $order->id) }}" title="Refund" class="btn btn-primary btn-sm"><span class="ti-archive"></span></a>
-                            </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
                                 'url' => route(ADMIN . '.orders.destroy', $order->id),
@@ -258,7 +258,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -271,7 +271,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
     </div>
 </div>
 <div class="bgc-white bd bdrs-3 p-20 mB-20">
-    <h3>Order Compeleted</h3>
+    <h3>Order Completed</h3>
     <div class="table-responsive">
         <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -314,7 +314,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         Cancelled
                         @break
                         @case(3)
-                        Compeleted
+                        Completed
                         @break
                         @case(4)
                         Refunded
@@ -329,7 +329,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                             <li class="list-inline-item">
                                 <a href="{{ route(ADMIN . '.orders.show', $order->id) }}" title="Show" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a>
                             </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
                                 'url' => route(ADMIN . '.orders.destroy', $order->id),
@@ -340,7 +340,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -396,7 +396,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         Cancelled
                         @break
                         @case(3)
-                        Compeleted
+                        Completed
                         @break
                         @case(4)
                         Refunded
@@ -411,7 +411,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                             <li class="list-inline-item">
                                 <a href="{{ route(ADMIN . '.orders.show', $order->id) }}" title="Show" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a>
                             </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 {!! Form::open([
                                 'class'=>'delete',
                                 'url' => route(ADMIN . '.orders.destroy', $order->id),
@@ -423,7 +423,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                                 <button class="btn btn-danger btn-sm" title="Delete"><i class="ti-trash"></i></button>
 
                                 {!! Form::close() !!}
-                            </li>
+                            </li> --}}
 
 
                         </ul>
