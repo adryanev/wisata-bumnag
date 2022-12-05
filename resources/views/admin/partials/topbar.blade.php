@@ -31,11 +31,24 @@
                         <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
                     </li>
                     <li>
-                        @foreach ($userNotification->limit(3)->get() as $notification )
-
+                        @if($userNotification->count() == 0)
                         <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
                             <li>
                                 <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
+                                    <div class="peer peer-greed">
+                                        <span>
+                                            There is no unread notification, All Good!
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        @endif
+                        @foreach ($userNotification->limit(3)->get() as $notification )
+                        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+                            <li>
+                                <a href="{{ route('admin.notifications.read',$notification->id) }}" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
+
                                     <div class="peer peer-greed">
                                         <span>
                                             <span class="fw-500">{{ $notification->data['title'] }}</span>
@@ -51,12 +64,12 @@
                                 </a>
                             </li>
                         </ul>
-
                         @endforeach
+
                     </li>
                     <li class="pX-20 pY-15 ta-c bdT">
                         <span>
-                            <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications
+                            <a href="{{ route('admin.notifications.index') }}" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications
                                 <i class="ti-angle-right fsz-xs mL-10"></i>
                             </a>
                         </span>
