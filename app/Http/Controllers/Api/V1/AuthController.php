@@ -16,10 +16,6 @@ use Spatie\Permission\Models\Role;
 class AuthController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
 
     public function login(LoginRequest $request)
     {
