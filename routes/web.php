@@ -18,8 +18,9 @@ Auth::routes();
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'LandingController@index');
-
+Route::get('/', 'LandingController@index')->name('landing');
+Route::get('/term-and-conditions', 'LandingController@termAndConditions')->name('tnc');
+Route::get('/privacy-policy', 'LandingController@privacyPolicy')->name('privacy-policy');
 /*
 |------------------------------------------------------------------------------------
 | Admin
