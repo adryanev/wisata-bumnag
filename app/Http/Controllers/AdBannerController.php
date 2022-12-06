@@ -101,6 +101,7 @@ class AdBannerController extends Controller
     {
         $data = $request->except('media');
         $data['updated_by'] = Auth::user()->id;
+        $data['updated_at'] = now();
         $adBanner = AdBanner::find($id);
         $adBanner->update($data);
 

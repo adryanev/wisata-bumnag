@@ -12,7 +12,7 @@ class AdBannerController extends Controller
 {
     public function index()
     {
-        $banners = AdBanner::limit(10)->get();
+        $banners = AdBanner::latest('updated_at')->limit(10)->get();
         return new AdBannerCollection($banners);
     }
 }

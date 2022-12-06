@@ -8,10 +8,12 @@ use App\Http\Requests\Api\V1\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Notifications\UserResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Spatie\Permission\Models\Role;
+use Str;
 
 class AuthController extends Controller
 {
@@ -99,5 +101,17 @@ class AuthController extends Controller
                 ],
             ]
         );
+    }
+    public function forgotPassword(Request $request)
+    {
+        $data = $request->all();
+        $user = User::where('email', $data['email'])->firstOrFail();
+        $password = Str::random(8);
+        $user->password = Hash::make($password);
+        $user->save();
+        $user->notify(new UserResetPassword($password));
+        return response()->json([
+            'data' => 'PASSWORD_UPDATED',
+        ]);
     }
 }
