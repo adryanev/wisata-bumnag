@@ -40,6 +40,7 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
         Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
         Route::post('fcm', [AuthController::class, 'fcm'])->middleware('auth:api');
+        Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
     });
 
     //============= ORDER ================
