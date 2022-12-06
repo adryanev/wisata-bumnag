@@ -24,7 +24,8 @@
     </div>
     @endif
 </div>
-<script type="text/javascript">
+@push('js')
+    <script type="text/javascript">
     $(document).ready(function() {
         selected();
     });
@@ -102,3 +103,4 @@
     }
 
 </script>
+@endpush
