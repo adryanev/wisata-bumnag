@@ -11,7 +11,7 @@
       style='background-image: url("/images/bg.jpg")'>
       <div class="pos-a centerXY">
         <div class="bgc-white bdrs-50p pos-r" style='width: 120px; height: 120px;'>
-          <img class="pos-a centerXY" src="/images/logo.png" alt="">
+          <img class="pos-a centerXY" src="/images/app_transparent_background.png" alt="">
         </div>
       </div>
     </div>
