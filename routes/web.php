@@ -49,4 +49,9 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
         Route::put('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
         Route::put('/update-password/{id}', 'ProfileController@updatePassword')->name('update-password');
     });
+    Route::group(['prefix' => 'notifications', 'as' => 'notifications'.'.'], function () {
+        Route::get('/', 'NotificationController@index')->name('index');
+        Route::get('/read/{id}', 'NotificationController@read')->name('read');
+        Route::get('/readall', 'NotificationController@readAll')->name('read-all');
+    });
 });

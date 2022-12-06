@@ -6,7 +6,10 @@
 /vendor
 /public/media
 .env
+.env.dev
 .env.backup
+.env.prod
+.env.staging
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

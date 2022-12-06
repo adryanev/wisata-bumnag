@@ -6,6 +6,14 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderStatusHistory;
+use App\Models\User;
+use App\Notifications\AdminOrderCancelled;
+use App\Notifications\AdminOrderPaid;
+use App\Notifications\AdminOrderRefunded;
+use App\Notifications\UserOrderCancelled;
+use App\Notifications\UserOrderRefunded;
+use App\Notifications\UserPaymentReceived;
+use App\Notifications\UserTicketApproved;
 use Auth;
 
 class OrderController extends Controller
@@ -21,11 +29,11 @@ class OrderController extends Controller
             $itemss = Order::latest('updated_at')->get();
             $orders = [];
             foreach ($itemss as $item) {
-                if (count($item->orderDetails->first()->orderable_type::where([
+                if ($item->orderDetails->first()->orderable_type::where([
                     'id' => $item->orderDetails->first()->orderable_id,
                     'created_by' => Auth::user()->id,
-                ])->get()) != 0) {
-                    array_push($items, $item);
+                ])->count() != 0) {
+                    array_push($orders, $item);
                 }
             }
         } elseif (Auth::getUser()->roles->first()->name == 'super-admin') {
@@ -115,6 +123,10 @@ class OrderController extends Controller
         $order->histories()->saveMany([$history]);
         $order->status = Order::STATUS_PAID;
         $order->save();
+        //send notification
+        $order->user->notify(new UserPaymentReceived($order));
+        $adminId = $order->orderDetails->first()->orderable->created_by;
+        User::find($adminId)->notify(new AdminOrderPaid($order));
         return back()->withSuccess('Success Update Order');
     }
     public function cancel($id)
@@ -127,9 +139,13 @@ class OrderController extends Controller
         $order->histories()->saveMany([$history]);
         $order->status = Order::STATUS_CANCELLED;
         $order->save();
+        //send notification
+        $order->user->notify(new UserOrderCancelled($order));
+        $adminId = $order->orderDetails->first()->orderable->created_by;
+        User::find($adminId)->notify(new AdminOrderCancelled($order));
         return back()->withSuccess('Success Update Order');
     }
-    public function compelete($id)
+    public function complete($id)
     {
         $order = Order::find($id);
         $history = new OrderStatusHistory([
@@ -138,6 +154,9 @@ class OrderController extends Controller
         ]);
         $order->histories()->saveMany([$history]);
         $order->status = Order::STATUS_COMPLETED;
+        $order->save();
+         //send notification
+        $order->user->notify(new UserTicketApproved($order));
         return back()->withSuccess('Success Update Order');
     }
     public function refund($id)
@@ -150,6 +169,10 @@ class OrderController extends Controller
         $order->histories()->saveMany([$history]);
         $order->status = Order::STATUS_REFUNDED;
         $order->save();
+         //send notification
+        $order->user->notify(new UserOrderRefunded($order));
+        $adminId = $order->orderDetails->first()->orderable->created_by;
+        User::find($adminId)->notify(new AdminOrderRefunded($order));
         return back()->withSuccess('Success Update Order');
     }
 }

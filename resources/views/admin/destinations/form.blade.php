@@ -5,14 +5,20 @@
 
             {!! Form::myTextArea('description', 'Description') !!}
 
-            {!! Form::myTextArea('address', 'Address') !!}
 
             {!! Form::myInput('text','phone_number','Phone Number') !!}
 
             {!! Form::myInput('email','email','Email') !!}
 
-            {!! Form::myInput('number','latitude','Latitude',['step'=>'0.000001'])!!}
-            {!! Form::myInput('number','longitude','Longitude',['step'=>'0.000001']) !!}
+            <div class="form-group">
+                {!! Form::myInput('text','address', 'Address',['id'=>'address-input','class'=>'form-control map-input']) !!}
+                {!! Form::myInput('hidden','latitude','',['id'=>'address-latitude','step'=>'0.000001'])!!}
+                {!! Form::myInput('hidden','longitude','',['id'=>'address-longitude','step'=>'0.000001']) !!}
+
+            </div>
+            <div id="address-map-container" style="width:100%;height:400px; ">
+                <div style="width: 100%; height: 100%" id="address-map"></div>
+            </div>
 
             {{-- input latitude dan lognitude nanti pake map --}}
 
@@ -47,11 +53,9 @@
 
         </div>
     </div>
-    @if (isset($item) && $item->avatar)
-    <div class="col-sm-4">
-        <div class="bgc-white p-20 bd">
-            <img src="{{ $item->avatar }}" alt="">
-        </div>
-    </div>
-    @endif
 </div>
+
+@push('js')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
+<script src="{{ asset('js/map.js') }}"></script>
+@endpush

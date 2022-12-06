@@ -84,6 +84,7 @@
     </div>
     @endif
 </div>
+@push('js')
 <script type="text/javascript">
     var price = document.getElementById('price').value;
     var quantity = document.getElementById('quantity').value;
@@ -214,3 +215,4 @@
 
 
 </script>
+@endpush

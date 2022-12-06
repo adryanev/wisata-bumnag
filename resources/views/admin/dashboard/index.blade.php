@@ -14,9 +14,9 @@
                     </div>
                     <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
-                            <div class="peer peer-greed">
+                            {{-- <div class="peer peer-greed">
                                 <span id="sparklinedash"></span>
-                            </div>
+                            </div> --}}
                             <div class="peer">
                                 <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">{{ $totalUser }}</span>
                             </div>
@@ -33,9 +33,9 @@
                     </div>
                     <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
-                            <div class="peer peer-greed">
+                            {{-- <div class="peer peer-greed">
                                 <span id="sparklinedash2"></span>
-                            </div>
+                            </div> --}}
                             <div class="peer">
                                 <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">{{ $totalDestination }}</span>
                             </div>
@@ -52,9 +52,9 @@
                     </div>
                     <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
-                            <div class="peer peer-greed">
+                            {{-- <div class="peer peer-greed">
                                 <span id="sparklinedash3"></span>
-                            </div>
+                            </div> --}}
                             <div class="peer">
                                 <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">{{ $totalPackage }}</span>
                             </div>
@@ -71,9 +71,9 @@
                     </div>
                     <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
-                            <div class="peer peer-greed">
+                            {{-- <div class="peer peer-greed">
                                 <span id="sparklinedash4"></span>
-                            </div>
+                            </div> --}}
                             <div class="peer">
                                 <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">{{ $totalEvent }}</span>
                             </div>
