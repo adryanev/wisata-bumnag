@@ -128,21 +128,57 @@ class CategorySeeder extends Seeder
                 'parent_id' => 25
             ]), // 28
             new Category([
-                'name' => 'Paket 5 Hari',
+                'name' => 'Paket 4 Hari',
                 'parent_id' => 25
             ]), // 29
             new Category([
-                'name' => 'Paket 7 Hari',
+                'name' => 'Paket 5 Hari',
                 'parent_id' => 25
             ]), // 30
             new Category([
-                'name' => 'Paket 14 Hari',
+                'name' => 'Paket 6 Hari',
                 'parent_id' => 25
             ]), // 31
             new Category([
-                'name' => 'Paket 30 Hari',
+                'name' => 'Paket 7 Hari',
                 'parent_id' => 25
             ]), // 32
+            new Category([
+                'name' => 'Paket 8 Hari',
+                'parent_id' => 25
+            ]), // 33
+            new Category([
+                'name' => 'Paket 9 Hari',
+                'parent_id' => 25
+            ]), // 34
+            new Category([
+                'name' => 'Paket 10 Hari',
+                'parent_id' => 25
+            ]), // 35
+            new Category([
+                'name' => 'Paket 11 Hari',
+                'parent_id' => 25
+            ]), // 36
+            new Category([
+                'name' => 'Paket 12 Hari',
+                'parent_id' => 25
+            ]), // 37
+            new Category([
+                'name' => 'Paket 13 Hari',
+                'parent_id' => 25
+            ]), // 38
+            new Category([
+                'name' => 'Paket 14 Hari',
+                'parent_id' => 25
+            ]), // 39
+            new Category([
+                'name' => 'Paket 15 Hari',
+                'parent_id' => 25
+            ]), // 40
+            new Category([
+                'name' => 'Paket 30 Hari',
+                'parent_id' => 25
+            ]), // 41
         ];
         foreach ($categories as $category) {
             $category->save();
