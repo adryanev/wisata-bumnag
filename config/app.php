@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('FAKER_LOCALES', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -142,6 +142,16 @@ return [
         'driver' => 'file',
         // 'store'  => 'redis',
     ],
+
+
+    /*
+    |-------------------------------------------
+    | Current API Version
+    |-------------------------------------------
+    | That is the default API version of your API (Last version).
+    | The idea is that if there is no version when calling the API, it  | will be used this one.
+    */
+    'api_latest'  => '1',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,17 +200,19 @@ return [
         Franzose\ClosureTable\ClosureTableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
+        App\Services\Midtrans\Providers\MidtransServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        RichanFongdasen\EloquentBlameable\ServiceProvider::class
 
     ],
 
@@ -217,7 +229,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge(
         [
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+            // 'ExampleClass' => App\Example\ExampleClass::class,
         ]
     )->toArray(),
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Models\Media;
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
@@ -17,7 +18,9 @@ Auth::routes();
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', 'LandingController@index')->name('landing');
+Route::get('/term-and-conditions', 'LandingController@termAndConditions')->name('tnc');
+Route::get('/privacy-policy', 'LandingController@privacyPolicy')->name('privacy-policy');
 /*
 |------------------------------------------------------------------------------------
 | Admin
@@ -26,12 +29,30 @@ Auth::routes();
 Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', 'role:super-admin|admin']], function () {
     Route::get('/', 'DashboardController@index')->name('dash');
     Route::resource('users', 'UserController');
-});
-
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','role:super-admin|admin|dosen']], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-});
-
-Route::get('/', function () {
-    return redirect('dashboard');
+    Route::resource('destinations', 'DestinationController');
+    Route::resource('adbanners', 'AdBannerController');
+    Route::resource('souvenirs', 'SouvenirController');
+    Route::resource('tickets', 'TicketController');
+    Route::resource('packages', 'PackageController');
+    Route::resource('orders', 'OrderController');
+    Route::group(['prefix' => 'orders', 'as' => 'orders' . '.'], function () {
+        Route::get('/paid/{id}', 'OrderController@paid')->name('paid');
+        Route::get('/cancel/{id}', 'OrderController@cancel')->name('cancel');
+        Route::get('/complete/{id}', 'OrderController@complete')->name('complete');
+        Route::get('/refund/{id}', 'OrderController@refund')->name('refund');
+    });
+    Route::resource('events', 'EventController');
+    Route::resource('reviews', 'ReviewController');
+    Route::resource('medias', 'MediaController');
+    Route::group(['prefix' => 'profiles','as' => 'profiles'.'.'], function () {
+        Route::get('/', 'ProfileController@show')->name('show');
+        Route::get('/edit', 'ProfileController@edit')->name('edit');
+        Route::put('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
+        Route::put('/update-password/{id}', 'ProfileController@updatePassword')->name('update-password');
+    });
+    Route::group(['prefix' => 'notifications', 'as' => 'notifications'.'.'], function () {
+        Route::get('/', 'NotificationController@index')->name('index');
+        Route::get('/read/{id}', 'NotificationController@read')->name('read');
+        Route::get('/readall', 'NotificationController@readAll')->name('read-all');
+    });
 });

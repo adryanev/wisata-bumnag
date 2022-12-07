@@ -1,3 +1,5 @@
+<?php $userNotification = Auth::user()->unreadNotifications()->latest();?>
+
 <div class="header navbar">
     <div class="header-container">
         <ul class="nav-left">
@@ -6,7 +8,7 @@
                     <i class="ti-menu"></i>
                 </a>
             </li>
-            <li class="search-box">
+            {{-- <li class="search-box">
                 <a class="search-toggle no-pdd-right" href="javascript:void(0);">
                     <i class="search-icon ti-search pdd-right-10"></i>
                     <i class="search-icon-close ti-close pdd-right-10"></i>
@@ -14,11 +16,11 @@
             </li>
             <li class="search-input">
                 <input class="form-control" type="text" placeholder="Search...">
-            </li>
+            </li> --}}
         </ul>
         <ul class="nav-right">
             <li class="notifications dropdown">
-                <span class="counter bgc-red">3</span>
+                <span class="counter bgc-red">{{ $userNotification->count() }}</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-bell"></i>
                 </a>
@@ -29,71 +31,53 @@
                         <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
                     </li>
                     <li>
+                        @if($userNotification->count() == 0)
                         <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
                             <li>
                                 <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/1.jpg" alt="">
-                                    </div>
                                     <div class="peer peer-greed">
                                         <span>
-                                            <span class="fw-500">John Doe</span>
-                                            <span class="c-grey-600">liked your <span class="text-dark">post</span>
-                                            </span>
+                                            There is no unread notification, All Good!
                                         </span>
-                                        <p class="m-0">
-                                            <small class="fsz-xs">5 mins ago</small>
-                                        </p>
                                     </div>
                                 </a>
                             </li>
+                        </ul>
+                        @endif
+                        @foreach ($userNotification->limit(3)->get() as $notification )
+                        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
                             <li>
-                                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/2.jpg" alt="">
-                                    </div>
+                                <a href="{{ route('admin.notifications.read',$notification->id) }}" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
+
                                     <div class="peer peer-greed">
                                         <span>
-                                            <span class="fw-500">Moo Doe</span>
-                                            <span class="c-grey-600">liked your <span class="text-dark">cover image</span>
+                                            <span class="fw-500">{{ $notification->data['title'] }}</span>
+                                            <br>
+                                            <span class="c-grey-600">{{ $notification->data['body'] }}
                                             </span>
                                         </span>
                                         <p class="m-0">
-                                            <small class="fsz-xs">7 mins ago</small>
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                                    <div class="peer mR-15">
-                                        <img class="w-3r bdrs-50p" src="/images/3.jpg" alt="">
-                                    </div>
-                                    <div class="peer peer-greed">
-                                        <span>
-                                            <span class="fw-500">Lee Doe</span>
-                                            <span class="c-grey-600">commented on your <span class="text-dark">video</span>
-                                            </span>
-                                        </span>
-                                        <p class="m-0">
-                                            <small class="fsz-xs">10 mins ago</small>
+                                            <small class="fsz-xs">{{ $notification->created_at->diffForHumans() }}</small>
+
                                         </p>
                                     </div>
                                 </a>
                             </li>
                         </ul>
+                        @endforeach
+
                     </li>
                     <li class="pX-20 pY-15 ta-c bdT">
                         <span>
-                            <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications
+                            <a href="{{ route('admin.notifications.index') }}" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications
                                 <i class="ti-angle-right fsz-xs mL-10"></i>
                             </a>
                         </span>
                     </li>
                 </ul>
             </li>
-            <li class="notifications dropdown">
-                <span class="counter bgc-blue">3</span>
+            {{-- <li class="notifications dropdown">
+                <span class="counter bgc-blue">0</span>
                 <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                     <i class="ti-email"></i>
                 </a>
@@ -180,18 +164,18 @@
                         </span>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="dropdown">
                 <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
                     <div class="peer mR-10">
-                        <img class="w-2r bdrs-50p" src="{{ auth()->user()->avatar }}" alt="">
+                        <img class="w-2r bdrs-50p" src="{{ auth()->user()->media->first()->original_url }}" alt="">
                     </div>
                     <div class="peer">
                         <span class="fsz-sm c-grey-900">{{ auth()->user()->name }}</span>
                     </div>
                 </a>
                 <ul class="dropdown-menu fsz-sm">
-                    <li>
+                    {{-- <li>
                         <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                             <i class="ti-settings mR-10"></i>
                             <span>Setting</span>
@@ -199,14 +183,14 @@
                     </li>
                     <li>
                         <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                            <i class="ti-user mR-10"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                             <i class="ti-email mR-10"></i>
                             <span>Messages</span>
+                        </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('admin.profiles.show') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                            <i class="ti-user mR-10"></i>
+                            <span>Profile</span>
                         </a>
                     </li>
                     <li role="separator" class="divider"></li>

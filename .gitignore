@@ -4,8 +4,12 @@
 /public/storage
 /storage/*.key
 /vendor
+/public/media
 .env
+.env.dev
 .env.backup
+.env.prod
+.env.staging
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -14,3 +18,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+_ide_helper.php
+.phpstorm.meta.php
+
+wisata-bumnag-dev-firebase-adminsdk-jnk0z-414bb08973.json
+wisata-bumnag-stag-firebase-adminsdk-uc0r9-85b964499c.json

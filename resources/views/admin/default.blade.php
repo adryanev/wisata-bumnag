@@ -29,18 +29,19 @@
                     </div>
                 </div>
             </main>
-
             <!-- ### $App Screen Footer ### -->
             <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
                 <span>Copyright © {{ date('Y') }} Designed by
-                    <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>. All rights
+                    <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>.
+                    Developed by <a href="https://topapp.id/">TopApp.id</a>.
+                    All rights
                     reserved.</span>
             </footer>
         </div>
     </div>
 
-    @vite('resources/js/appjs')
 
+    <script src="{{ mix('/js/app.js') }}"></script>
     <!-- Global js content -->
 
     <!-- End of global js content-->
@@ -48,6 +49,25 @@
     <!-- Specific js content placeholder -->
     @stack('js')
     <!-- End of specific js content placeholder -->
+    <script>
+        let channel = window.Echo.private('App.Models.User.{{ Auth::user()->id }}');
+        channel.notification((data) => {
+            window.Toastify({
+                text: data.body
+                , duration: -1
+                , close: true
+                , gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "#E42C24"
+                , }
+                , onClick: function() {} // Callback after click
+            }).showToast();
+
+        })
+
+    </script>
 
 </body>
 

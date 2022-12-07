@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +29,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $role = Role::where('name', '<>', 'super-admin')->get();
+        $roles = $role->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+        $user = null;
+        $userRole = null;
+        return view('admin.users.create', compact('roles', 'user', 'userRole'));
     }
 
     /**
@@ -38,14 +46,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::rules());
+        $this->validate($request, [
+            'name' => 'required',
+            'nik' => 'required|numeric|min:16',
+            'password' => 'required|confirmed|min:8',
+            'email' => 'required|unique:users,email',
+            'phone_number' => 'required',
+            'avatar' => 'image' ,
+        ]);
 
-        $data = $request->all();
-        $data['password'] = bcrypt(request('password'));
+        $data = $request->except('avatar');
+        $data['password'] = Hash::make(request('password'));
 
-        User::create($data);
-
-        return back()->withSuccess(trans('app.success_store'));
+        $user = User::create($data);
+        if ($request['avatar'] != null) {
+            $user->addMedia($request['avatar'])->toMediaCollection('Avatar');
+        } else {
+            $user->addMedia(storage_path('User/Avatar.png'))->preservingOriginal()->toMediaCollection('Avatar');
+        }
+        $role = Role::find($data['role']);
+        $user->roles()->detach();
+        $user->assignRole($role);
+        return back()->withSuccess('Success Create User');
     }
 
     /**
@@ -56,7 +78,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $media = $user->getMedia('Avatar');
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.users.show', compact('user', 'latestMedia'));
     }
 
     /**
@@ -67,9 +96,19 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
-
-        return view('admin.users.edit', compact('item'));
+        $user = User::findOrFail($id);
+        $role = Role::where('name', '<>', 'super-admin')->get();
+        $userRole = $user->roles()->first();
+        $roles = $role->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+        $media = $user->getMedia('Avatar');
+        if (count($media) == 0) {
+            $latestMedia = " ";
+        } else {
+            $latestMedia = str($media[count($media) - 1]->original_url);
+        }
+        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'latestMedia'));
     }
 
     /**
@@ -81,19 +120,32 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, User::rules(true, $id));
+        $this->validate($request, [
+            'name' => 'required',
+            'nik' => 'required|numeric|min:16',
+            'password' => 'confirmed|min:8|nullable',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'avatar' => 'image',
+        ]);
 
-        $item = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $data = $request->except('password');
+        $data = $request->except('password', 'avatar');
 
         if (request('password')) {
-            $data['password'] = bcrypt(request('password'));
+            $data['password'] = Hash::make(request('password'));
         }
 
-        $item->update($data);
+        $user->update($data);
+        if ($request['avatar'] != null) {
+            $user->addMedia($request['avatar'])->toMediaCollection('Avatar');
+        }
+        $role = Role::find($data['role']);
+        $user->roles()->detach();
+        $user->assignRole($role);
 
-        return redirect()->route(ADMIN . '.users.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(ADMIN . '.users.index')->withSuccess('Success Update '.$user->name);
     }
 
     /**
@@ -104,8 +156,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        $user = User::find($id);
+        $userName = $user->name;
+        $user->delete();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess('Success Delete '.$userName);
     }
 }

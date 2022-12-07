@@ -54,26 +54,25 @@ class RolesAndPermissionsSeeder extends Seeder
             // PermissionConstants::COMMENT_PENGISIAN_KEGIATAN,
         ]);
 
-        $role = Role::create(['name'=>'dosen']);
+        $role = Role::create(['name'=>'user']);
         $role->givePermissionTo([
             // PermissionConstants::EDIT_OWN_PENGISIAN_KEGIATAN,
             // PermissionConstants::CREATE_OWN_PENGISIAN_KEGIATAN,
             // PermissionConstants::DELETE_OWN_PENGISIAN_KEGIATAN,
             // PermissionConstants::READ_OWN_PENGISIAN_KEGIATAN,
         ]);
+        $role = Role::create(['name'=>'ticketer']);
+        $role->givePermissionTo([
+
+        ]);
 
         // Give all Permission to superadmin;
         $role = Role::create(['name'=> 'super-admin']);
         $role->givePermissionTo(Permission::all());
 
-        $this->assignRoles();
 
 
-    }
-
-    public function assignRoles(){
-        $superadmin = User::find(1);
-        $superadmin->assignRole('super-admin');
 
     }
+
 }

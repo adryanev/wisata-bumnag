@@ -1,0 +1,6 @@
+deployment:
+    tasks:
+        - export DEPLOYPATH=/home/u7722220/public_html/wisata-bumnag
+        - export DEPLOYPATH2=/home/u7722220/public_html/wisata-bumnag2
+        - /usr/bin/rsync -Paz * $DEPLOYPATH
+        - /usr/bin/rsync -Paz * $DEPLOYPATH2

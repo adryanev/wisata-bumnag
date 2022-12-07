@@ -21,10 +21,16 @@ class Role
             return redirect('/login');
         }
 
-        // Not allowed
-        if ($request->user()->role < $role) {
-            return abort(404);
+        // Allowed
+        $role = explode('|', $role);
+        // dd($role, $request, $next);
+        foreach ($role as $roles) {
+            // dd(Auth::user()->hasRole($roles));
+            if (Auth::user()->hasRole($roles)) {
+                return $next($request);
+            }
         }
-        return $next($request);
+        // Not Allowed
+        return abort(404);
     }
 }

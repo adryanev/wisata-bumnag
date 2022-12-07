@@ -2,22 +2,37 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "barryvdh/laravel-debugbar": "^3.6",
         "franzose/closure-table": "^6.1",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
+        "kirschbaum-development/eloquent-power-joins": "^2.6",
+        "kreait/laravel-firebase": "^4.2",
+        "laravel-notification-channels/fcm": "^2.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-        "spatie/laravel-permission": "^5.5"
+        "midtrans/midtrans-php": "^2.5",
+        "php-open-source-saver/jwt-auth": "^2.0",
+        "pusher/pusher-php-server": "^7.2",
+        "richan-fongdasen/eloquent-blameable": "^1.8",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-fractal": "^6.0",
+        "spatie/laravel-medialibrary": "10.2.*",
+        "spatie/laravel-permission": "^5.5",
+        "spatie/laravel-query-builder": "^5.0",
+        "spatie/temporary-directory": "^2.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.12",
         "brianium/paratest": "^6.4",
         "fakerphp/faker": "^1.9.1",
@@ -30,10 +45,10 @@
         "pestphp/pest-plugin-parallel": "^1.0",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0",
-         "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
-         "files": [
+        "files": [
             "app/Http/helpers.php"
         ],
         "psr-4": {
@@ -77,7 +92,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "dev",
