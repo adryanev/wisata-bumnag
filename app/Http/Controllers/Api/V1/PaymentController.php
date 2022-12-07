@@ -25,7 +25,7 @@ class PaymentController extends Controller
         $body = $request->all();
         $user = auth()->user();
 
-        $order = Order::where(['number' => $body['order_number']])->firstOrFail();
+        $order = Order::where(['number' => $body['order_number'], 'user_id' => $user->id])->firstOrFail();
         if ($order->status > 0) {
             return response()->json([
                 'errors' => 'Order already paid',
@@ -54,9 +54,40 @@ class PaymentController extends Controller
             $order->save();
             $order->payments()->save($payment);
 
-            if ($order->payment_type == 'onsite') {
+            // if ($order->payment_type == 'onsite') {
+            //     DB::commit();
+            //     return new OrderResource($order);
+            // }
+            if ($order->total_price == 0) {
+                $payment->payment_status = Payment::STATUS_SUCCESS;
+                $order->status = Order::STATUS_PAID;
+                $history = new OrderStatusHistory([
+
+                    'status' => Order::STATUS_PAID,
+                    'description' => 'Pembayaran sudah diterima',
+                ]);
+                $order->save();
+                $order->histories()->save($history);
+                $payment->total_paid = $order->total_price;
+                $payment->payment_update_date = now();
+
+                $payment->save();
+
+                foreach ($order->orderDetails as $orderDetail) {
+                    $orderable = $orderDetail->orderable;
+                    if ($orderable->quantity) {
+                        $orderable->quantity -= $orderDetail->quantity;
+                        $orderable->save();
+                    }
+                }
+                $adminId = $order->orderDetails->first()->orderable->created_by;
+                User::find($adminId)->notify(new AdminPaymentReceived($order));
+                if (!empty($user->device_token)) {
+                    $user->notify(new UserPaymentReceived($order));
+                }
                 DB::commit();
-                return new OrderResource($order);
+
+                return response()->json(['url' => '', 'token' => '']);
             }
 
             $items = $this->setupDetailOrder($order);
