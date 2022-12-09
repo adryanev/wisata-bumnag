@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmMessage;
+use NotificationChannels\Fcm\FcmChannel;
+
 
 class UserTicketApproved extends Notification implements ShouldQueue
 {
