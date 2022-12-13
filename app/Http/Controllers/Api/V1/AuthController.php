@@ -106,7 +106,8 @@ class AuthController extends Controller
     {
         $data = $request->all();
         $user = User::where('email', $data['email'])->firstOrFail();
-        $password = Str::random(8);
+        $range = range(0, 64);
+        $password = Str::random(8).'Pw'.collect($range)->shuffle()->slice(0, 1)->first();
         $user->password = Hash::make($password);
         $user->save();
         $user->notify(new UserResetPassword($password));
