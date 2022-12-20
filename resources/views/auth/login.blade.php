@@ -49,9 +49,9 @@
                 Forgot Your Password?
             </a>
         </div>
-        <div class="peer">
+        {{-- <div class="peer">
             <a href="/register" class="btn btn-link">Create new account</a>
-        </div>
+        </div> --}}
     </div>
 </form>
 

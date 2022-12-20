@@ -5,7 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Models\Media;
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 
 /*
