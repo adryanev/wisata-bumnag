@@ -18,6 +18,10 @@ class Category extends Entity
 
     protected $fillable = ['name', 'position', 'parent_id'];
 
+    protected $casts = [
+        'parent_id' => 'int',
+    ];
+
 
     /*
     |------------------------------------------------------------------------------------
