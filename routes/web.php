@@ -5,7 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Models\Media;
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 
 /*
@@ -55,4 +57,5 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
         Route::get('/read/{id}', 'NotificationController@read')->name('read');
         Route::get('/readall', 'NotificationController@readAll')->name('read-all');
     });
+    Route::resource('recommendations', 'RecommendationController');
 });

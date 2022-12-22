@@ -11,7 +11,11 @@ class Recommendation extends Model
 {
     use HasFactory, SoftDeletes, PowerJoins;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'rank',
+        'destination_id',
+    ];
 
     /*
     |------------------------------------------------------------------------------------
@@ -32,7 +36,7 @@ class Recommendation extends Model
     */
     public function destination()
     {
-        return $this->belongsTo(Destination::class);
+        return $this->belongsTo(Destination::class, 'destination_id');
     }
 
     /*
