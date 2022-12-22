@@ -73,7 +73,6 @@ class OrderController extends Controller
             return new OrderResource($order);
         } catch (Exception $e) {
             $tempDir->delete();
-            dd($e);
             DB::rollBack();
         }
 
