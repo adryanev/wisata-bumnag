@@ -65,6 +65,7 @@ class RecommendationController extends Controller
                     'destination_id' => $data[$i],
                 ]);
             }
+            return back()->withSuccess('Berhasil Membuat Rekomendasi');
         } else {
             for ($i = 0; $i < 10; $i++) {
                 $recommendation = Recommendation::find($i + 1);
