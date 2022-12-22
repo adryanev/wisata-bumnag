@@ -98,7 +98,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
 <div class="bgc-white bd bdrs-3 p-20 mB-20">
     <h3>Order Paid</h3>
     <div class="table-responsive">
-        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="dataTable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Number</th>
@@ -190,7 +190,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
 <div class="bgc-white bd bdrs-3 p-20 mB-20">
     <h3>Order Cancelled</h3>
     <div class="table-responsive">
-        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="dataTable2" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Number</th>
@@ -273,7 +273,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
 <div class="bgc-white bd bdrs-3 p-20 mB-20">
     <h3>Order Completed</h3>
     <div class="table-responsive">
-        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="dataTable3" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Number</th>
@@ -355,7 +355,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
 <div class="bgc-white bd bdrs-3 p-20 mB-20">
     <h3>Order Refunded</h3>
     <div class="table-responsive">
-        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="dataTable4" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Number</th>

@@ -8,6 +8,8 @@ use App\Http\Requests\StorePackageRequest;
 use App\Http\Requests\UpdatePackageRequest;
 use App\Models\Category;
 use Auth;
+use DB;
+use Exception;
 
 class PackageController extends Controller
 {
@@ -156,10 +158,19 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        $package = Package::find($id);
-        $packageName = $package->name;
-        $package->delete();
-
-        return back()->withSuccess('Success Delete '.$packageName);
+        try {
+            DB::beginTransaction();
+            $package = Package::find($id);
+            $packageName = $package->name;
+            $package->tickets()->delete();
+            $package->reviews()->delete();
+            $package->categories()->detach();
+            $package->delete();
+            DB::commit();
+            return back()->withSuccess('Success Delete '.$packageName);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['message' => 'Tidak Berhasil Menghapus Paket']);
+        }
     }
 }
