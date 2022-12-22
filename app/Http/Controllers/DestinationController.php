@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateDestinationRequest;
 use App\Models\Category;
 use App\Models\DestinationCategory;
 use Auth;
+use DB;
+use Exception;
 use View;
 
 class DestinationController extends Controller
@@ -178,10 +180,20 @@ class DestinationController extends Controller
      */
     public function destroy($id)
     {
-        $destination = Destination::find($id);
-        $destinationName = $destination->name;
-        $destination->delete();
-
-        return back()->withSuccess('Success Delete '.$destinationName);
+        try {
+            DB::beginTransaction();
+            $destination = Destination::find($id);
+            $destinationName = $destination->name;
+            $destination->tickets()->delete();
+            $destination->souvenirs()->delete();
+            $destination->reviews()->delete();
+            $destination->categories()->detach();
+            $destination->delete();
+            DB::commit();
+            return back()->withSuccess('Success Delete '.$destinationName);
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->withErrors(['message' => 'Tidak Berhasil Menghapus Destinasi']);
+        }
     }
 }
