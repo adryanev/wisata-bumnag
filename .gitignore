@@ -7,6 +7,9 @@
 /public/media
 /public/css
 /public/js
+/public/fonts
+/public/images
+/public/mix-manifest.json
 .env
 .env.dev
 .env.backup
