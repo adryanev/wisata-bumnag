@@ -58,7 +58,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         {{ $order->status }}
                         @endswitch
                     </td>
-                    <td>{{ ($order->user != null)? $order->user->name : User Deleted }}</td>
+                    <td>{{ ($order->user != null)? $order->user->name : "User Deleted" }}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -149,7 +149,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         {{ $order->status }}
                         @endswitch
                     </td>
-                    <td>{{ ($order->user != null)? $order->user->name : User Deleted }}</td>
+                    <td>{{ ($order->user != null)? $order->user->name : "User Deleted" }}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -242,7 +242,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         {{ $order->status }}
                         @endswitch
                     </td>
-                    <td>{{ ($order->user != null)? $order->user->name : User Deleted }}</td>
+                    <td>{{ ($order->user != null)? $order->user->name : "User Deleted" }}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -326,7 +326,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         {{ $order->status }}
                         @endswitch
                     </td>
-                    <td>{{ ($order->user != null)? $order->user->name : User Deleted }}</td>
+                    <td>{{ ($order->user != null)? $order->user->name : "User Deleted "}}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -409,7 +409,7 @@ Orders <small><i class="c-white-500 ti-harddrive"></i></small>
                         {{ $order->status }}
                         @endswitch
                     </td>
-                    <td>{{ ($order->user != null)? $order->user->name : User Deleted }}</td>
+                    <td>{{ ($order->user != null)? $order->user->name : "User Deleted" }}</td>
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item">
