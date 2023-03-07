@@ -109,7 +109,7 @@ $route = (isset($r['as'])) ? $r['as'] : '';
     <a class="sidebar-link {{ Str::startsWith($route, 'admin.categories') ? 'actived' : '' }}" href="{{ route(ADMIN . '.categories.index') }}">
         <span class="icon-holder">
             <i class="
-            {{ Str::startsWith($route, 'admin.categories') ? 'c-blue-500 ti-star' : 'c-brown-500 ti-star' }}
+            {{ Str::startsWith($route, 'admin.categories') ? 'c-blue-500 ti-bookmark' : 'c-brown-500 ti-bookmark' }}
             "></i>
         </span>
         <span class="title">Categories</span>
