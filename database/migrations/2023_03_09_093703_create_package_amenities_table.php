@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('package_amenities', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->double('price');
+            $table->text('description');
+            $table->integer('quantity');
+            $table->foreignId('package_id')->references('id')->on('packages');
             $table->timestamps();
         });
     }
