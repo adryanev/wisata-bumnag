@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             TicketSeeder::class,
             RecommendationSeeder::class,
             ReviewSeeder::class,
+            PackageAmenitiesSeeder::class,
         ]);
     }
 }

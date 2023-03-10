@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Package;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class PackageAmenitiesFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'=>fake()->word(2),
+            'price'=>fake()->numberBetween(2000,20000),
+            'description'=>fake()->sentence(),
+            'quantity'=>fake()->numberBetween(1,1000),
+            'package_id'=>fake()->numberBetween(1,Package::count())
         ];
     }
 }

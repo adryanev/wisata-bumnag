@@ -9,14 +9,14 @@ class PackageAmenities extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['name','price','description','quantity','package_id'];
 
     /*
     |------------------------------------------------------------------------------------
     | Validations
     |------------------------------------------------------------------------------------
     */
-    public static function rules($update = false, $id=null)
+    public static function rules($update = false, $id = null)
     {
         return [
             'name' => 'required',
