@@ -1,9 +1,8 @@
 @extends('admin.default')
 
 @section('page-header')
-Package {{ $package->name }} <small><i class="c-white-500 ti-eye"></i></small>
+Package Amenity {{ $amenity->name }} <small><i class="c-white-500 ti-eye"></i></small>
 
-<img src="{{ $latestMedia }}" alt="Package {{ $package->name }} image" height="100" width="100">
 
 @endsection
 
@@ -12,44 +11,63 @@ Package {{ $package->name }} <small><i class="c-white-500 ti-eye"></i></small>
     <table class="table align-item-center mb-0">
         <tr>
             <td>ID</td>
-            <td>{{ $package->id }}</td>
+            <td>{{ $amenity->id }}</td>
         </tr>
         <tr>
             <td>Name</td>
-            <td>{{ $package->name}}</td>
+            <td>{{ $amenity->name}}</td>
         </tr>
         <tr>
-            <td>Activities</td>
-            <td>{{ $package->activities}}</td>
+            <td>Price </td>
+            <td>{{ $amenity->price}}</td>
         </tr>
         <tr>
-            <td>Price Include</td>
-            <td>{{ $package->price_include}}</td>
+            <td>Description</td>
+            <td>{{ $amenity->description}}</td>
         </tr>
         <tr>
-            <td>Price Exclude</td>
-            <td>{{ $package->price_exclude}}</td>
+            <td>Quantity</td>
+            <td>{{ $amenity->quantity}}</td>
         </tr>
         <tr>
-            <td>Destination</td>
-            <td>{{ $package->destination}}</td>
+            <td>Package ID</td>
+            <td>{{ $amenity->package_id}}</td>
+        </tr>
+    </table>
+</div>
+
+<hr>
+<h4 class="c-grey-900">Package from Amenity Info</h4>
+<div class="container bgc-white p-20">
+    <table class="table align-item-center mb-0">
+        <tr>
+            <td>Package ID</td>
+            <td>{{ $amenityPackage->id }}</td>
         </tr>
         <tr>
-            <td>Package Category</td>
-            <td>
-                @foreach ($packageCategory as $category)
-                {{ $category->name }}
-                <br>
-                @endforeach
-            </td>
+            <td>Package Name</td>
+            <td>{{ $amenityPackage->name}}</td>
         </tr>
         <tr>
-            <td>Created By</td>
-            <td>{{$package->creator->name}} ({{ $package->creator->id }})</td>
+            <td>Package Activities</td>
+            <td>{{ $amenityPackage->activities}}</td>
+        </tr>
+        <tr>
+            <td>Package Price Include</td>
+            <td>{{ $amenityPackage->price_include}}</td>
+        </tr>
+        <tr>
+            <td>Package Price Exclude</td>
+            <td>{{ $amenityPackage->price_exclude}}</td>
+        </tr>
+        <tr>
+            <td>Package Destination</td>
+            <td>{{ $amenityPackage->destination}}</td>
         </tr>
 
     </table>
 </div>
+
 
 
 @endsection

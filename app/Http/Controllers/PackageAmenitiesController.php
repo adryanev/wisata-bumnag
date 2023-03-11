@@ -47,9 +47,11 @@ class PackageAmenitiesController extends Controller
      * @param  \App\Models\PackageAmenities  $packageAmenities
      * @return \Illuminate\Http\Response
      */
-    public function show(PackageAmenities $packageAmenities)
+    public function show($id)
     {
-        //
+        $amenity = PackageAmenities::find($id);
+        $amenityPackage = $amenity->package;
+        return view('admin.amenities.show', compact('amenity', 'amenityPackage'));
     }
 
     /**
