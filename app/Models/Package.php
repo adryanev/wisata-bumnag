@@ -62,7 +62,10 @@ class Package extends Model implements HasMedia
     {
         return $this->morphMany(Ticket::class, 'ticketable');
     }
-
+    public function amenities()
+    {
+        return $this->hasMany(PackageAmenities::class);
+    }
 
     /*
     |------------------------------------------------------------------------------------

@@ -28,7 +28,10 @@ class PackageAmenities extends Model
     | Relations
     |------------------------------------------------------------------------------------
     */
-
+    public function package()
+    {
+        return $this->belongsTo(Package::class, 'package_id');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
