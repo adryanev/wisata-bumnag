@@ -16,7 +16,8 @@ class PackageAmenitiesController extends Controller
      */
     public function index()
     {
-        //
+        $items = PackageAmenities::latest('created_at')->get();
+        return view('admin.amenities.index', compact('items'));
     }
 
     /**
