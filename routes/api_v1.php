@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\DestinationController;
 use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\api\v1\PackageAmenitiesController;
 use App\Http\Controllers\Api\V1\PackageController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\ProfileController;
@@ -107,5 +108,14 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::put('/update', [ProfileController::class, 'update']);
         Route::put('/password', [ProfileController::class, 'password']);
         Route::post('/avatar', [ProfileController::class, 'avatar']);
+    });
+
+    //=================== Package Amenities ========================
+    Route::group(['prefix' => 'amenities'], function () {
+        Route::get('{package}/', [PackageAmenitiesController::class, 'indexPackage']);
+        Route::get('/paginate', [PackageAmenitiesController::class, 'paginate']);
+        Route::post('/read', [PackageAmenitiesController::class, 'read']);
+        Route::post('/read-all', [PackageAmenitiesController::class, 'readAll']);
+        Route::delete('/delete', [PackageAmenitiesController::class, 'delete']);
     });
 });
