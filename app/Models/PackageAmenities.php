@@ -32,6 +32,10 @@ class PackageAmenities extends Model
     {
         return $this->belongsTo(Package::class, 'package_id');
     }
+    public function orderDetail()
+    {
+        return $this->morphMany(OrderDetail::class, 'orderable');
+    }
     /*
     |------------------------------------------------------------------------------------
     | Scopes
