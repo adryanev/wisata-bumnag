@@ -14,8 +14,6 @@ class PackageAmenityCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => PackageAmenityResource::collection($this->collection),
-        ];
+        return PackageAmenityResource::collection($this->collection);
     }
 }

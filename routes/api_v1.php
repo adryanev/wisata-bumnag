@@ -109,13 +109,4 @@ Route::middleware(['application.token', 'access.time', 'signature'])->group(func
         Route::put('/password', [ProfileController::class, 'password']);
         Route::post('/avatar', [ProfileController::class, 'avatar']);
     });
-
-    //=================== Package Amenities ========================
-    Route::group(['prefix' => 'amenities'], function () {
-        Route::get('{package}/', [PackageAmenitiesController::class, 'indexPackage']);
-        Route::get('/paginate', [PackageAmenitiesController::class, 'paginate']);
-        Route::post('/read', [PackageAmenitiesController::class, 'read']);
-        Route::post('/read-all', [PackageAmenitiesController::class, 'readAll']);
-        Route::delete('/delete', [PackageAmenitiesController::class, 'delete']);
-    });
 });
