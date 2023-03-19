@@ -26,6 +26,7 @@ class PackageDetailResource extends JsonResource
             'categories' => $this->categories,
             'reviews' => new ReviewCollection($this->reviews),
             'tickets' => new TicketCollection($this->tickets()->orderBy('price', 'ASC')->get()),
+            'amenities' => new PackageAmenityCollection($this->amenities),
             'recommendations' => PackageResource::collection(Package::whereHas('tickets')->inRandomOrder()->take(5)->get()),
 
         ];
