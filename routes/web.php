@@ -59,4 +59,5 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     });
     Route::resource('recommendations', 'RecommendationController');
     Route::resource('categories', 'CategoryController');
+    Route::resource('amenities', 'PackageAmenitiesController');
 });
