@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use GuzzleHttp\Psr7\Request;
 
 class CategoryController extends Controller
 {
@@ -16,7 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::latest('id')->get();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -26,7 +28,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryParent = null;
+        $categoriesUnmapped = Category::all();
+        $categories = $categoriesUnmapped->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $categories->prepend('No Parent', '0');
+        return view('admin.categories.create', compact('categories', 'categoryParent'));
     }
 
     /**
@@ -37,7 +45,15 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data = $request->all();
+        if ($data['category_parent'] == "0") {
+            $data['parent_id'] = null;
+        } else {
+            $data['parent_id'] = (int) $data['category_parent'];
+        }
+        $category = Category::create($data);
+        // dd($category);
+        return back()->withSuccess('Success Create Category '.$category->name);
     }
 
     /**
@@ -48,7 +64,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $categoryParent = $category->parent;
+        return view('admin.categories.show', compact('category', 'categoryParent'));
     }
 
     /**
@@ -59,7 +76,13 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $categoryParent = $category->parent;
+        $categoriesUnmapped = Category::all();
+        $categories = $categoriesUnmapped->mapWithKeys(function ($item) {
+            return [$item->id => $item->name];
+        });
+        $categories->prepend('No Parent', '0');
+        return view('admin.categories.edit', compact('category', 'categories', 'categoryParent'));
     }
 
     /**
@@ -71,7 +94,14 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->all();
+        if ($data['category_parent'] == 0) {
+            $data['parent_id'] = null;
+        } else {
+            $data['parent_id'] = (int) $data['category_parent'];
+        }
+        $category->update($data);
+        return redirect(route('admin.categories.index'))->withSuccess('Success Edit '.$category->name);
     }
 
     /**
@@ -82,6 +112,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $categoryName = $category->name;
+        $category->delete();
+        return back()->withSuccess('Success Delete '.$categoryName);
     }
 }
