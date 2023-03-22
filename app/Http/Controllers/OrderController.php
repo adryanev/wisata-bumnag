@@ -149,9 +149,12 @@ class OrderController extends Controller
 
             foreach ($order->orderDetails as $orderDetail) {
                     $orderable = $orderDetail->orderable;
-                if ($orderable->quantity) {
+                if ($orderable->quantity > 0 && $orderable->quantity >= $orderDetail->quantity) {
                     $orderable->quantity -= $orderDetail->quantity;
                     $orderable->save();
+                } else {
+                    DB::rollBack();
+                    throw new Exception('Quantity of '.$orderable->name.' not enough... '.' Quantity: '.$orderable->quantity.' Ordered: '.$orderDetail->quantity);
                 }
             }
             //send notification
