@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderStatusHistory;
+use App\Models\Payment;
 use App\Models\User;
 use App\Notifications\AdminOrderCancelled;
 use App\Notifications\AdminOrderPaid;
@@ -15,6 +16,9 @@ use App\Notifications\UserOrderRefunded;
 use App\Notifications\UserPaymentReceived;
 use App\Notifications\UserTicketApproved;
 use Auth;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -116,18 +120,50 @@ class OrderController extends Controller
     public function paid($id)
     {
         $order = Order::find($id);
-        $history = new OrderStatusHistory([
-            'status' => Order::STATUS_PAID,
-            'description' => 'Order telah dibayar',
-        ]);
-        $order->histories()->saveMany([$history]);
-        $order->status = Order::STATUS_PAID;
-        $order->save();
-        //send notification
-        $order->user->notify(new UserPaymentReceived($order));
-        $adminId = $order->orderDetails->first()->orderable->created_by;
-        User::find($adminId)->notify(new AdminOrderPaid($order));
-        return back()->withSuccess('Success Update Order');
+        if ($order->status > 0) {
+            back()->withErrors(['message' => 'Order already paid']);
+        }
+        $carbon = Carbon::now();
+        try {
+            DB::beginTransaction();
+            $payment = Payment::create([
+                'order_id' => $order->id,
+                'number' => "PAY/{$carbon->format('ymdhisu')}",
+                'payment_create_date' => $carbon,
+                'payment_status' => Payment::STATUS_SUCCESS,
+                'total' => $order->total_price,
+                'payment_type' => 'cash',
+            ]);
+            $order->payments()->save($payment);
+
+            $history = new OrderStatusHistory([
+                'status' => Order::STATUS_PAID,
+                'description' => 'Pembayaran sudah diterima',
+            ]);
+            $order->histories()->saveMany([$history]);
+            $order->status = Order::STATUS_PAID;
+            $order->save();
+
+            $payment->total_paid = $order->total_price;
+            $payment->payment_update_date = now();
+
+            foreach ($order->orderDetails as $orderDetail) {
+                    $orderable = $orderDetail->orderable;
+                if ($orderable->quantity) {
+                    $orderable->quantity -= $orderDetail->quantity;
+                    $orderable->save();
+                }
+            }
+            //send notification
+            $order->user->notify(new UserPaymentReceived($order));
+            $adminId = $order->orderDetails->first()->orderable->created_by;
+            User::find($adminId)->notify(new AdminOrderPaid($order));
+            DB::commit();
+            return back()->withSuccess('Success Update Order');
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
     public function cancel($id)
     {
