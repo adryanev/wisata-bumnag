@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EventCollection;
 use App\Http\Resources\EventDetailResource;
 use App\Models\Event;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -13,7 +14,9 @@ class EventController extends Controller
 {
     public function index()
     {
-        $eventPaginator = Event::upcoming()->with(['reviews'])->whereHas('tickets')->latest('created_at');
+        $eventPaginator = Event::upcoming()->with(['reviews'])->wherehas('tickets', function (Builder $builder) {
+            return $builder->where('quantity', '>', 5);
+        })->latest('created_at');
         $queryBuilder = QueryBuilder::for($eventPaginator)
             ->allowedFilters(['start_date'])
             ->allowedSorts('start_date')
