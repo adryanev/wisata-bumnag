@@ -49,6 +49,7 @@ class OrderableDetailResource extends JsonResource
                 'id' => $this->id,
                 'type' => PackageAmenities::class,
                 'name' => $this->name,
+                'media' => $this->photos,
             ];
         }
     }
