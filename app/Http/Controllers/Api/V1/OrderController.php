@@ -15,8 +15,11 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+
+use function Pest\Laravel\json;
 
 class OrderController extends Controller
 {
@@ -65,9 +68,17 @@ class OrderController extends Controller
             if (!empty($order->user->device_token)) {
                 $order->user->notify(new UserOrderCreated($order));
             }
-
-            $adminId = $order->orderDetails->first()->orderable->created_by;
-            User::find($adminId)->notify(new AdminOrderCreated($order));
+            $notification_e = [];
+            try {
+                $adminId = $order->orderDetails->first()->orderable->created_by;
+                User::find($adminId)->notify(new AdminOrderCreated($order));
+            } catch (Exception $e) {
+                $notification_e["status"] = $e->getCode();
+                $notification_e["message"] = $e->getMessage();
+                $notification_e["data"] = $e->getTrace();
+                $notice = ['status' => $notification_e["status"] , 'message' => $notification_e["message"], 'data' => $notification_e["data"]];
+                Log::notice('Failed to Send Notification', $notice);
+            }
             DB::commit();
             $tempDir->delete();
             return new OrderResource($order);
