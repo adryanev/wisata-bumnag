@@ -66,7 +66,15 @@ class OrderController extends Controller
             }
             $order->orderDetails()->saveMany($details);
             if (!empty($order->user->device_token)) {
-                $order->user->notify(new UserOrderCreated($order));
+                try {
+                    $order->user->notify(new UserOrderCreated($order));
+                } catch (Exception $e) {
+                    $notification_e["status"] = $e->getCode();
+                    $notification_e["message"] = $e->getMessage();
+                    $notification_e["data"] = $e->getTrace();
+                    $notice = ['status' => $notification_e["status"] , 'message' => $notification_e["message"], 'data' => $notification_e["data"]];
+                    Log::notice('Failed to Send Notification', $notice);
+                }
             }
             $notification_e = [];
             try {
