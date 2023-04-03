@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Destination;
 use App\Models\Package;
+use App\Models\PackageAmenities;
 use App\Models\Souvenir;
 use App\Models\Ticket;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -39,6 +40,14 @@ class OrderableDetailResource extends JsonResource
             return [
                 'id' => $this->id,
                 'type' => Package::class,
+                'name' => $this->name,
+                'media' => $this->photos,
+            ];
+        }
+        if ($this->resource instanceof PackageAmenities) {
+            return [
+                'id' => $this->id,
+                'type' => PackageAmenities::class,
                 'name' => $this->name,
                 'media' => $this->photos,
             ];
