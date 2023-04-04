@@ -17,6 +17,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -62,7 +63,6 @@ class PaymentController extends Controller
                 $payment->payment_status = Payment::STATUS_SUCCESS;
                 $order->status = Order::STATUS_PAID;
                 $history = new OrderStatusHistory([
-
                     'status' => Order::STATUS_PAID,
                     'description' => 'Pembayaran sudah diterima',
                 ]);
@@ -80,10 +80,26 @@ class PaymentController extends Controller
                         $orderable->save();
                     }
                 }
-                $adminId = $order->orderDetails->first()->orderable->created_by;
-                User::find($adminId)->notify(new AdminPaymentReceived($order));
+                try {
+                    $adminId = $order->orderDetails->first()->orderable->created_by;
+                    User::find($adminId)->notify(new AdminPaymentReceived($order));
+                } catch (Exception $e) {
+                    $status = $e->getCode();
+                    $message = $e->getMessage();
+                    $data = $e->getTrace();
+                    $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                    Log::notice('Failed to Send Notification to Admin', $notice);
+                }
                 if (!empty($user->device_token)) {
-                    $user->notify(new UserPaymentReceived($order));
+                    try {
+                        $user->notify(new UserPaymentReceived($order));
+                    } catch (Exception $e) {
+                        $status = $e->getCode();
+                        $message = $e->getMessage();
+                        $data = $e->getTrace();
+                        $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                        Log::notice('Failed to Send Notification to User', $notice);
+                    }
                 }
                 DB::commit();
 
@@ -181,11 +197,26 @@ class PaymentController extends Controller
                 $payment->total_paid = $amount;
                 $payment->save();
                 $transaction->save();
-
-                $adminId = $transaction->orderDetails->first()->orderable->created_by;
-                User::find($adminId)->notify(new AdminPaymentReceived($transaction));
+                try {
+                    $adminId = $transaction->orderDetails->first()->orderable->created_by;
+                    User::find($adminId)->notify(new AdminPaymentReceived($transaction));
+                } catch (Exception $e) {
+                    $status = $e->getCode();
+                    $message = $e->getMessage();
+                    $data = $e->getTrace();
+                    $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                    Log::notice('Failed to Send Notification to Admin', $notice);
+                }
                 if (!empty($user->device_token)) {
-                    $user->notify(new UserPaymentReceived($transaction));
+                    try {
+                        $user->notify(new UserPaymentReceived($transaction));
+                    } catch (Exception $e) {
+                        $status = $e->getCode();
+                        $message = $e->getMessage();
+                        $data = $e->getTrace();
+                        $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                        Log::notice('Failed to Send Notification to User', $notice);
+                    }
                 }
                 DB::commit();
 

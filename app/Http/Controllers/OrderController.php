@@ -19,6 +19,7 @@ use Auth;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -158,9 +159,25 @@ class OrderController extends Controller
                 }
             }
             //send notification
-            $order->user->notify(new UserPaymentReceived($order));
-            $adminId = $order->orderDetails->first()->orderable->created_by;
-            User::find($adminId)->notify(new AdminOrderPaid($order));
+            try {
+                $order->user->notify(new UserPaymentReceived($order));
+            } catch (Exception $e) {
+                $status = $e->getCode();
+                $message = $e->getMessage();
+                $data = $e->getTrace();
+                $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                Log::notice('Failed to Send Notification to User', $notice);
+            }
+            try {
+                $adminId = $order->orderDetails->first()->orderable->created_by;
+                User::find($adminId)->notify(new AdminOrderPaid($order));
+            } catch (Exception $e) {
+                $status = $e->getCode();
+                $message = $e->getMessage();
+                $data = $e->getTrace();
+                $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                Log::notice('Failed to Send Notification to Admin', $notice);
+            }
             DB::commit();
             return back()->withSuccess('Success Update Order');
         } catch (Exception $e) {
@@ -179,9 +196,25 @@ class OrderController extends Controller
         $order->status = Order::STATUS_CANCELLED;
         $order->save();
         //send notification
-        $order->user->notify(new UserOrderCancelled($order));
-        $adminId = $order->orderDetails->first()->orderable->created_by;
-        User::find($adminId)->notify(new AdminOrderCancelled($order));
+        try {
+            $order->user->notify(new UserOrderCancelled($order));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to User', $notice);
+        }
+        try {
+            $adminId = $order->orderDetails->first()->orderable->created_by;
+            User::find($adminId)->notify(new AdminOrderCancelled($order));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to Admin', $notice);
+        }
         return back()->withSuccess('Success Update Order');
     }
     public function complete($id)
@@ -195,7 +228,15 @@ class OrderController extends Controller
         $order->status = Order::STATUS_COMPLETED;
         $order->save();
          //send notification
-        $order->user->notify(new UserTicketApproved($order));
+        try {
+            $order->user->notify(new UserTicketApproved($order));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to User', $notice);
+        }
         return back()->withSuccess('Success Update Order');
     }
     public function refund($id)
@@ -209,9 +250,25 @@ class OrderController extends Controller
         $order->status = Order::STATUS_REFUNDED;
         $order->save();
          //send notification
-        $order->user->notify(new UserOrderRefunded($order));
-        $adminId = $order->orderDetails->first()->orderable->created_by;
-        User::find($adminId)->notify(new AdminOrderRefunded($order));
+        try {
+            $order->user->notify(new UserOrderRefunded($order));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to User', $notice);
+        }
+        try {
+            $adminId = $order->orderDetails->first()->orderable->created_by;
+            User::find($adminId)->notify(new AdminOrderRefunded($order));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to Admin', $notice);
+        }
         return back()->withSuccess('Success Update Order');
     }
 }

@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TicketerController extends Controller
 {
@@ -71,7 +72,15 @@ class TicketerController extends Controller
         ]);
         $order->histories()->save($history);
         if (!empty($order->user->device_token)) {
-            $order->user->notify(new UserTicketApproved($order));
+            try {
+                $order->user->notify(new UserTicketApproved($order));
+            } catch (Exception $e) {
+                $status = $e->getCode();
+                $message = $e->getMessage();
+                $data = $e->getTrace();
+                $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+                Log::notice('Failed to Send Notification to Ticketer', $notice);
+            }
         }
 
         return response()->json([
