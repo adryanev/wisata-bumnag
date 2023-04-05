@@ -58,4 +58,6 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
         Route::get('/readall', 'NotificationController@readAll')->name('read-all');
     });
     Route::resource('recommendations', 'RecommendationController');
+    Route::resource('categories', 'CategoryController');
+    Route::resource('amenities', 'PackageAmenitiesController');
 });

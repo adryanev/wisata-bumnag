@@ -77,34 +77,34 @@ class TicketController extends Controller
      */
     public function store(StoreTicketRequest $request)
     {
-        $data = $request;
+        $data = $request->except([
+            'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
+        ]);
         $data['is_free'] = boolval($data['is_free']);
         if ($data['is_free']) {
             $data['price'] = 0;
         }
         $data['is_quantity_limited'] = boolval($data['is_quantity_limited']);
         if (!$data['is_quantity_limited']) {
-            $data['quantity'] = 0;
-        }
-        $data['is_per_pax'] = boolval($data['is_per_pax']);
-        if (!$data['is_per_pax']) {
-            $data['pax_constraint'] = 0;
-        }
-        $data['is_per_day'] = boolval($data['is_per_day']);
-        if (!$data['is_per_day']) {
-            $data['day_constraint'] = '';
-        }
-        $data['is_per_age'] = boolval($data['is_per_age']);
-        if (!$data['is_per_age']) {
-            $data['age_constraint'] = 0;
+            $data['quantity'] = 9007199254740991;
         }
         $data['updated_by'] = Auth::user()->id;
-        $ticket = Ticket::create($data->except([
-            'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
-        ]));
-        $ticket_setting_data = $data->only([
+        $ticket = Ticket::create($data);
+        $ticket_setting_data = $request->only([
             'is_per_pax', 'pax_constraint', 'is_per_day', 'day_constraint', 'is_per_age', 'age_constraint',
         ]);
+        $ticket_setting_data['is_per_pax'] = boolval($ticket_setting_data['is_per_pax']);
+        if (!$ticket_setting_data['is_per_pax']) {
+            $ticket_setting_data['pax_constraint'] = 0;
+        }
+        $ticket_setting_data['is_per_day'] = boolval($ticket_setting_data['is_per_day']);
+        if (!$ticket_setting_data['is_per_day']) {
+            $ticket_setting_data['day_constraint'] = '';
+        }
+        $ticket_setting_data['is_per_age'] = boolval($ticket_setting_data['is_per_age']);
+        if (!$ticket_setting_data['is_per_age']) {
+            $ticket_setting_data['age_constraint'] = 0;
+        }
         $ticket_setting_data['ticket_id'] = $ticket->id;
         $ticket_settings = new TicketSetting($ticket_setting_data);
         $ticket_setting = $ticket->ticketSetting()->save($ticket_settings);
@@ -174,7 +174,9 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, $id)
     {
-        $data = $request;
+        $data = $request->except([
+            'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
+        ]);
         $ticket = Ticket::find($id);
         $data['is_free'] = boolval($data['is_free']);
         if ($data['is_free']) {
@@ -182,27 +184,25 @@ class TicketController extends Controller
         }
         $data['is_quantity_limited'] = boolval($data['is_quantity_limited']);
         if (!$data['is_quantity_limited']) {
-            $data['quantity'] = 0;
-        }
-        $data['is_per_pax'] = boolval($data['is_per_pax']);
-        if (!$data['is_per_pax']) {
-            $data['pax_constraint'] = 0;
-        }
-        $data['is_per_day'] = boolval($data['is_per_day']);
-        if (!$data['is_per_day']) {
-            $data['day_constraint'] = '';
-        }
-        $data['is_per_age'] = boolval($data['is_per_age']);
-        if (!$data['is_per_age']) {
-            $data['age_constraint'] = 0;
+            $data['quantity'] = 9007199254740991;
         }
         $data['updated_by'] = Auth::user()->id;
-        $ticket->update($data->except([
-            'is_per_pax','pax_constraint','is_per_day','day_constraint','is_per_age','age_constraint',
-        ]));
-        $ticket_setting_data = $data->only([
+        $ticket->update($data);
+        $ticket_setting_data = $request->only([
             'is_per_pax', 'pax_constraint', 'is_per_day', 'day_constraint', 'is_per_age', 'age_constraint',
         ]);
+        $ticket_setting_data['is_per_pax'] = boolval($ticket_setting_data['is_per_pax']);
+        if (!$ticket_setting_data['is_per_pax']) {
+            $ticket_setting_data['pax_constraint'] = 0;
+        }
+        $ticket_setting_data['is_per_day'] = boolval($ticket_setting_data['is_per_day']);
+        if (!$ticket_setting_data['is_per_day']) {
+            $ticket_setting_data['day_constraint'] = '';
+        }
+        $ticket_setting_data['is_per_age'] = boolval($ticket_setting_data['is_per_age']);
+        if (!$ticket_setting_data['is_per_age']) {
+            $ticket_setting_data['age_constraint'] = 0;
+        }
         $ticket_setting_data['ticket_id'] = $ticket->id;
         if (count($ticket->ticketSetting->get()) != 0) {
             $ticket->ticketSetting()->delete();

@@ -28,6 +28,6 @@ class NotificationController extends Controller
     public function readAll()
     {
         Auth::user()->unreadNotifications()->update(['read_at' => now()]);
-        return back()->withSuccess('Readed All Notifications');
+        return back()->withSuccess('Read All Notifications');
     }
 }

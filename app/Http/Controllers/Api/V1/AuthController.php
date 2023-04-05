@@ -9,8 +9,10 @@ use App\Http\Resources\LoginResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\UserResetPassword;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Spatie\Permission\Models\Role;
 use Str;
@@ -110,7 +112,15 @@ class AuthController extends Controller
         $password = Str::random(8).'Pw'.collect($range)->shuffle()->slice(0, 1)->first();
         $user->password = Hash::make($password);
         $user->save();
-        $user->notify(new UserResetPassword($password));
+        try {
+            $user->notify(new UserResetPassword($password));
+        } catch (Exception $e) {
+            $status = $e->getCode();
+            $message = $e->getMessage();
+            $data = $e->getTrace();
+            $notice = ['status' => $status , 'message' => $message, 'data' => $data];
+            Log::notice('Failed to Send Notification to Admin', $notice);
+        }
         return response()->json([
             'data' => 'PASSWORD_UPDATED',
         ]);

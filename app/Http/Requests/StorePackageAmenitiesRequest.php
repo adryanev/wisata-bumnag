@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Faker\Guesser\Name;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategoryRequest extends FormRequest
+class StorePackageAmenitiesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,11 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'quantity' => 'required|numeric',
+            'amenity_package' => 'required',
         ];
     }
 }

@@ -45,6 +45,16 @@ $route = (isset($r['as'])) ? $r['as'] : '';
     </a>
 </li>
 <li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, 'admin.amenities') ? 'actived' : '' }}" href="{{ route(ADMIN . '.amenities.index') }}">
+        <span class="icon-holder">
+            <i class="
+            {{ Str::startsWith($route, 'admin.amenities') ? 'c-blue-500 ti-layout-grid2' : 'c-brown-500 ti-layout-grid2' }}
+            "></i>
+        </span>
+        <span class="title">Package Amenities</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="sidebar-link {{ Str::startsWith($route, 'admin.events') ? 'actived' : '' }}" href="{{ route(ADMIN . '.events.index') }}">
         <span class="icon-holder">
             <i class="
@@ -84,6 +94,7 @@ $route = (isset($r['as'])) ? $r['as'] : '';
         <span class="title">Orders</span>
     </a>
 </li>
+
 @if(Auth::user()->roles->first()->name == 'super-admin')
 <li class="nav-item">
     <a class="sidebar-link {{ Str::startsWith($route, 'admin.adbanners') ? 'actived' : '' }}" href="{{ route(ADMIN . '.adbanners.index') }}">
@@ -105,4 +116,15 @@ $route = (isset($r['as'])) ? $r['as'] : '';
         <span class="title">Recommendations</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="sidebar-link {{ Str::startsWith($route, 'admin.categories') ? 'actived' : '' }}" href="{{ route(ADMIN . '.categories.index') }}">
+        <span class="icon-holder">
+            <i class="
+            {{ Str::startsWith($route, 'admin.categories') ? 'c-blue-500 ti-bookmark' : 'c-brown-500 ti-bookmark' }}
+            "></i>
+        </span>
+        <span class="title">Categories</span>
+    </a>
+</li>
+
 @endif
