@@ -10,7 +10,7 @@
                         <h2 class="section-title mt-0">Download Sekarang</h2>
                         <p class="section-paragraph">Tersedia di Google Play</p>
                         <div class="cta-cta">
-                            <a class="" id="download" href=""><img src="{{ asset('landing/images/google-play-badge.png') }}" alt="Google Play Badge" height="400px" width="200px" style="display: inline"></a>
+                            <a class="" id="download" href="https://play.google.com/store/apps/details?id=dev.bumnag.wisata"><img src="{{ asset('landing/images/google-play-badge.png') }}" alt="Google Play Badge" height="400px" width="200px" style="display: inline"></a>
 
                         </div>
                     </div>
