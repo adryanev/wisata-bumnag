@@ -46,13 +46,13 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('events', 'EventController');
     Route::resource('reviews', 'ReviewController');
     Route::resource('medias', 'MediaController');
-    Route::group(['prefix' => 'profiles','as' => 'profiles'.'.'], function () {
+    Route::group(['prefix' => 'profiles', 'as' => 'profiles' . '.'], function () {
         Route::get('/', 'ProfileController@show')->name('show');
         Route::get('/edit', 'ProfileController@edit')->name('edit');
         Route::put('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
         Route::put('/update-password/{id}', 'ProfileController@updatePassword')->name('update-password');
     });
-    Route::group(['prefix' => 'notifications', 'as' => 'notifications'.'.'], function () {
+    Route::group(['prefix' => 'notifications', 'as' => 'notifications' . '.'], function () {
         Route::get('/', 'NotificationController@index')->name('index');
         Route::get('/read/{id}', 'NotificationController@read')->name('read');
         Route::get('/readall', 'NotificationController@readAll')->name('read-all');
@@ -60,4 +60,5 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware' => ['auth', '
     Route::resource('recommendations', 'RecommendationController');
     Route::resource('categories', 'CategoryController');
     Route::resource('amenities', 'PackageAmenitiesController');
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
