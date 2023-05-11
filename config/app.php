@@ -202,6 +202,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         App\Services\Midtrans\Providers\MidtransServiceProvider::class,
         Kreait\Laravel\Firebase\ServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
          * Application Service Providers...
